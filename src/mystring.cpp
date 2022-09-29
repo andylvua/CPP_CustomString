@@ -12,9 +12,9 @@ size_t my_str_t::calculate_capacity(size_t size) {
 }
 
 my_str_t::my_str_t(size_t size, char initial) {
-    capacity_m = calculate_capacity(size);
     size_m = size;
 
+    capacity_m = calculate_capacity(size_m);
     data_m = new char[capacity_m + 1];
 
     for (int i = 0; i < size; i++) {
