@@ -4,6 +4,7 @@
 #endif //STRINGS_MYSTRING_H
 
 #include <iostream>
+#pragma once
 
 class my_str_t{
 private:
