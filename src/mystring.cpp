@@ -8,7 +8,7 @@
 
 size_t my_str_t::calculate_capacity(size_t size) {
     return (size > 7) ? static_cast<size_t>
-    (std::pow(2, std::ceil(std::log2(size + 1))) - 1) : DEFAULT_CAPACITY-1;
+    (std::pow(2, std::ceil(std::log2(size + 1))) - 1) : DEFAULT_CAPACITY;
 }
 
 my_str_t::my_str_t(size_t size, char initial) {
@@ -25,9 +25,9 @@ my_str_t::my_str_t(size_t size, char initial) {
 }
 
 my_str_t::my_str_t(const char *cstr) {
-    capacity_m = calculate_capacity(size_m);
-
     size_m = std::strlen(cstr);
+
+    capacity_m = calculate_capacity(size_m);
     data_m = new char[capacity_m + 1];
 
     for (int i = 0; i < size_m; i++) {

@@ -4,13 +4,14 @@
 #include <iostream>
 #pragma once
 
-static const size_t DEFAULT_CAPACITY = 16;
+static const size_t DEFAULT_CAPACITY = 15;
 
 class my_str_t {
 private:
     char* data_m;
     size_t capacity_m;
     size_t size_m;
+    static size_t calculate_capacity(size_t size);
 public:
     my_str_t(size_t size, char initial);
 
@@ -66,11 +67,6 @@ public:
 //    size_t find(const char& cstr, size_t idx = 0);
 //
 //    my_str_t substr(size_t gegin, size_t size);
-//
-
-
-    static size_t calculate_capacity(size_t size);
-
     ~my_str_t();
 };
 
