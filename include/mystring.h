@@ -2,6 +2,7 @@
 #define LAB1_CSTRING_ZINCHUKKRYVENYAROSHEVYCHKHARABARA_MYSTRING_H
 
 #include <iostream>
+#pragma once
 
 static const size_t DEFAULT_CAPACITY = 16;
 
