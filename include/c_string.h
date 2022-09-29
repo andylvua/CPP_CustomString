@@ -1,3 +1,10 @@
+//
+// Created by paul on 9/29/22.
+//
+
+#ifndef LAB1_CSTRING_ZINCHUKKRYVENYAROSHEVYCHKHARABARA_C_STRING_H
+#define LAB1_CSTRING_ZINCHUKKRYVENYAROSHEVYCHKHARABARA_C_STRING_H
+#include<iostream>
 class my_str_t{
 private:
     char* data_m;
@@ -61,3 +68,5 @@ public:
 
     ~my_str_t();
 };
+
+#endif //LAB1_CSTRING_ZINCHUKKRYVENYAROSHEVYCHKHARABARA_C_STRING_H
