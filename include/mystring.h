@@ -31,8 +31,8 @@ public:
 //
     char& at(size_t idx);
 
-    [[nodiscard]] const char& at(size_t idx) const;
-
+    const char& at(size_t idx) const;
+//
 //    void reserve(size_t new_capacity);
 //
 //    void shrink_to_fit();
@@ -57,7 +57,7 @@ public:
 //
 //    size_t capacity() const noexcept;
 //
-//    const char* c_str() const {return 0;};
+    const char* c_str() const {return data_m;};
 //
 //    static constexpr size_t not_found = -1;
 //
@@ -70,11 +70,8 @@ public:
     ~my_str_t();
 };
 
-//std::ostream& operator<<(std::ostream& stream, const my_str_t& str){
-//    stream << str.c_str();
-//    return stream;
-//}
-//
+std::ostream& operator<<(std::ostream& stream, const my_str_t& str);
+
 //std::istream& operator>>(std::istream& stream, my_str_t& str){
 //    return stream;
 //}

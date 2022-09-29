@@ -12,8 +12,9 @@ size_t my_str_t::calculate_capacity(size_t size) {
 }
 
 my_str_t::my_str_t(size_t size, char initial) {
-    capacity_m = calculate_capacity(size);
     size_m = size;
+
+    capacity_m = calculate_capacity(size_m);
 
     data_m = new char[capacity_m + 1];
 
@@ -77,3 +78,9 @@ const char &my_str_t::at(size_t idx) const {
 my_str_t::~my_str_t() {
     delete[] data_m;
 }
+
+std::ostream& operator<<(std::ostream& stream, const my_str_t& str){
+    stream<<str.c_str();
+    return stream;
+}
+
