@@ -19,8 +19,8 @@ public:
     explicit my_str_t(const std::string& str);
 
     my_str_t(const my_str_t& mystr);
-//
-//    my_str_t& operator=(const my_str_t& mystr);
+
+    my_str_t& operator=(const my_str_t& mystr);
 //
 //    void swap(my_str_t& other) noexcept;
 //
