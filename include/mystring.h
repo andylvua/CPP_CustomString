@@ -1,3 +1,10 @@
+#ifndef STRINGS_MYSTRING_H
+#define STRINGS_MYSTRING_H
+
+#endif //STRINGS_MYSTRING_H
+
+#include <iostream>
+
 class my_str_t{
 private:
     char* data_m;
