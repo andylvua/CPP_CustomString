@@ -4,7 +4,7 @@
 #include <iostream>
 #pragma once
 
-static const size_t DEFAULT_CAPACITY = 16;
+static const size_t DEFAULT_CAPACITY = 15;
 
 class my_str_t {
 private:
