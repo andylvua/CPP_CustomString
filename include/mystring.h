@@ -4,14 +4,13 @@
 #include <iostream>
 #pragma once
 
-static const size_t DEFAULT_CAPACITY = 15;
-
 class my_str_t {
 private:
     char* data_m;
     size_t capacity_m;
     size_t size_m;
     static size_t calculate_capacity(size_t size);
+    static const size_t DEFAULT_CAPACITY = 15;
 public:
     my_str_t(size_t size, char initial);
 
@@ -31,7 +30,7 @@ public:
 //
     char& at(size_t idx);
 
-    [[nodiscard]] const char& at(size_t idx) const;
+    const char& at(size_t idx) const;
 
 //    void reserve(size_t new_capacity);
 //
@@ -57,7 +56,7 @@ public:
 //
 //    size_t capacity() const noexcept;
 //
-//    const char* c_str() const {return 0;};
+    const char* c_str() const;
 //
 //    static constexpr size_t not_found = -1;
 //
@@ -70,15 +69,12 @@ public:
     ~my_str_t();
 };
 
-//std::ostream& operator<<(std::ostream& stream, const my_str_t& str){
-//    stream << str.c_str();
-//    return stream;
-//}
-//
+std::ostream& operator<<(std::ostream& stream, const my_str_t& str);
+
 //std::istream& operator>>(std::istream& stream, my_str_t& str){
 //    return stream;
 //}
-//
+
 //
 //bool operator==(const my_str_t& str1, const my_str_t& str2);
 //bool operator!=(const my_str_t& str1, const my_str_t& str2);
@@ -100,5 +96,6 @@ public:
 //bool operator>=(const char* cstr1, const my_str_t& str2);
 //bool operator<(const char* cstr1, const my_str_t& str2);
 //bool operator<=(const char* cstr1, const my_str_t& str2);
+//
 
 #endif //LAB1_CSTRING_ZINCHUKKRYVENYAROSHEVYCHKHARABARA_MYSTRING_H
