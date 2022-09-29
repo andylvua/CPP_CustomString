@@ -74,6 +74,16 @@ const char &my_str_t::at(size_t idx) const {
     return data_m[idx];
 }
 
+const char* my_str_t::c_str() const {
+    return data_m;
+}
+
 my_str_t::~my_str_t() {
     delete[] data_m;
+}
+
+
+std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
+    stream << str.c_str();
+    return stream;
 }
