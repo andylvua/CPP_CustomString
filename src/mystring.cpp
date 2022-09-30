@@ -180,22 +180,23 @@ void my_str_t::resize(size_t new_size, char new_char) {
 }
 //bugs with missing last element
 void my_str_t::erase(size_t begin, size_t size) {
-    if (begin>=size_m){
+    if (begin >= size_m) {
         throw std::out_of_range("Begin index is out of range");
     }
-    size_t new_size = size_m - std::min(size, size_m-begin);
-    char* new_data = new char[new_size];
-    std::memmove(new_data, data_m,begin);
-    for (size_t i = 0; i<=size;i++){
-        if (begin+size+i<size_m){
-            new_data[begin+i] = data_m[begin+i+size];
-        }else{break;}
+    size_t new_size = size_m - std::min(size, size_m - begin);
+    char *new_data = new char[new_size];
+    std::memmove(new_data, data_m, begin);
+    for (size_t i = 0; i <= size; i++) {
+        if (begin + size + i < size_m) {
+            new_data[begin + i] = data_m[begin + i + size];
+        } else { break; }
     }
     size_m = new_size;
     new_data[size_m] = '\0';
     delete[] data_m;
     data_m = new_data;
     this->shrink_to_fit();
+}
 
 void my_str_t::insert(size_t idx, const my_str_t &str) {
     if (idx > size_m) {
