@@ -4,8 +4,4 @@ project(${PROJECT_NAME} C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
-<<<<<<< HEAD
-add_executable(${PROJECT_NAME} src/mystring.cpp)
-=======
 add_executable(${PROJECT_NAME} src/main.cpp src/mystring.cpp include/mystring.h)
->>>>>>> 94fa6111379020f7b671218a1553f25b7f10c123
