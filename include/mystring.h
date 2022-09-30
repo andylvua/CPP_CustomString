@@ -73,9 +73,7 @@ public:
 
 std::ostream& operator<<(std::ostream& stream, const my_str_t& str);
 
-//std::istream& operator>>(std::istream& stream, my_str_t& str){
-//    return stream;
-//}
+std::istream& operator>>(std::istream& stream, my_str_t& str);
 
 //
 //bool operator==(const my_str_t& str1, const my_str_t& str2);
