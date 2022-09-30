@@ -20,5 +20,13 @@ int main(){
     cout<<test2.capacity()<<std::endl;
     test2.shrink_to_fit();
     cout<<test2.capacity()<<std::endl;
+    test2.resize(30, 'a');
+    cout<<test2<<std::endl;
+    cout<<test2.size()<<std::endl;
+    cout<<test1<<std::endl;
+    test2.insert(5, test1);
+    cout<<test2<<std::endl;
+    test2.insert(5, "Hello");
+    cout<<test2<<std::endl;
     return 0;
 }

@@ -13,7 +13,7 @@ size_t my_str_t::calculate_capacity(size_t size) {
 }
 
 size_t my_str_t::calculate_min_capacity(size_t size) {
-    return static_cast<size_t> ((16 * std::ceil(static_cast<double> (size + 1) / 16)) - 1);
+    return static_cast<size_t> ((16 * std::ceil(static_cast<double> (size + 1)/16)) - 1);
 }
 
 my_str_t::my_str_t() {
@@ -64,7 +64,7 @@ my_str_t::my_str_t(const std::string &str) {
     data_m[size_m] = '\0';
 }
 
-my_str_t::my_str_t(const my_str_t &mystr) : size_m{mystr.size_m}, capacity_m{mystr.capacity_m} {
+my_str_t::my_str_t(const my_str_t &mystr): size_m{mystr.size_m}, capacity_m{mystr.capacity_m} {
     data_m = new char[capacity_m + 1];
 
     for (int i = 0; i < size_m; i++) {
@@ -87,15 +87,25 @@ void my_str_t::swap(my_str_t &other) noexcept {
     std::swap(data_m, other.data_m);
 }
 
+char& my_str_t::operator[](size_t idx) {
+    if (idx>=size_m) {throw std::out_of_range("Index is out of range");}
+    return data_m[idx];
+}
+
+const char& my_str_t::operator[](size_t idx) const {
+    if (idx>=size_m) {throw std::out_of_range("Index is out of range");}
+    return data_m[idx];
+}
+
 char &my_str_t::at(size_t idx) {
-    if (idx > size_m) {
+    if (idx >= size_m) {
         throw std::out_of_range("Index is out of range");
     }
     return data_m[idx];
 }
 
 const char &my_str_t::at(size_t idx) const {
-    if (idx > size_m) {
+    if (idx >= size_m) {
         throw std::out_of_range("Index is out of range");
     }
     return data_m[idx];
@@ -109,7 +119,7 @@ size_t my_str_t::capacity() const noexcept {
     return capacity_m;
 }
 
-const char *my_str_t::c_str() const {
+const char* my_str_t::c_str() const {
     return data_m;
 }
 
@@ -137,14 +147,13 @@ void my_str_t::shrink_to_fit() {
 
     capacity_m = calculate_min_capacity(size_m);
     std::cout << capacity_m << std::endl;
-    char *new_data = new char[capacity_m + 1];
+    char* new_data = new char[capacity_m + 1];
 
     std::memcpy(new_data, data_m, size_m + 1);
 
     delete[] data_m;
     data_m = new_data;
 }
-
 //not how was described in doc
 void my_str_t::clear() {
     delete[] data_m;
@@ -159,7 +168,8 @@ void my_str_t::resize(size_t new_size, char new_char) {
         for (int i = 0; i < size_m; i++) {
             data_m[i] = new_char;
         }
-    } else {
+    }
+    else {
         if (new_size > capacity_m) {
             reserve(calculate_capacity(new_size));
         }
@@ -169,41 +179,184 @@ void my_str_t::resize(size_t new_size, char new_char) {
         data_m[new_size] = '\0';
     }
 }
-
-//needs checking
+//bugs with missing last element
 void my_str_t::erase(size_t begin, size_t size) {
-    if (begin >= size_m) {
+    if (begin>=size_m){
         throw std::out_of_range("Begin index is out of range");
     }
-    // leave all characters up to begin index
-    size_t new_size = size_m - std::min(size, size_m - begin);
-    char *new_data = new char[new_size];
-    std::memmove(new_data, data_m, begin);
-    // move leftover to erased space in string
-    for (size_t i = 0; i <= size; i++) {
-        if (begin + size + i < size_m) {
-            new_data[begin + i] = data_m[begin + i + size];
-        } else { break; }
+    size_t new_size = size_m - std::min(size, size_m-begin);
+    char* new_data = new char[new_size];
+    std::memmove(new_data, data_m,begin);
+    for (size_t i = 0; i<=size;i++){
+        if (begin+size+i<size_m){
+            new_data[begin+i] = data_m[begin+i+size];
+        }else{break;}
     }
-    //changing atributes of object
     size_m = new_size;
     new_data[size_m] = '\0';
     delete[] data_m;
     data_m = new_data;
     this->shrink_to_fit();
 
+void my_str_t::insert(size_t idx, const my_str_t &str) {
+    if (idx > size_m) {
+        throw std::out_of_range("Index is out of range");
+    }
 
+    size_m += str.size_m;
+
+    if (size_m > capacity_m) {
+        reserve(calculate_capacity(size_m));
+    }
+
+    memmove(data_m + idx + str.size_m, data_m + idx, size_m - idx + 1);
+    memcpy(data_m + idx, str.data_m, str.size_m);
+
+    data_m[size_m] = '\0';
 }
 
-std::ostream &operator<<(std::ostream &stream, const my_str_t &str) {
+void my_str_t::insert(size_t idx, const char *cstr) {
+    if (idx > size_m) {
+        throw std::out_of_range("Index is out of range");
+    }
+
+    size_t cstr_size = std::strlen(cstr);
+
+    size_m += cstr_size;
+
+    if (size_m > capacity_m) {
+        reserve(calculate_capacity(size_m));
+    }
+
+    memmove(data_m + idx + cstr_size, data_m + idx, size_m - idx + 1);
+    memcpy(data_m + idx, cstr, cstr_size);
+
+    data_m[size_m] = '\0';
+}
+
+
+std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
     stream << str.c_str();
     return stream;
 }
 
-std::istream &operator>>(std::istream &stream, my_str_t &str) {
+std::istream& operator>>(std::istream& stream, my_str_t& str) {
     char *buffer = new char;
     stream >> buffer;
     str = my_str_t(buffer);
     delete buffer;
     return stream;
+}
+
+
+
+bool operator==(const my_str_t &str1, const my_str_t &str2) {
+    size_t str1_size = str1.size();
+    size_t str2_size = str2.size();
+    if (str1_size!=str2_size) {
+        return false;
+    }
+    for (int i = 0; i < str1_size; ++i) {
+        if (str1.at(i)!=str2.at(i)) {return false;}
+    }
+    return true;
+}
+
+bool operator!=(const my_str_t &str1, const my_str_t &str2) {
+    if (str1==str2) {return false;}
+    return true;
+}
+
+bool operator>(const my_str_t& str1, const my_str_t& str2) {
+    size_t str1_size = str1.size();
+    size_t str2_size = str2.size();
+
+    if (str1_size>=str2_size){
+        for (int i = 0; i < str2_size; ++i) {
+            if (str1.at(i)<str2.at(i)){return false;}
+        }
+        return true;
+    }
+    else if (str1_size<str2_size) {
+        for (int i = 0; i < str1_size; ++i) {
+            if (str1.at(i)<str2.at(i)) {return false;}
+            else if (str1.at(i)>str2.at(i)) {return true;}
+        }
+    }
+    return false;
+}
+
+bool operator>=(const my_str_t& str1, const my_str_t& str2) {
+    if (str1==str2 || str1>str2) {
+        return true;
+    }
+    return false;
+}
+
+bool operator<(const my_str_t& str1, const my_str_t& str2) {
+    if (str1>=str2) {
+        return false;
+    }
+    return true;
+}
+
+bool operator<=(const my_str_t& str1, const my_str_t& str2) {
+    if (str1>str2) {
+        return false;
+    }
+    return true;
+}
+
+bool operator==(const char* cstr1, const my_str_t& str2) {
+    size_t str1_size = std::strlen(cstr1);
+    size_t str2_size = str2.size();
+
+    if (str1_size!=str2_size){
+        return false;
+    }
+    for (int i = 0; i < str1_size; ++i) {
+        if (cstr1[i]!=str2.at(i)) {return false;}
+    }
+    return true;
+}
+
+bool operator!=(const char* cstr1, const my_str_t& str2) {
+    if (cstr1==str2) {return false;}
+    return true;
+}
+
+bool operator>(const char* cstr1, const my_str_t& str2) {
+    size_t str1_size = std::strlen(cstr1);
+    size_t str2_size = str2.size();
+
+    if (str1_size>=str2_size) {
+        for (int i = 0; i < str2_size; ++i) {
+            if (cstr1[i]<str2.at(i)){return false;}
+        }
+        return true;
+    }
+    else if (str1_size<str2_size) {
+        for (int i = 0; i < str1_size; ++i) {
+            if (cstr1[i]<str2.at(i)) {return false;}
+            else if (cstr1[i]<str2.at(i)) {return true;}
+        }
+    }
+    return false;
+}
+
+bool operator>=(const char* cstr1, const my_str_t& str2) {
+    if (cstr1==str2 || cstr1>str2) {
+        return true;
+    }
+    return false;
+}
+
+bool operator<(const char* cstr1, const my_str_t& str2) {
+    if (cstr1>=str2) {return false;}
+    return true;
+}
+
+bool operator<=(const char* cstr1, const my_str_t& str2) {
+    if (cstr1>str2) {return false;}
+    return true;
 }

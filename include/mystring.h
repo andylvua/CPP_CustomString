@@ -27,9 +27,9 @@ public:
 //
     void swap(my_str_t& other) noexcept;
 //
-//    char& operator[](size_t idx);
-//
-//    const char& operator[](size_t idx) const;
+    char& operator[](size_t idx);
+
+    const char& operator[](size_t idx) const;
 //
     char& at(size_t idx);
 
@@ -43,9 +43,9 @@ public:
 //
     void clear();
 //
-//    void insert(size_t idx, const my_str_t& str);
-//
-//    void insert(size_t idx, const char* cstr);
+    void insert(size_t idx, const my_str_t& str);
+
+    void insert(size_t idx, const char* cstr);
 //
 //    void append(const my_str_t& str);
 //
@@ -76,13 +76,13 @@ std::ostream& operator<<(std::ostream& stream, const my_str_t& str);
 
 std::istream& operator>>(std::istream& stream, my_str_t& str);
 
-//
-//bool operator==(const my_str_t& str1, const my_str_t& str2);
-//bool operator!=(const my_str_t& str1, const my_str_t& str2);
-//bool operator>(const my_str_t& str1, const my_str_t& str2);
-//bool operator>=(const my_str_t& str1, const my_str_t& str2);
-//bool operator<(const my_str_t& str1, const my_str_t& str2);
-//bool operator<=(const my_str_t& str1, const my_str_t& str2);
+
+bool operator==(const my_str_t& str1, const my_str_t& str2);
+bool operator!=(const my_str_t& str1, const my_str_t& str2);
+bool operator>(const my_str_t& str1, const my_str_t& str2);
+bool operator>=(const my_str_t& str1, const my_str_t& str2);
+bool operator<(const my_str_t& str1, const my_str_t& str2);
+bool operator<=(const my_str_t& str1, const my_str_t& str2);
 //
 //bool operator==(const my_str_t& str1, const char* cstr2);
 //bool operator!=(const my_str_t& str1, const char* cstr2);
@@ -91,12 +91,12 @@ std::istream& operator>>(std::istream& stream, my_str_t& str);
 //bool operator<(const my_str_t& str1, const char* cstr2);
 //bool operator<=(const my_str_t& str1, const char* cstr2);
 //
-//bool operator==(const char* cstr1, const my_str_t& str2);
-//bool operator!=(const char* cstr1, const my_str_t& str2);
-//bool operator>(const char* cstr1, const my_str_t& str2);
-//bool operator>=(const char* cstr1, const my_str_t& str2);
-//bool operator<(const char* cstr1, const my_str_t& str2);
-//bool operator<=(const char* cstr1, const my_str_t& str2);
+bool operator==(const char* cstr1, const my_str_t& str2);
+bool operator!=(const char* cstr1, const my_str_t& str2);
+bool operator>(const char* cstr1, const my_str_t& str2);
+bool operator>=(const char* cstr1, const my_str_t& str2);
+bool operator<(const char* cstr1, const my_str_t& str2);
+bool operator<=(const char* cstr1, const my_str_t& str2);
 //
 
 #endif //LAB1_CSTRING_ZINCHUKKRYVENYAROSHEVYCHKHARABARA_MYSTRING_H
