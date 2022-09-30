@@ -44,8 +44,8 @@ public:
 //    void clear();
 //
     void insert(size_t idx, const my_str_t& str);
-//
-//    void insert(size_t idx, const char* cstr);
+
+    void insert(size_t idx, const char* cstr);
 //
 //    void append(const my_str_t& str);
 //

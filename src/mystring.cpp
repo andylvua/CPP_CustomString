@@ -190,6 +190,26 @@ void my_str_t::insert(size_t idx, const my_str_t &str) {
     data_m[size_m] = '\0';
 }
 
+void my_str_t::insert(size_t idx, const char *cstr) {
+    if (idx > size_m) {
+        throw std::out_of_range("Index is out of range");
+    }
+
+    size_t cstr_size = std::strlen(cstr);
+
+    size_m += cstr_size;
+
+    if (size_m > capacity_m) {
+        reserve(calculate_capacity(size_m));
+    }
+
+    memmove(data_m + idx + cstr_size, data_m + idx, size_m - idx + 1);
+    memcpy(data_m + idx, cstr, cstr_size);
+
+    data_m[size_m] = '\0';
+}
+
+
 std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
     stream << str.c_str();
     return stream;
