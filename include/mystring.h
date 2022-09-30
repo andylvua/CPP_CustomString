@@ -43,7 +43,7 @@ public:
 //
 //    void clear();
 //
-//    void insert(size_t idx, const my_str_t& str);
+    void insert(size_t idx, const my_str_t& str);
 //
 //    void insert(size_t idx, const char* cstr);
 //

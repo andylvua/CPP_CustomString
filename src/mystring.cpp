@@ -163,6 +163,18 @@ void my_str_t::resize(size_t new_size, char new_char) {
     }
 }
 
+void my_str_t::insert(size_t idx, const my_str_t &str) {
+    if (idx > size_m) {
+        throw std::out_of_range("Index is out of range");
+    }
+
+    memmove(data_m + idx + str.size_m, data_m + idx, size_m - idx + 1);
+    memcpy(data_m + idx, str.data_m, str.size_m);
+
+    size_m += str.size_m;
+    data_m[size_m] = '\0';
+}
+
 std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
     stream << str.c_str();
     return stream;
