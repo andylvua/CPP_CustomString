@@ -104,6 +104,14 @@ const char &my_str_t::at(size_t idx) const {
     return data_m[idx];
 }
 
+size_t my_str_t::size() const noexcept {
+    return size_m;
+}
+
+size_t my_str_t::capacity() const noexcept {
+    return capacity_m;
+}
+
 const char* my_str_t::c_str() const {
     return data_m;
 }

@@ -54,9 +54,9 @@ public:
 //
 //    void erase(size_t begin, size_t size);
 //
-//    size_t size() const noexcept;
+    size_t size() const noexcept;
 //
-//    size_t capacity() const noexcept;
+    size_t capacity() const noexcept;
 //
     const char* c_str() const;
 //
