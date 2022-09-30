@@ -26,5 +26,7 @@ int main(){
     cout<<test1<<std::endl;
     test2.insert(5, test1);
     cout<<test2<<std::endl;
+    test2.insert(5, "Hello");
+    cout<<test2<<std::endl;
     return 0;
 }
