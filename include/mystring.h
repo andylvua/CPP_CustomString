@@ -38,8 +38,8 @@ public:
     void reserve(size_t new_capacity);
 
     void shrink_to_fit();
-//
-//    void resize(size_t new_size, char new_char = ' ');
+
+    void resize(size_t new_size, char new_char = ' ');
 //
     void clear();
 //
