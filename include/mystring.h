@@ -10,6 +10,7 @@ private:
     size_t capacity_m;
     size_t size_m;
     static size_t calculate_capacity(size_t size);
+    //minimal capacity for string
     static const size_t DEFAULT_CAPACITY = 15;
 public:
     my_str_t(size_t size, char initial);
@@ -31,9 +32,9 @@ public:
     char& at(size_t idx);
 
     const char& at(size_t idx) const;
-
-//    void reserve(size_t new_capacity);
 //
+//    void reserve(size_t new_capacity);
+
 //    void shrink_to_fit();
 //
 //    void resize(size_t new_size, char new_char = ' ');
@@ -71,9 +72,7 @@ public:
 
 std::ostream& operator<<(std::ostream& stream, const my_str_t& str);
 
-//std::istream& operator>>(std::istream& stream, my_str_t& str){
-//    return stream;
-//}
+std::istream& operator>>(std::istream& stream, my_str_t& str);
 
 //
 //bool operator==(const my_str_t& str1, const my_str_t& str2);
