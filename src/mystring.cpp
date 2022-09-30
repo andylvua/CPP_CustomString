@@ -90,6 +90,12 @@ my_str_t &my_str_t::operator=(const my_str_t &mystr) {
     return *this;
 }
 
+void my_str_t::swap(my_str_t &other) noexcept {
+    std::swap(size_m, other.size_m);
+    std::swap(capacity_m, other.capacity_m);
+    std::swap(data_m, other.data_m);
+}
+
 char &my_str_t::at(size_t idx) {
     if (idx > size_m) {
         throw std::out_of_range("Index is out of range");
