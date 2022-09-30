@@ -145,6 +145,23 @@ void my_str_t::shrink_to_fit() {
     data_m = new_data;
 }
 
+void my_str_t::resize(size_t new_size, char new_char) {
+    if (new_size <= size_m) {
+        for (int i = 0; i < size_m; i++) {
+            data_m[i] = new_char;
+        }
+    }
+    else {
+        if (new_size > capacity_m) {
+            reserve(calculate_capacity(new_size));
+        }
+        for (int i = 0; i < new_size; i++) {
+            data_m[i] = new_char;
+        }
+        data_m[new_size] = '\0';
+    }
+}
+
 std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
     stream << str.c_str();
     return stream;
