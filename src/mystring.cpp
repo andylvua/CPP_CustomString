@@ -64,7 +64,7 @@ my_str_t::my_str_t(const std::string &str) {
     data_m[size_m] = '\0';
 }
 
-my_str_t::my_str_t(const my_str_t &mystr): size_m{mystr.size_m}, capacity_m{mystr.capacity_m} {
+my_str_t::my_str_t(const my_str_t &mystr) : size_m{mystr.size_m}, capacity_m{mystr.capacity_m} {
     data_m = new char[capacity_m + 1];
 
     for (int i = 0; i < size_m; i++) {
@@ -109,7 +109,7 @@ size_t my_str_t::capacity() const noexcept {
     return capacity_m;
 }
 
-const char* my_str_t::c_str() const {
+const char *my_str_t::c_str() const {
     return data_m;
 }
 
@@ -137,7 +137,7 @@ void my_str_t::shrink_to_fit() {
 
     capacity_m = calculate_min_capacity(size_m);
     std::cout << capacity_m << std::endl;
-    char* new_data = new char[capacity_m + 1];
+    char *new_data = new char[capacity_m + 1];
 
     std::memcpy(new_data, data_m, size_m + 1);
 
@@ -145,13 +145,21 @@ void my_str_t::shrink_to_fit() {
     data_m = new_data;
 }
 
+//not how was described in doc
+void my_str_t::clear() {
+    delete[] data_m;
+
+    capacity_m = DEFAULT_CAPACITY;
+    size_m = 0;
+    data_m = new char[capacity_m + 1];
+}
+
 void my_str_t::resize(size_t new_size, char new_char) {
     if (new_size <= size_m) {
         for (int i = 0; i < size_m; i++) {
             data_m[i] = new_char;
         }
-    }
-    else {
+    } else {
         if (new_size > capacity_m) {
             reserve(calculate_capacity(new_size));
         }
@@ -162,12 +170,37 @@ void my_str_t::resize(size_t new_size, char new_char) {
     }
 }
 
-std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
+//needs checking
+void my_str_t::erase(size_t begin, size_t size) {
+    if (begin >= size_m) {
+        throw std::out_of_range("Begin index is out of range");
+    }
+    // leave all characters up to begin index
+    size_t new_size = size_m - std::min(size, size_m - begin);
+    char *new_data = new char[new_size];
+    std::memmove(new_data, data_m, begin);
+    // move leftover to erased space in string
+    for (size_t i = 0; i <= size; i++) {
+        if (begin + size + i < size_m) {
+            new_data[begin + i] = data_m[begin + i + size];
+        } else { break; }
+    }
+    //changing atributes of object
+    size_m = new_size;
+    new_data[size_m] = '\0';
+    delete[] data_m;
+    data_m = new_data;
+    this->shrink_to_fit();
+
+
+}
+
+std::ostream &operator<<(std::ostream &stream, const my_str_t &str) {
     stream << str.c_str();
     return stream;
 }
 
-std::istream& operator>>(std::istream& stream, my_str_t& str) {
+std::istream &operator>>(std::istream &stream, my_str_t &str) {
     char *buffer = new char;
     stream >> buffer;
     str = my_str_t(buffer);

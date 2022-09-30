@@ -53,7 +53,7 @@ public:
 //
 //    void append(const char* cstr);
 //
-//    void erase(size_t begin, size_t size);
+    void erase(size_t begin, size_t size);
 //
     size_t size() const noexcept;
 //
@@ -61,7 +61,7 @@ public:
 //
     const char* c_str() const;
 //
-//    static constexpr size_t not_found = -1;
+    static constexpr size_t not_found = -1;
 //
 //    size_t find(char c, size_t idx = 0);
 //
