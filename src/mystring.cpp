@@ -12,6 +12,10 @@ size_t my_str_t::calculate_capacity(size_t size) {
     (std::pow(2, std::ceil(std::log2(size + 1))) - 1) : DEFAULT_CAPACITY;
 }
 
+size_t my_str_t::calculate_min_capacity(size_t size) {
+    return static_cast<size_t> ((16 * std::ceil(static_cast<double> (size + 1)/16)) - 1);
+}
+
 my_str_t::my_str_t() {
     size_m = 0;
 
@@ -113,6 +117,30 @@ my_str_t::~my_str_t() {
     delete[] data_m;
 }
 
+void my_str_t::reserve(size_t new_capacity) {
+    if (new_capacity <= capacity_m) { return; }
+
+    capacity_m = new_capacity;
+
+    char *new_data = new char[capacity_m + 1];
+    std::memcpy(new_data, data_m, size_m + 1);
+
+    delete[] data_m;
+    data_m = new_data;
+}
+
+// May be wrong. Inplace reallocation may be a better solution
+void my_str_t::shrink_to_fit() {
+    if (size_m == capacity_m) {
+        return;
+    }
+
+    capacity_m = calculate_min_capacity(size_m);
+    std::cout << capacity_m << std::endl;
+    char* new_data = new char[capacity_m + 1];
+
+    std::memcpy(new_data, data_m, size_m + 1);
+}
 
 std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
     stream << str.c_str();

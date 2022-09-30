@@ -1,21 +1,24 @@
 //
 // Created by paul on 9/29/22.
 //
-# include "../include/mystring.h"
+#include <iostream>
+#include "../include/mystring.h"
+
+using std::cout, std::cin;
 
 int main(){
-    my_str_t test = my_str_t(16, 'a');
-    const char* cstr = "Hello";
-    my_str_t test2 = my_str_t(cstr);
-    std::string str = "Hello";
-    my_str_t test3 = my_str_t(str);
-    my_str_t test4 = my_str_t(test);
-
-    test2.at(2) = 'q';
-    std::cout << test.at(15) << std::endl;
-    std::cout << test2.at(4) << std::endl;
-    std::cout << test3.at(4) << std::endl;
-    std::cout << test4.at(4) << std::endl;
-
+    my_str_t test1 = my_str_t(19,'c');
+    cout<<test1<<" "<<test1.capacity()<<std::endl;
+    test1.reserve(50);
+    cout<<test1.capacity()<<std::endl;
+    cout<<test1.at(5)<<std::endl;
+    test1.at(5) = 'z';
+    cout<<test1<<std::endl;
+    cout<<test1.size()<<std::endl;
+    my_str_t test2 = test1;
+    cout<<test2<<std::endl;
+    cout<<test2.capacity()<<std::endl;
+    test2.shrink_to_fit();
+    cout<<test2.capacity()<<std::endl;
     return 0;
 }
