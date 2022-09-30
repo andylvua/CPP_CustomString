@@ -27,9 +27,9 @@ public:
 //
     void swap(my_str_t& other) noexcept;
 //
-//    char& operator[](size_t idx);
-//
-//    const char& operator[](size_t idx) const;
+    char& operator[](size_t idx);
+
+    const char& operator[](size_t idx) const;
 //
     char& at(size_t idx);
 
