@@ -141,15 +141,8 @@ bool operator==(const my_str_t &str1, const my_str_t &str2) {
 }
 
 bool operator!=(const my_str_t &str1, const my_str_t &str2) {
-    size_t str1_size = str1.size();
-    size_t str2_size = str2.size();
-    if (str1_size!=str2_size) {
-        return true;
-    }
-    for (int i = 0; i < str1_size; ++i) {
-        if (str1.at(i)!=str2.at(i)) {return true;}
-    }
-    return false;
+    if (str1==str2) {return false;}
+    return true;
 }
 
 bool operator>(const my_str_t& str1, const my_str_t& str2) {
@@ -158,20 +151,14 @@ bool operator>(const my_str_t& str1, const my_str_t& str2) {
 
     if (str1_size>=str2_size){
         for (int i = 0; i < str2_size; ++i) {
-            if (str1.at(i)<str2.at(i)){
-                return false;
-            }
+            if (str1.at(i)<str2.at(i)){return false;}
         }
         return true;
     }
     else if (str1_size<str2_size) {
         for (int i = 0; i < str1_size; ++i) {
-            if (str1.at(i)<str2.at(i)) {
-                return false;
-            }
-            else if (str1.at(i)>str2.at(i)){
-                return true;
-            }
+            if (str1.at(i)<str2.at(i)) {return false;}
+            else if (str1.at(i)>str2.at(i)) {return true;}
         }
     }
     return false;
@@ -185,15 +172,69 @@ bool operator>=(const my_str_t& str1, const my_str_t& str2) {
 }
 
 bool operator<(const my_str_t& str1, const my_str_t& str2) {
-    if (!(str1>=str2)) {
+    if (str1>=str2) {
+        return false;
+    }
+    return true;
+}
+
+bool operator<=(const my_str_t& str1, const my_str_t& str2) {
+    if (str1>str2) {
+        return false;
+    }
+    return true;
+}
+
+bool operator==(const char* cstr1, const my_str_t& str2) {
+    size_t str1_size = std::strlen(cstr1);
+    size_t str2_size = str2.size();
+
+    if (str1_size!=str2_size){
+        return false;
+    }
+    for (int i = 0; i < str1_size; ++i) {
+        if (cstr1[i]!=str2.at(i)) {return false;}
+    }
+    return true;
+}
+
+bool operator!=(const char* cstr1, const my_str_t& str2) {
+    if (cstr1==str2) {return false;}
+    return true;
+}
+
+bool operator>(const char* cstr1, const my_str_t& str2) {
+    size_t str1_size = std::strlen(cstr1);
+    size_t str2_size = str2.size();
+
+    if (str1_size>=str2_size) {
+        for (int i = 0; i < str2_size; ++i) {
+            if (cstr1[i]<str2.at(i)){return false;}
+        }
+        return true;
+    }
+    else if (str1_size<str2_size) {
+        for (int i = 0; i < str1_size; ++i) {
+            if (cstr1[i]<str2.at(i)) {return false;}
+            else if (cstr1[i]<str2.at(i)) {return true;}
+        }
+    }
+    return false;
+}
+
+bool operator>=(const char* cstr1, const my_str_t& str2) {
+    if (cstr1==str2 || cstr1>str2) {
         return true;
     }
     return false;
 }
 
-bool operator<=(const my_str_t& str1, const my_str_t& str2) {
-    if (str1==str2 || str1<str2) {
-        return true;
-    }
-    return false;
+bool operator<(const char* cstr1, const my_str_t& str2) {
+    if (cstr1>=str2) {return false;}
+    return true;
+}
+
+bool operator<=(const char* cstr1, const my_str_t& str2) {
+    if (cstr1>str2) {return false;}
+    return true;
 }
