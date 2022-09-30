@@ -125,3 +125,11 @@ std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
     stream << str.c_str();
     return stream;
 }
+
+std::istream& operator>>(std::istream& stream, my_str_t& str) {
+    char *buffer = new char;
+    stream >> buffer;
+    str = my_str_t(buffer);
+    delete buffer;
+    return stream;
+}
