@@ -154,6 +154,7 @@ void my_str_t::shrink_to_fit() {
     delete[] data_m;
     data_m = new_data;
 }
+
 //not how was described in doc
 void my_str_t::clear() {
     delete[] data_m;
@@ -178,6 +179,7 @@ void my_str_t::resize(size_t new_size, char new_char) {
         data_m[new_size] = '\0';
     }
 }
+
 //bugs with missing last element
 void my_str_t::erase(size_t begin, size_t size) {
     if (begin >= size_m) {

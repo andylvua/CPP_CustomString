@@ -29,15 +29,12 @@ public:
 
     my_str_t &operator=(const my_str_t &mystr);
 
-//
     void swap(my_str_t &other) noexcept;
 
-//
     char &operator[](size_t idx);
 
     const char &operator[](size_t idx) const;
 
-//
     char &at(size_t idx);
 
     const char &at(size_t idx) const;
@@ -48,9 +45,8 @@ public:
 
     void resize(size_t new_size, char new_char = ' ');
 
-//
     void clear();
-//
+
     void insert(size_t idx, const my_str_t &str);
 
     void insert(size_t idx, const char *cstr);
@@ -61,19 +57,16 @@ public:
 
     void append(const char *cstr);
 
-//
     void erase(size_t begin, size_t size);
-//
+
     size_t size() const noexcept;
 
-//
     size_t capacity() const noexcept;
 
-//
     const char *c_str() const;
 
-//
     static constexpr size_t not_found = -1;
+
 //
 //    size_t find(char c, size_t idx = 0);
 //
@@ -109,6 +102,7 @@ bool operator<=(const my_str_t &str1, const my_str_t &str2);
 //bool operator<(const my_str_t& str1, const char* cstr2);
 //bool operator<=(const my_str_t& str1, const char* cstr2);
 //
+
 bool operator==(const char *cstr1, const my_str_t &str2);
 
 bool operator!=(const char *cstr1, const my_str_t &str2);
@@ -120,6 +114,5 @@ bool operator>=(const char *cstr1, const my_str_t &str2);
 bool operator<(const char *cstr1, const my_str_t &str2);
 
 bool operator<=(const char *cstr1, const my_str_t &str2);
-//
 
 #endif //LAB1_CSTRING_ZINCHUKKRYVENYAROSHEVYCHKHARABARA_MYSTRING_H
