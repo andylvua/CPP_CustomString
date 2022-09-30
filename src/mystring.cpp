@@ -15,7 +15,6 @@ my_str_t::my_str_t(size_t size, char initial) {
     size_m = size;
 
     capacity_m = calculate_capacity(size_m);
-
     data_m = new char[capacity_m + 1];
 
     for (int i = 0; i < size; i++) {
@@ -61,6 +60,27 @@ my_str_t::my_str_t(const my_str_t &mystr): size_m{mystr.size_m}, capacity_m{myst
     data_m[size_m] = '\0';
 }
 
+my_str_t &my_str_t::operator=(const my_str_t &mystr) {
+    if (this == &mystr) {
+        return *this;
+    }
+
+    delete[] data_m;
+
+    size_m = mystr.size_m;
+
+    capacity_m = mystr.capacity_m;
+    data_m = new char[capacity_m + 1];
+
+    for (int i = 0; i < size_m; i++) {
+        data_m[i] = mystr.at(i);
+    }
+
+    data_m[size_m] = '\0';
+
+    return *this;
+}
+
 char &my_str_t::at(size_t idx) {
     if (idx > size_m) {
         throw std::out_of_range("Index is out of range");
@@ -75,12 +95,16 @@ const char &my_str_t::at(size_t idx) const {
     return data_m[idx];
 }
 
+const char* my_str_t::c_str() const {
+    return data_m;
+}
+
 my_str_t::~my_str_t() {
     delete[] data_m;
 }
 
-std::ostream& operator<<(std::ostream& stream, const my_str_t& str){
-    stream<<str.c_str();
+
+std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
+    stream << str.c_str();
     return stream;
 }
-
