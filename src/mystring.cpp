@@ -209,6 +209,24 @@ void my_str_t::insert(size_t idx, const char *cstr) {
     data_m[size_m] = '\0';
 }
 
+void my_str_t::append(const my_str_t &str) {
+    insert(size_m, str);
+}
+
+void my_str_t::append(char c) {
+    if (size_m + 1 > capacity_m) {
+        reserve(calculate_capacity(size_m + 1));
+    }
+
+    data_m[size_m] = c;
+
+    size_m++;
+    data_m[size_m] = '\0';
+}
+
+void my_str_t::append(const char *cstr) {
+    insert(size_m, cstr);
+}
 
 std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
     stream << str.c_str();

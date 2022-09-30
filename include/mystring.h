@@ -46,12 +46,12 @@ public:
     void insert(size_t idx, const my_str_t& str);
 
     void insert(size_t idx, const char* cstr);
-//
-//    void append(const my_str_t& str);
-//
-//    void append(char c);
-//
-//    void append(const char* cstr);
+
+    void append(const my_str_t& str);
+
+    void append(char c);
+
+    void append(const char* cstr);
 //
 //    void erase(size_t begin, size_t size);
 //
