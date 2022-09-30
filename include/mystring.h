@@ -13,6 +13,8 @@ private:
     //minimal capacity for string
     static const size_t DEFAULT_CAPACITY = 15;
 public:
+    my_str_t();
+
     my_str_t(size_t size, char initial);
 
     explicit my_str_t(const char* cstr);
@@ -23,7 +25,7 @@ public:
 
     my_str_t& operator=(const my_str_t& mystr);
 //
-//    void swap(my_str_t& other) noexcept;
+    void swap(my_str_t& other) noexcept;
 //
 //    char& operator[](size_t idx);
 //
@@ -53,9 +55,9 @@ public:
 //
 //    void erase(size_t begin, size_t size);
 //
-//    size_t size() const noexcept;
+    size_t size() const noexcept;
 //
-//    size_t capacity() const noexcept;
+    size_t capacity() const noexcept;
 //
     const char* c_str() const;
 //

@@ -6,13 +6,20 @@
 #include <cmath>
 #include <cstring>
 
-//helper function for memory allocation
 size_t my_str_t::calculate_capacity(size_t size) {
     return (size > 7) ? static_cast<size_t>
     (std::pow(2, std::ceil(std::log2(size + 1))) - 1) : DEFAULT_CAPACITY;
 }
 
-//constructors
+my_str_t::my_str_t() {
+    size_m = 0;
+
+    capacity_m = DEFAULT_CAPACITY;
+    data_m = new char[DEFAULT_CAPACITY + 1];
+
+    data_m[0] = '\0';
+}
+
 my_str_t::my_str_t(size_t size, char initial) {
     size_m = size;
 
@@ -52,7 +59,7 @@ my_str_t::my_str_t(const std::string &str) {
     data_m[size_m] = '\0';
 }
 
-my_str_t::my_str_t(const my_str_t &mystr) : size_m{mystr.size_m}, capacity_m{mystr.capacity_m} {
+my_str_t::my_str_t(const my_str_t &mystr): size_m{mystr.size_m}, capacity_m{mystr.capacity_m} {
     data_m = new char[capacity_m + 1];
 
     for (int i = 0; i < size_m; i++) {
@@ -62,7 +69,6 @@ my_str_t::my_str_t(const my_str_t &mystr) : size_m{mystr.size_m}, capacity_m{mys
     data_m[size_m] = '\0';
 }
 
-//operators overriding
 my_str_t &my_str_t::operator=(const my_str_t &mystr) {
     if (this == &mystr) {
         return *this;
@@ -84,6 +90,12 @@ my_str_t &my_str_t::operator=(const my_str_t &mystr) {
     return *this;
 }
 
+void my_str_t::swap(my_str_t &other) noexcept {
+    std::swap(size_m, other.size_m);
+    std::swap(capacity_m, other.capacity_m);
+    std::swap(data_m, other.data_m);
+}
+
 char &my_str_t::at(size_t idx) {
     if (idx > size_m) {
         throw std::out_of_range("Index is out of range");
@@ -98,26 +110,32 @@ const char &my_str_t::at(size_t idx) const {
     return data_m[idx];
 }
 
-//get pointer to the start of char array
-const char *my_str_t::c_str() const {
+size_t my_str_t::size() const noexcept {
+    return size_m;
+}
+
+size_t my_str_t::capacity() const noexcept {
+    return capacity_m;
+}
+
+const char* my_str_t::c_str() const {
     return data_m;
 }
 
-//desturctor
 my_str_t::~my_str_t() {
     delete[] data_m;
 }
 
-//non-class methods overloading
-std::ostream &operator<<(std::ostream &stream, const my_str_t &str) {
+
+std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
     stream << str.c_str();
     return stream;
 }
 
-std::istream &operator>>(std::istream &stream, my_str_t &str) {
-    char *buffer = new char[1000];
+std::istream& operator>>(std::istream& stream, my_str_t& str) {
+    char *buffer = new char;
     stream >> buffer;
     str = my_str_t(buffer);
-    delete[] buffer;
+    delete buffer;
     return stream;
 }
