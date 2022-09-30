@@ -91,6 +91,12 @@ my_str_t &my_str_t::operator=(const my_str_t &mystr) {
     return *this;
 }
 
+void my_str_t::swap(my_str_t &other) noexcept {
+    std::swap(size_m, other.size_m);
+    std::swap(capacity_m, other.capacity_m);
+    std::swap(data_m, other.data_m);
+}
+
 char &my_str_t::at(size_t idx) {
     if (idx > size_m) {
         throw std::out_of_range("Index is out of range");
@@ -124,5 +130,13 @@ my_str_t::~my_str_t() {
 
 std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
     stream << str.c_str();
+    return stream;
+}
+
+std::istream& operator>>(std::istream& stream, my_str_t& str) {
+    char *buffer = new char;
+    stream >> buffer;
+    str = my_str_t(buffer);
+    delete buffer;
     return stream;
 }
