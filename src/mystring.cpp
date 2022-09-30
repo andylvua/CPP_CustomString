@@ -113,7 +113,6 @@ my_str_t::~my_str_t() {
     delete[] data_m;
 }
 
-
 std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
     stream << str.c_str();
     return stream;
@@ -125,4 +124,76 @@ std::istream& operator>>(std::istream& stream, my_str_t& str) {
     str = my_str_t(buffer);
     delete buffer;
     return stream;
+}
+
+
+
+bool operator==(const my_str_t &str1, const my_str_t &str2) {
+    size_t str1_size = str1.size();
+    size_t str2_size = str2.size();
+    if (str1_size!=str2_size) {
+        return false;
+    }
+    for (int i = 0; i < str1_size; ++i) {
+        if (str1.at(i)!=str2.at(i)) {return false;}
+    }
+    return true;
+}
+
+bool operator!=(const my_str_t &str1, const my_str_t &str2) {
+    size_t str1_size = str1.size();
+    size_t str2_size = str2.size();
+    if (str1_size!=str2_size) {
+        return true;
+    }
+    for (int i = 0; i < str1_size; ++i) {
+        if (str1.at(i)!=str2.at(i)) {return true;}
+    }
+    return false;
+}
+
+bool operator>(const my_str_t& str1, const my_str_t& str2) {
+    size_t str1_size = str1.size();
+    size_t str2_size = str2.size();
+
+    if (str1_size>=str2_size){
+        for (int i = 0; i < str2_size; ++i) {
+            if (str1.at(i)<str2.at(i)){
+                return false;
+            }
+        }
+        return true;
+    }
+    else if (str1_size<str2_size) {
+        for (int i = 0; i < str1_size; ++i) {
+            if (str1.at(i)<str2.at(i)) {
+                return false;
+            }
+            else if (str1.at(i)>str2.at(i)){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool operator>=(const my_str_t& str1, const my_str_t& str2) {
+    if (str1==str2 || str1>str2) {
+        return true;
+    }
+    return false;
+}
+
+bool operator<(const my_str_t& str1, const my_str_t& str2) {
+    if (!(str1>=str2)) {
+        return true;
+    }
+    return false;
+}
+
+bool operator<=(const my_str_t& str1, const my_str_t& str2) {
+    if (str1==str2 || str1<str2) {
+        return true;
+    }
+    return false;
 }
