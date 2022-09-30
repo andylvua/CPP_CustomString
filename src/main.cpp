@@ -17,5 +17,8 @@ int main(){
     cout<<test1.size()<<std::endl;
     my_str_t test2 = test1;
     cout<<test2<<std::endl;
+    cout<<test2.capacity()<<std::endl;
+    test2.shrink_to_fit();
+    cout<<test2.capacity()<<std::endl;
     return 0;
 }
