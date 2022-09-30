@@ -126,6 +126,18 @@ my_str_t::~my_str_t() {
     delete[] data_m;
 }
 
+void my_str_t::reserve(size_t new_capacity) {
+    if (new_capacity <= capacity_m) { return; }
+
+    capacity_m = new_capacity;
+
+    char *new_data = new char[capacity_m + 1];
+    std::memcpy(new_data, data_m, size_m + 1);
+
+    delete[] data_m;
+    data_m = new_data;
+}
+
 
 std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
     stream << str.c_str();

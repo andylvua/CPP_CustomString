@@ -34,8 +34,8 @@ public:
     char& at(size_t idx);
 
     const char& at(size_t idx) const;
-//
-//    void reserve(size_t new_capacity);
+
+    void reserve(size_t new_capacity);
 
 //    void shrink_to_fit();
 //
