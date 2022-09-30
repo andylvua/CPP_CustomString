@@ -11,6 +11,15 @@ size_t my_str_t::calculate_capacity(size_t size) {
     (std::pow(2, std::ceil(std::log2(size + 1))) - 1) : DEFAULT_CAPACITY;
 }
 
+my_str_t::my_str_t() {
+    size_m = 0;
+
+    capacity_m = DEFAULT_CAPACITY;
+    data_m = new char[DEFAULT_CAPACITY + 1];
+
+    data_m[0] = '\0';
+}
+
 my_str_t::my_str_t(size_t size, char initial) {
     size_m = size;
 

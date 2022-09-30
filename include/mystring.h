@@ -12,6 +12,8 @@ private:
     static size_t calculate_capacity(size_t size);
     static const size_t DEFAULT_CAPACITY = 15;
 public:
+    my_str_t();
+
     my_str_t(size_t size, char initial);
 
     explicit my_str_t(const char* cstr);
