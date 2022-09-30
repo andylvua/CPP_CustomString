@@ -14,9 +14,9 @@ private:
 public:
     my_str_t(size_t size, char initial);
 
-    my_str_t(const char* cstr);
+    explicit my_str_t(const char* cstr);
 
-    my_str_t(const std::string& str);
+    explicit my_str_t(const std::string& str);
 
     my_str_t(const my_str_t& mystr);
 

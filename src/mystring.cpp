@@ -56,6 +56,43 @@ my_str_t::my_str_t(const char *cstr) {
     *(data_m+size_m) = '\0';
 }
 
+my_str_t::my_str_t(const std::string &str) {
+    size_t ssize = str.size();
+
+    size_t memsize = 16;
+    if (ssize>=memsize) {
+        memsize = static_cast<size_t>(pow(2, ceil(log2(ssize+1))));
+    }
+
+    capacity_m = memsize-1;
+    size_m = ssize;
+
+    data_m = new char[memsize];
+    for (int i = 0; i < size_m; ++i) {
+        *(data_m+i) = str.at(i);
+    }
+    *(data_m+size_m) = '\0';
+}
+
+my_str_t::my_str_t(const my_str_t &mystr) {
+    size_m = mystr.size_m;
+    capacity_m = mystr.capacity_m;
+
+    size_t memsize = capacity_m + 1;
+
+    data_m = new char[memsize];
+    for (int i = 0; i < size_m; ++i) {
+        *(data_m+i) = *(mystr.data_m+i);
+    }
+    *(data_m+size_m) = '\0';
+}
+
+my_str_t& my_str_t::operator=(const my_str_t& mystr) {
+    my_str_t temp{mystr};
+    swap(temp);
+    return *this;
+}
+
 char &my_str_t::at(size_t idx) {
     return *(data_m+idx);
 }
