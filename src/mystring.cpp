@@ -140,6 +140,9 @@ void my_str_t::shrink_to_fit() {
     char* new_data = new char[capacity_m + 1];
 
     std::memcpy(new_data, data_m, size_m + 1);
+
+    delete[] data_m;
+    data_m = new_data;
 }
 
 std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
