@@ -158,6 +158,7 @@ void my_str_t::resize(size_t new_size, char new_char) {
         for (int i = 0; i < new_size; i++) {
             data_m[i] = new_char;
         }
+        size_m = new_size;
         data_m[new_size] = '\0';
     }
 }
