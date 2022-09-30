@@ -88,14 +88,14 @@ void my_str_t::swap(my_str_t &other) noexcept {
 }
 
 char &my_str_t::at(size_t idx) {
-    if (idx > size_m) {
+    if (idx >= size_m) {
         throw std::out_of_range("Index is out of range");
     }
     return data_m[idx];
 }
 
 const char &my_str_t::at(size_t idx) const {
-    if (idx > size_m) {
+    if (idx >= size_m) {
         throw std::out_of_range("Index is out of range");
     }
     return data_m[idx];
