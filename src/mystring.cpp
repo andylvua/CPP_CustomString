@@ -98,14 +98,14 @@ const char& my_str_t::operator[](size_t idx) const {
 }
 
 char &my_str_t::at(size_t idx) {
-    if (idx > size_m) {
+    if (idx >= size_m) {
         throw std::out_of_range("Index is out of range");
     }
     return data_m[idx];
 }
 
 const char &my_str_t::at(size_t idx) const {
-    if (idx > size_m) {
+    if (idx >= size_m) {
         throw std::out_of_range("Index is out of range");
     }
     return data_m[idx];
@@ -168,8 +168,21 @@ void my_str_t::resize(size_t new_size, char new_char) {
         for (int i = 0; i < new_size; i++) {
             data_m[i] = new_char;
         }
+        size_m = new_size;
         data_m[new_size] = '\0';
     }
+}
+
+void my_str_t::insert(size_t idx, const my_str_t &str) {
+    if (idx > size_m) {
+        throw std::out_of_range("Index is out of range");
+    }
+
+    memmove(data_m + idx + str.size_m, data_m + idx, size_m - idx + 1);
+    memcpy(data_m + idx, str.data_m, str.size_m);
+
+    size_m += str.size_m;
+    data_m[size_m] = '\0';
 }
 
 std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
