@@ -94,14 +94,19 @@ bool operator<(const my_str_t &str1, const my_str_t &str2);
 
 bool operator<=(const my_str_t &str1, const my_str_t &str2);
 
-//
-//bool operator==(const my_str_t& str1, const char* cstr2);
-//bool operator!=(const my_str_t& str1, const char* cstr2);
-//bool operator>(const my_str_t& str1, const char* cstr2);
-//bool operator>=(const my_str_t& str1, const char* cstr2);
-//bool operator<(const my_str_t& str1, const char* cstr2);
-//bool operator<=(const my_str_t& str1, const char* cstr2);
-//
+
+bool operator==(const my_str_t &str1, const char *cstr2);
+
+bool operator!=(const my_str_t &str1, const char *cstr2);
+
+bool operator>(const my_str_t &str1, const char *cstr2);
+
+bool operator>=(const my_str_t &str1, const char *cstr2);
+
+bool operator<(const my_str_t &str1, const char *cstr2);
+
+bool operator<=(const my_str_t &str1, const char *cstr2);
+
 
 bool operator==(const char *cstr1, const my_str_t &str2);
 
