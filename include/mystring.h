@@ -10,7 +10,7 @@ private:
     size_t capacity_m;
     size_t size_m;
     static size_t calculate_capacity(size_t size);
-    //minimal capacity for string
+    static size_t calculate_min_capacity(size_t size);
     static const size_t DEFAULT_CAPACITY = 15;
 public:
     my_str_t();
@@ -37,7 +37,7 @@ public:
 
     void reserve(size_t new_capacity);
 
-//    void shrink_to_fit();
+    void shrink_to_fit();
 //
 //    void resize(size_t new_size, char new_char = ' ');
 //
