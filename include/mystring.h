@@ -41,7 +41,7 @@ public:
 //
 //    void resize(size_t new_size, char new_char = ' ');
 //
-//    void clear();
+    void clear();
 //
 //    void insert(size_t idx, const my_str_t& str);
 //

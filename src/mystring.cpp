@@ -13,7 +13,7 @@ size_t my_str_t::calculate_capacity(size_t size) {
 }
 
 size_t my_str_t::calculate_min_capacity(size_t size) {
-    return static_cast<size_t> ((16 * std::ceil(static_cast<double> (size + 1)/16)) - 1);
+    return static_cast<size_t> ((16 * std::ceil(static_cast<double> (size + 1) / 16)) - 1);
 }
 
 my_str_t::my_str_t() {
