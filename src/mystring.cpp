@@ -205,11 +205,13 @@ void my_str_t::insert(size_t idx, const my_str_t &str) {
         throw std::out_of_range("Index is out of range");
     }
 
-    size_m += str.size_m;
+    size_t new_size = size_m + str.size_m;
 
-    if (size_m > capacity_m) {
-        reserve(calculate_capacity(size_m));
+    if (new_size > capacity_m) {
+        reserve(calculate_capacity(new_size));
     }
+
+    size_m = new_size;
 
     memmove(data_m + idx + str.size_m, data_m + idx, size_m - idx + 1);
     memcpy(data_m + idx, str.data_m, str.size_m);
