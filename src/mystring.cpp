@@ -226,11 +226,13 @@ void my_str_t::insert(size_t idx, const char *cstr) {
 
     size_t cstr_size = std::strlen(cstr);
 
-    size_m += cstr_size;
+    size_t new_size = size_m + cstr_size;
 
-    if (size_m > capacity_m) {
-        reserve(calculate_capacity(size_m));
+    if (new_size > capacity_m) {
+        reserve(calculate_capacity(new_size));
     }
+
+    size_m = new_size;
 
     memmove(data_m + idx + cstr_size, data_m + idx, size_m - idx + 1);
     memcpy(data_m + idx, cstr, cstr_size);
