@@ -68,10 +68,10 @@ public:
     static constexpr size_t not_found = -1;
 
 //
-//    size_t find(char c, size_t idx = 0);
+    size_t find(char c, size_t idx = 0);
 //
-//    size_t find(const std::string& str, size_t idx = 0);
-//    size_t find(const char& cstr, size_t idx = 0);
+    size_t find(const std::string& str, size_t idx = 0);
+    size_t find(const char* cstr, size_t idx = 0);
 //
 //    my_str_t substr(size_t gegin, size_t size);
     ~my_str_t();

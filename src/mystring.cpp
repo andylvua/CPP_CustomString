@@ -123,6 +123,67 @@ const char *my_str_t::c_str() const {
     return data_m;
 }
 
+size_t my_str_t::find(char c, size_t idx) {
+    if (idx>=size_m) {
+        throw std::out_of_range("Index out of range");
+    }
+
+    for (size_t i = idx; i < size_m; ++i) {
+        if (c==data_m[idx]) {
+            return i;
+        }
+    }
+    return not_found;
+}
+
+size_t my_str_t::find(const std::string &str, size_t idx) {
+    size_t str_size = str.size();
+    if (idx>=size_m) {
+        throw std::out_of_range("Index out of range");
+    }
+    if (size_m - idx < str_size) {
+        return not_found;
+    }
+
+    for (size_t i = idx; i < size_m-str_size+1; ++i) {
+        if (data_m[i] == str.at(0)) {
+            for (size_t j = 1; j < str_size; ++j) {
+                if (data_m[i+j] != str.at(j)) {
+                    break;
+                }
+                if (j == str_size-1) {
+                    return i;
+                }
+            }
+        }
+    }
+    return not_found;
+}
+
+size_t my_str_t::find(const char *cstr, size_t idx) {
+    size_t str_size = std::strlen(cstr);
+    if (idx >= size_m) {
+        throw std::out_of_range("Index out of range");
+    }
+    if (size_m - idx < str_size) {
+        return not_found;
+    }
+
+    for (size_t i = idx; i < size_m-str_size+1; i++) {
+        if (data_m[i] == cstr[0]) {
+            for (size_t j = 1; j < str_size; ++j) {
+                if (data_m[i+j] != cstr[j]) {
+                    break;
+                }
+                if (j == str_size-1) {
+                    return i;
+                }
+            }
+        }
+    }
+    return not_found;
+}
+
 my_str_t::~my_str_t() {
     delete[] data_m;
 }
