@@ -472,7 +472,7 @@ TEST(find, find_string_handles_empty_string) {
     std::string to_find = ""; // NOLINT(readability-redundant-string-init)
     size_t pos = test1.find(to_find, 0);
 
-    EXPECT_EQ(pos, my_str_t::not_found);
+    EXPECT_EQ(pos, std::string::npos);
 }
 
 TEST(find, find_char_array) {
@@ -508,5 +508,5 @@ TEST(find, find_char_array_handles_empty_string) {
     const char* to_find = "";
     size_t pos = test1.find(to_find, 0);
 
-    EXPECT_EQ(pos, my_str_t::not_found);
+    EXPECT_EQ(pos, std::string::npos);
 }
