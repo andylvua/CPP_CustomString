@@ -252,16 +252,24 @@ TEST(resize, resize) {
     my_str_t test1 = my_str_t("Hello, world!");
     test1.resize(10, 'a');
 
-    EXPECT_EQ(test1.size(), 13);
+    EXPECT_EQ(test1.size(), 10);
     EXPECT_EQ(test1.capacity(), 15);
-    EXPECT_EQ(test1.at(0), 'a');
+    EXPECT_EQ(test1.at(0), 'H');
 
     test1.resize(15, 'b');
 
     EXPECT_EQ(test1.size(), 15);
     EXPECT_EQ(test1.capacity(), 15);
-    EXPECT_EQ(test1.at(0), 'b');
-    EXPECT_EQ(test1.at(14), 'b');
+    EXPECT_EQ(test1.at(0), 'H');
+    EXPECT_EQ(test1.at(11), 'b');
+
+    test1.resize(30, 'c');
+    EXPECT_EQ(test1.size(), 30);
+    EXPECT_EQ(test1.capacity(), 31);
+    EXPECT_EQ(test1.at(0), 'H');
+    EXPECT_EQ(test1.at(11), 'b');
+    EXPECT_EQ(test1.at(20), 'c');
+
 }
 
 TEST(clear, clear) {

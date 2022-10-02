@@ -230,19 +230,27 @@ void my_str_t::clear() {
 }
 
 void my_str_t::resize(size_t new_size, char new_char) {
-    if (new_size <= size_m) {
-        for (int i = 0; i < size_m; i++) {
-            data_m[i] = new_char;
-        }
-    } else {
-        if (new_size > capacity_m) {
-            reserve(calculate_capacity(new_size));
-        }
-        for (int i = 0; i < new_size; i++) {
-            data_m[i] = new_char;
+    if (new_size == size_m){
+        return;
+    }else if (new_size>capacity_m){
+        reserve(calculate_capacity(new_size));
+        for (size_t i = 0; i<new_size - size_m; ++i){
+            data_m[size_m+i] = new_char;
         }
         data_m[new_size] = '\0';
         size_m = new_size;
+        return;
+    }else if (new_size>size_m){
+        for (size_t i = 0; i<new_size - size_m; ++i){
+            data_m[size_m+i] = new_char;
+        }
+        data_m[new_size] = '\0';
+        size_m = new_size;
+        return;
+    }
+    else if (new_size<size_m){
+        size_m = new_size;
+        data_m[size_m] = '\0';
     }
 }
 
@@ -253,7 +261,7 @@ void my_str_t::erase(size_t begin, size_t size) {
     }
 //    calculate new size by subtracting erased part
     size_t new_size = size_m - std::min(size, size_m - begin);
-    char *new_data = new char[calculate_capacity(new_size)];
+    char *new_data = new char[calculate_capacity(new_size) + 1];
 //    copy string up to erased part
     std::memmove(new_data, data_m, begin);
 //    if there are a leftover of string after erased part
