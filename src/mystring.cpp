@@ -276,8 +276,8 @@ void my_str_t::insert(size_t idx, const my_str_t &str) {
 
     size_m = new_size;
 
-    memmove(data_m + idx + str.size_m, data_m + idx, size_m - idx + 1);
-    memcpy(data_m + idx, str.data_m, str.size_m);
+    std::memmove(data_m + idx + str.size_m, data_m + idx, size_m - idx - str.size_m);
+    std::memcpy(data_m + idx, str.data_m, str.size_m);
 
     data_m[size_m] = '\0';
 }
@@ -297,14 +297,24 @@ void my_str_t::insert(size_t idx, const char *cstr) {
 
     size_m = new_size;
 
-    memmove(data_m + idx + cstr_size, data_m + idx, size_m - idx + 1);
-    memcpy(data_m + idx, cstr, cstr_size);
+    std::memmove(data_m + idx + cstr_size, data_m + idx, size_m - idx - cstr_size);
+    std::memcpy(data_m + idx, cstr, cstr_size);
 
     data_m[size_m] = '\0';
 }
 
 void my_str_t::append(const my_str_t &str) {
-    insert(size_m, str);
+    size_t new_size = size_m + str.size_m;
+
+    if (new_size > capacity_m) {
+        reserve(calculate_capacity(new_size));
+    }
+
+    size_m = new_size;
+
+    std::memcpy(data_m + size_m - str.size_m, str.data_m, str.size_m);
+
+    data_m[size_m] = '\0';
 }
 
 void my_str_t::append(char c) {
@@ -319,7 +329,19 @@ void my_str_t::append(char c) {
 }
 
 void my_str_t::append(const char *cstr) {
-    insert(size_m, cstr);
+    size_t cstr_size = strlen(cstr);
+
+    size_t new_size = size_m + cstr_size;
+
+    if (new_size > capacity_m) {
+        reserve(calculate_capacity(new_size));
+    }
+
+    size_m = new_size;
+
+    std::memcpy(data_m + size_m - cstr_size, cstr, cstr_size);
+
+    data_m[size_m] = '\0';
 }
 
 std::ostream &operator<<(std::ostream &stream, const my_str_t &str) {
