@@ -264,7 +264,7 @@ void my_str_t::erase(size_t begin, size_t size) {
 }
 
 void my_str_t::insert(size_t idx, const my_str_t &str) {
-    if (idx > size_m) {
+    if (idx >= size_m) {
         throw std::out_of_range("Index is out of range");
     }
 
@@ -283,7 +283,7 @@ void my_str_t::insert(size_t idx, const my_str_t &str) {
 }
 
 void my_str_t::insert(size_t idx, const char *cstr) {
-    if (idx > size_m) {
+    if (idx >= size_m) {
         throw std::out_of_range("Index is out of range");
     }
 
