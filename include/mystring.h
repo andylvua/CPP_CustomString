@@ -15,6 +15,8 @@ private:
 
     static size_t calculate_min_capacity(size_t size);
 
+    static size_t strlen(const char *cstr);
+
     static const size_t DEFAULT_CAPACITY = 15;
 public:
     my_str_t();
@@ -67,11 +69,12 @@ public:
 
     static constexpr size_t not_found = -1;
 
-//
     size_t find(char c, size_t idx = 0);
-    size_t find(const std::string& str, size_t idx = 0);
-    size_t find(const char* cstr, size_t idx = 0);
-//
+
+    size_t find(const std::string &str, size_t idx = 0);
+
+    size_t find(const char *cstr, size_t idx = 0);
+
 //    my_str_t substr(size_t gegin, size_t size);
     ~my_str_t();
 };
