@@ -7,6 +7,8 @@
 #include <cmath>
 #include <cstring>
 
+const size_t my_str_t::not_found;
+
 size_t my_str_t::calculate_capacity(size_t size) {
     return (size > 7) ? static_cast<size_t>
     (std::pow(2, std::ceil(std::log2(size + 1))) - 1) : DEFAULT_CAPACITY;
