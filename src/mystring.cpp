@@ -5,6 +5,7 @@
 
 #include "../include/mystring.h"
 #include <cmath>
+#include <cstring>
 
 size_t my_str_t::calculate_capacity(size_t size) {
     return (size > 7) ? static_cast<size_t>
@@ -154,7 +155,7 @@ size_t my_str_t::find(const std::string &str, size_t idx) {
     if (idx >= size_m) {
         throw std::out_of_range("Index out of range");
     }
-    if (size_m - idx < str_size) {return not_found;}
+    if (size_m - idx < str_size || str_size == 0) {return not_found;}
 
     for (size_t i = idx; i < size_m - str_size + 1; ++i) {
         if (data_m[i] == str.at(0)) {
@@ -173,7 +174,7 @@ size_t my_str_t::find(const char *cstr, size_t idx) {
     if (idx >= size_m) {
         throw std::out_of_range("Index out of range");
     }
-    if (size_m - idx < str_size) {return not_found;}
+    if (size_m - idx < str_size || str_size == 0) {return not_found;}
 
     for (size_t i = idx; i < size_m - str_size + 1; i++) {
         if (data_m[i] == cstr[0]) {
