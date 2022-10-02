@@ -13,12 +13,23 @@ TEST(size, size) {
     EXPECT_EQ(test1.size(), 9);
 }
 
+TEST(size, size_0) {
+    my_str_t test1 = my_str_t();
+    EXPECT_EQ(test1.size(), 0);
+
+    my_str_t test2 = my_str_t("");
+    EXPECT_EQ(test2.size(), 0);
+}
+
 TEST(capacity, capacity) {
     my_str_t test1 = my_str_t("123456789");
     EXPECT_EQ(test1.capacity(), 15);
 
     my_str_t test2 = my_str_t("123456789abcdefg");
     EXPECT_EQ(test2.capacity(), 31);
+
+    my_str_t test3 = my_str_t();
+    EXPECT_EQ(test3.capacity(), 15);
 }
 
 TEST(at, at) {
@@ -41,14 +52,19 @@ TEST(default_constructor, default_constructor) {
 }
 
 TEST(constructor_with_size, constructor_with_size_default_case) {
-    my_str_t test1 = my_str_t(15,'a');
+    my_str_t test1 = my_str_t(15, 'a');
     EXPECT_EQ(test1.size(), 15);
     EXPECT_EQ(test1.capacity(), 15);
     EXPECT_EQ(test1.at(0), 'a');
+
+    my_str_t test2 = my_str_t(5, '\t');
+    EXPECT_EQ(test2.size(), 5);
+    EXPECT_EQ(test2.capacity(), 15);
+    EXPECT_EQ(test2.at(3), '\t');
 }
 
 TEST(constructor_with_size, handles_size_zero) {
-    my_str_t test2 = my_str_t(0,'a');
+    my_str_t test2 = my_str_t(0, 'a');
     EXPECT_EQ(test2.size(), 0);
     EXPECT_EQ(test2.capacity(), 15);
     EXPECT_THROW(test2.at(0), std::out_of_range);
@@ -120,7 +136,7 @@ TEST(copy_constructor, copy_constructor) {
 
 TEST(assignment_operator, assignment_operator) {
     my_str_t test1 = my_str_t("Hello");
-    my_str_t test2 = my_str_t("World");
+    my_str_t test2 = my_str_t(10, 'c');
     test2 = test1;
 
     EXPECT_EQ(test1.size(), test2.size());
@@ -277,7 +293,7 @@ TEST(insert, insert_string) {
 
 TEST(insert, insert_char_array) {
     my_str_t test1 = my_str_t("Hello,world!");
-    const char* to_insert = " beautiful ";
+    const char *to_insert = " beautiful ";
 
     test1.insert(6, to_insert);
 
@@ -349,14 +365,14 @@ TEST(append, append_char) {
 
 TEST(append, append_char_array) {
     my_str_t test1 = my_str_t("Hello, ");
-    const char* to_append = "world!";
+    const char *to_append = "world!";
     test1.append(to_append);
 
     EXPECT_EQ(test1.size(), 13);
     EXPECT_EQ(test1.capacity(), 15);
     ASSERT_TRUE(test1 == "Hello, world!");
 
-    const char* to_append2 = " What's about your capacity?";
+    const char *to_append2 = " What's about your capacity?";
     test1.append(to_append2);
 
     EXPECT_EQ(test1.size(), 41);
@@ -366,7 +382,7 @@ TEST(append, append_char_array) {
 
 TEST(append, append_char_array_handles_empty_array) {
     my_str_t test1 = my_str_t("Hello");
-    const char* to_append = "";
+    const char *to_append = "";
     test1.append(to_append);
 
     EXPECT_EQ(test1.size(), 5);
@@ -380,7 +396,6 @@ TEST(erase, erase) {
 
     EXPECT_EQ(test1.size(), 12);
     EXPECT_EQ(test1.capacity(), 15);
-    std::cout << test1 << std::endl;
     ASSERT_TRUE(test1 == "Hello,world!");
 
     test1.erase(0, 13);
@@ -404,22 +419,23 @@ TEST(erase, erase_handles_empty_erase) {
 
 TEST(erase, erase_up_to_the_end) {
     my_str_t test1 = my_str_t("Hello, world!");
-    test1.erase(10,10);
+    test1.erase(10, 10);
     EXPECT_EQ(test1.size(), 10);
     EXPECT_EQ(test1.capacity(), 15);
     ASSERT_TRUE(test1 == "Hello, wor");
 
 }
+
 TEST(cstr, cstr) {
     my_str_t test1 = my_str_t("Hello, world!");
-    const char* cstr = test1.c_str();
+    const char *cstr = test1.c_str();
 
     ASSERT_TRUE(test1 == cstr);
 }
 
 TEST(cstr, cstr_handles_empty_string) {
     my_str_t test1 = my_str_t("");
-    const char* cstr = test1.c_str();
+    const char *cstr = test1.c_str();
 
     ASSERT_TRUE(test1 == cstr);
 }
@@ -485,12 +501,12 @@ TEST(find, find_string_handles_empty_string) {
 
 TEST(find, find_char_array) {
     my_str_t test1 = my_str_t("Hello, world!");
-    const char* to_find = "world";
+    const char *to_find = "world";
     size_t pos = test1.find(to_find, 0);
 
     EXPECT_EQ(pos, 7);
 
-    const char* to_find2 = "d!";
+    const char *to_find2 = "d!";
     pos = test1.find(to_find2, 11);
 
     EXPECT_EQ(pos, 11);
@@ -498,7 +514,7 @@ TEST(find, find_char_array) {
 
 TEST(find, find_char_array_handles_not_found) {
     my_str_t test1 = my_str_t("Hello, world!");
-    const char* to_find = "world!";
+    const char *to_find = "world!";
     size_t pos = test1.find(to_find, 11);
 
     EXPECT_EQ(pos, std::string::npos);
@@ -506,15 +522,107 @@ TEST(find, find_char_array_handles_not_found) {
 
 TEST(find, find_char_array_handles_out_of_range) {
     my_str_t test1 = my_str_t("Hello, world!");
-    const char* to_find = "world!";
+    const char *to_find = "world!";
 
     ASSERT_THROW(test1.find(to_find, 13), std::out_of_range);
 }
 
 TEST(find, find_char_array_handles_empty_string) {
     my_str_t test1 = my_str_t("Hello, world!");
-    const char* to_find = "";
+    const char *to_find = "";
     size_t pos = test1.find(to_find, 0);
 
     EXPECT_EQ(pos, std::string::npos);
 }
+
+TEST(equal, equal) {
+    my_str_t test1 = my_str_t("First lab ");
+    std::string helper = "First lab ";
+    my_str_t test2 = my_str_t(helper);
+
+    EXPECT_EQ(bool(test1 == test2), true);
+
+    my_str_t test3 = my_str_t("samelength");
+    EXPECT_EQ(bool(test2 == test3), false);
+}
+
+TEST(equal, equal_strings) {
+    my_str_t test1 = my_str_t("First lab ");
+    my_str_t test2 = my_str_t("First lab ");
+    test2.reserve(60);
+    EXPECT_EQ(bool(test1 == test2), true);
+}
+TEST(equal, equal_cstring){
+    char test1[]{"abcdef"};
+    my_str_t test2 = my_str_t("abcdef");
+    EXPECT_EQ(bool(test1 == test2), true);
+    test2.reserve(50);
+    EXPECT_EQ(bool(test1 == test2), true);
+    test2.append('a');
+    EXPECT_EQ(bool(test1 == test2), false);
+}
+
+TEST(not_equal, not_equal) {
+    my_str_t test1 = my_str_t("First lab ");
+    my_str_t test2 = my_str_t("First lab ");
+    EXPECT_EQ(bool(test1!=test2), false);
+}
+
+TEST(greater_than, greater_than_string) {
+    my_str_t test1 = my_str_t("First lab ");
+    my_str_t test2 = my_str_t("First lab ");
+    EXPECT_EQ(bool(test1>test2), false);
+
+    test2.erase(8,5);
+    EXPECT_EQ(bool(test1>test2), true);
+
+    my_str_t test3 = my_str_t("abcd");
+    my_str_t test4 = my_str_t("def");
+    EXPECT_EQ(bool(test4>test3), true);
+
+    test2.erase(0, 10);
+    EXPECT_EQ(bool(test3>test2), true);
+
+}
+TEST(greater_than, greater_than_cstring){
+    my_str_t test1 = my_str_t("hello, world");
+    const char* test2 = new char[]{"hello, world"};
+    const char* test3 = new char[]{"a new, world"};
+    EXPECT_EQ(bool(test1>test2), false);
+
+    test1.erase(11, 1);
+    EXPECT_EQ(bool(test1>test2), false);
+    EXPECT_EQ(bool(test1>test3), true);
+    delete[] test2;
+    delete[] test3;
+}
+
+TEST(greater_equal, greater_equal_string){
+    my_str_t test1 = my_str_t("abcd");
+    my_str_t test2 = my_str_t("abcd");
+    my_str_t test3("");
+    EXPECT_EQ(bool(test1>=test2), true);
+    test1.append(' ');
+    EXPECT_EQ(bool(test1>=test2), true);
+    test1.erase(3,2);
+    EXPECT_EQ(bool(test1>=test2), false);
+    EXPECT_EQ(bool(test1>=test3), true);
+}
+
+TEST(greater_equal, greater_equal_cstring){
+    my_str_t test1 = my_str_t("abcd");
+    const char* test2 = "abcd";
+    const char* test3 = "";
+    EXPECT_EQ(bool(test1>=test2), true);
+    EXPECT_EQ(bool(test2>=test1), true);
+    test1.append(' ');
+    EXPECT_EQ(bool(test1>=test2), true);
+    EXPECT_EQ(bool(test2>=test1), false);
+    test1.erase(3,2);
+    EXPECT_EQ(bool(test1>=test2), false);
+    EXPECT_EQ(bool(test1>=test3), true);
+}
+
+
+
+
