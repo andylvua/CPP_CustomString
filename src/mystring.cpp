@@ -244,18 +244,19 @@ void my_str_t::resize(size_t new_size, char new_char) {
     }
 }
 
-//bugs with missing last element
+// bugs with missing last element
 void my_str_t::erase(size_t begin, size_t size) {
     if (begin >= size_m) {
         throw std::out_of_range("Begin index is out of range");
     }
+//    calculate new size by subtracting erased part
     size_t new_size = size_m - std::min(size, size_m - begin);
     char *new_data = new char[new_size];
+//    copy string up to erased part
     std::memmove(new_data, data_m, begin);
-    for (size_t i = 0; i <= size; i++) {
-        if (begin + size + i < size_m) {
-            new_data[begin + i] = data_m[begin + i + size];
-        } else { break; }
+//    if there are a leftover of string after erased part
+    if (size+begin<size_m) {
+        std::memmove(new_data + begin, data_m + begin + size, size_m - size - begin);
     }
     size_m = new_size;
     new_data[size_m] = '\0';

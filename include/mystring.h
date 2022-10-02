@@ -2,6 +2,7 @@
 #define LAB1_CSTRING_ZINCHUKKRYVENYAROSHEVYCHKHARABARA_MYSTRING_H
 
 #include <iostream>
+#include <cstring>
 
 #pragma once
 

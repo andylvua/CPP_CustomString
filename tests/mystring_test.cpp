@@ -402,6 +402,14 @@ TEST(erase, erase_handles_empty_erase) {
     EXPECT_EQ(test1.capacity(), 15);
 }
 
+TEST(erase, erase_up_to_the_end) {
+    my_str_t test1 = my_str_t("Hello, world!");
+    test1.erase(10,10);
+    EXPECT_EQ(test1.size(), 10);
+    EXPECT_EQ(test1.capacity(), 15);
+    ASSERT_TRUE(test1 == "Hello, wor");
+
+}
 TEST(cstr, cstr) {
     my_str_t test1 = my_str_t("Hello, world!");
     const char* cstr = test1.c_str();
