@@ -5,7 +5,6 @@
 
 #include "../include/mystring.h"
 #include <cmath>
-#include <cstring>
 
 size_t my_str_t::calculate_capacity(size_t size) {
     return (size > 7) ? static_cast<size_t>
@@ -14,6 +13,13 @@ size_t my_str_t::calculate_capacity(size_t size) {
 
 size_t my_str_t::calculate_min_capacity(size_t size) {
     return static_cast<size_t> ((16 * std::ceil(static_cast<double> (size + 1) / 16)) - 1);
+}
+
+size_t my_str_t::strlen(const char *cstr) {
+    const char *s;
+
+    for (s = cstr; *s; ++s);
+    return (s - cstr);
 }
 
 my_str_t::my_str_t() {
@@ -39,7 +45,7 @@ my_str_t::my_str_t(size_t size, char initial) {
 }
 
 my_str_t::my_str_t(const char *cstr) {
-    size_m = std::strlen(cstr);
+    size_m = strlen(cstr);
 
     capacity_m = calculate_capacity(size_m);
     data_m = new char[capacity_m + 1];
@@ -154,7 +160,7 @@ size_t my_str_t::find(const std::string &str, size_t idx) {
 }
 
 size_t my_str_t::find(const char *cstr, size_t idx) {
-    size_t str_size = std::strlen(cstr);
+    size_t str_size = strlen(cstr);
 
     if (idx >= size_m) {
         throw std::out_of_range("Index out of range");
@@ -273,7 +279,7 @@ void my_str_t::insert(size_t idx, const char *cstr) {
         throw std::out_of_range("Index is out of range");
     }
 
-    size_t cstr_size = std::strlen(cstr);
+    size_t cstr_size = strlen(cstr);
 
     size_t new_size = size_m + cstr_size;
 
@@ -380,7 +386,7 @@ bool operator<=(const my_str_t &str1, const my_str_t &str2) {
 
 bool operator==(const my_str_t &str1, const char *cstr) {
     size_t str1_size = str1.size();
-    size_t cstr_size = std::strlen(cstr);
+    size_t cstr_size = strlen(cstr);
     if (str1_size != cstr_size) {
         return false;
     }
@@ -397,7 +403,7 @@ bool operator!=(const my_str_t &str1, const char *cstr) {
 
 bool operator>(const my_str_t &str1, const char *cstr) {
     size_t str1_size = str1.size();
-    size_t cstr_size = std::strlen(cstr);
+    size_t cstr_size = strlen(cstr);
 
     if (str1_size >= cstr_size) {
         for (int i = 0; i < cstr_size; ++i) {
@@ -431,7 +437,7 @@ bool operator<=(const my_str_t &str1, const char *cstr) {
 }
 
 bool operator==(const char *cstr1, const my_str_t &str2) {
-    size_t str1_size = std::strlen(cstr1);
+    size_t str1_size = strlen(cstr1);
     size_t str2_size = str2.size();
 
     if (str1_size != str2_size) {
@@ -449,7 +455,7 @@ bool operator!=(const char *cstr1, const my_str_t &str2) {
 }
 
 bool operator>(const char *cstr1, const my_str_t &str2) {
-    size_t str1_size = std::strlen(cstr1);
+    size_t str1_size = strlen(cstr1);
     size_t str2_size = str2.size();
 
     if (str1_size >= str2_size) {
