@@ -209,7 +209,6 @@ void my_str_t::shrink_to_fit() {
     }
 
     capacity_m = calculate_min_capacity(size_m);
-    std::cout << capacity_m << std::endl;
     char *new_data = new char[capacity_m + 1];
 
     std::memcpy(new_data, data_m, size_m + 1);
@@ -240,6 +239,7 @@ void my_str_t::resize(size_t new_size, char new_char) {
             data_m[i] = new_char;
         }
         data_m[new_size] = '\0';
+        size_m = new_size;
     }
 }
 
