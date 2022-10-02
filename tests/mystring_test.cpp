@@ -408,8 +408,8 @@ TEST(erase, erase_up_to_the_end) {
     EXPECT_EQ(test1.size(), 10);
     EXPECT_EQ(test1.capacity(), 15);
     ASSERT_TRUE(test1 == "Hello, wor");
-
 }
+
 TEST(cstr, cstr) {
     my_str_t test1 = my_str_t("Hello, world!");
     const char* cstr = test1.c_str();
@@ -439,7 +439,7 @@ TEST(find, find_char_handles_not_found) {
     my_str_t test1 = my_str_t("Hello, world!");
     size_t pos = test1.find('a');
 
-    EXPECT_EQ(pos, std::string::npos);
+    EXPECT_EQ(pos, my_str_t::not_found);
 }
 
 TEST(find, find_char_handles_out_of_range) {
@@ -465,7 +465,7 @@ TEST(find, find_string_handles_not_found) {
     std::string to_find = "world!";
     size_t pos = test1.find(to_find, 11);
 
-    EXPECT_EQ(pos, std::string::npos);
+    EXPECT_EQ(pos, my_str_t::not_found);
 }
 
 TEST(find, find_string_handles_out_of_range) {
@@ -480,7 +480,7 @@ TEST(find, find_string_handles_empty_string) {
     std::string to_find = ""; // NOLINT(readability-redundant-string-init)
     size_t pos = test1.find(to_find, 0);
 
-    EXPECT_EQ(pos, std::string::npos);
+    EXPECT_EQ(pos, my_str_t::not_found);
 }
 
 TEST(find, find_char_array) {
@@ -501,7 +501,7 @@ TEST(find, find_char_array_handles_not_found) {
     const char* to_find = "world!";
     size_t pos = test1.find(to_find, 11);
 
-    EXPECT_EQ(pos, std::string::npos);
+    EXPECT_EQ(pos, my_str_t::not_found);
 }
 
 TEST(find, find_char_array_handles_out_of_range) {
@@ -516,5 +516,5 @@ TEST(find, find_char_array_handles_empty_string) {
     const char* to_find = "";
     size_t pos = test1.find(to_find, 0);
 
-    EXPECT_EQ(pos, std::string::npos);
+    EXPECT_EQ(pos, my_str_t::not_found);
 }
