@@ -88,9 +88,17 @@ my_str_t &my_str_t::operator=(const my_str_t &mystr) {
 }
 
 void my_str_t::swap(my_str_t &other) noexcept {
-    std::swap(size_m, other.size_m);
-    std::swap(capacity_m, other.capacity_m);
-    std::swap(data_m, other.data_m);
+    size_t tmp_size = size_m;
+    size_m = other.size_m;
+    other.size_m = tmp_size;
+
+    size_t tmp_capacity = capacity_m;
+    capacity_m = other.capacity_m;
+    other.capacity_m = tmp_capacity;
+
+    char *tmp_data = data_m;
+    data_m = other.data_m;
+    other.data_m = tmp_data;
 }
 
 char &my_str_t::operator[](size_t idx) {
