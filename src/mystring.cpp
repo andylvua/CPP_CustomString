@@ -253,7 +253,7 @@ void my_str_t::erase(size_t begin, size_t size) {
     }
 //    calculate new size by subtracting erased part
     size_t new_size = size_m - std::min(size, size_m - begin);
-    char *new_data = new char[new_size];
+    char *new_data = new char[calculate_capacity(new_size)];
 //    copy string up to erased part
     std::memmove(new_data, data_m, begin);
 //    if there are a leftover of string after erased part
