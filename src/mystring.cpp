@@ -247,7 +247,7 @@ void my_str_t::clear() {
 void my_str_t::resize(size_t new_size, char new_char) {
     if (new_size == size_m){
         return;
-    }else if (new_size>capacity_m){
+    } else if (new_size>capacity_m){
         reserve(calculate_capacity(new_size));
         for (size_t i = 0; i<new_size - size_m; ++i){
             data_m[size_m+i] = new_char;
@@ -526,7 +526,7 @@ bool operator>(const char *cstr1, const my_str_t &str2) {
     } else if (str1_size < str2_size) {
         for (int i = 0; i < str1_size; ++i) {
             if (cstr1[i] < str2.at(i)) { return false; }
-            else if (cstr1[i] < str2.at(i)) { return true; }
+            else if (cstr1[i] > str2.at(i)) { return true; }
         }
     }
     return false;
