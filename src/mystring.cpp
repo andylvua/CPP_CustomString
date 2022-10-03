@@ -391,7 +391,8 @@ bool operator>(const my_str_t &str1, const my_str_t &str2) {
     size_t str1_size = str1.size();
     size_t str2_size = str2.size();
 
-    if (str1_size >= str2_size) {
+    if (str1 == str2) {return false;}
+    else if (str1_size >= str2_size) {
         for (int i = 0; i < str2_size; ++i) {
             if (str1.at(i) < str2.at(i)) { return false; }
         }
@@ -447,7 +448,8 @@ bool operator>(const my_str_t &str1, const char *cstr) {
     size_t str1_size = str1.size();
     size_t cstr_size = strlen(cstr);
 
-    if (str1_size >= cstr_size) {
+    if (str1 == cstr) {return false;}
+    else if (str1_size >= cstr_size) {
         for (int i = 0; i < cstr_size; ++i) {
             if (str1.at(i) < cstr[i]) { return false; }
         }
@@ -500,7 +502,8 @@ bool operator>(const char *cstr1, const my_str_t &str2) {
     size_t str1_size = strlen(cstr1);
     size_t str2_size = str2.size();
 
-    if (str1_size >= str2_size) {
+    if (cstr1 == str2) {return false;}
+    else if (str1_size >= str2_size) {
         for (int i = 0; i < str2_size; ++i) {
             if (cstr1[i] < str2.at(i)) { return false; }
         }
