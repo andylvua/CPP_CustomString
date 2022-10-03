@@ -542,6 +542,58 @@ TEST(find, find_char_array_handles_empty_string) {
     EXPECT_EQ(pos, my_str_t::not_found);
 }
 
+TEST(substr, substr) {
+    my_str_t test1 = my_str_t("Hello, world!");
+    my_str_t substr = test1.substr(7, 5);
+
+    EXPECT_EQ(substr.size(), 5);
+    EXPECT_EQ(substr.capacity(), 15);
+    ASSERT_TRUE(substr == "world");
+}
+
+TEST(substr, substr_handles_out_of_range) {
+    my_str_t test1 = my_str_t("Hello, world!");
+    ASSERT_THROW(test1.substr(13, 1), std::out_of_range);
+}
+
+TEST(substr, substr_handles_empty_string) {
+    my_str_t test1 = my_str_t("Hello, world!");
+    my_str_t substr = test1.substr(0, 0);
+
+    EXPECT_EQ(substr.size(), 0);
+    EXPECT_EQ(substr.capacity(), 15);
+    ASSERT_TRUE(substr == "");
+}
+
+TEST(substr, substr_handles_full_string) {
+    my_str_t test1 = my_str_t("Hello, world!");
+    my_str_t substr = test1.substr(0, 13);
+
+    EXPECT_EQ(substr.size(), 13);
+    EXPECT_EQ(substr.capacity(), 15);
+    ASSERT_TRUE(substr == "Hello, world!");
+}
+
+TEST(substr, substr_handles_full_string_with_overflow) {
+    my_str_t test1 = my_str_t("Hello, world!");
+    my_str_t substr = test1.substr(0, 30);
+
+    EXPECT_EQ(substr.size(), 13);
+    EXPECT_EQ(substr.capacity(), 15);
+    ASSERT_TRUE(substr == "Hello, world!");
+}
+
+TEST(substr, substr_handles_big_string) {
+    my_str_t test1 = my_str_t(1024, 'a');
+    my_str_t substr = test1.substr(0, 512);
+
+    EXPECT_EQ(substr.size(), 512);
+    EXPECT_EQ(substr.capacity(), 1023);
+    ASSERT_TRUE(substr == my_str_t(512, 'a'));
+}
+
+
+// Boolean operators
 TEST(equal, equal) {
     my_str_t test1 = my_str_t("First lab ");
     std::string helper = "First lab ";
@@ -559,6 +611,7 @@ TEST(equal, equal_strings) {
     test2.reserve(60);
     EXPECT_EQ(bool(test1 == test2), true);
 }
+
 TEST(equal, equal_cstring){
     char test1[]{"abcdef"};
     my_str_t test2 = my_str_t("abcdef");
