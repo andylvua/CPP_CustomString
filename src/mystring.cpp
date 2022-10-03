@@ -190,7 +190,7 @@ size_t my_str_t::find(const char *cstr, size_t idx) {
 }
 
 my_str_t my_str_t::substr(size_t begin, size_t size) {
-    if (begin > size_m) {
+    if (begin >= size_m) {
         throw std::out_of_range("Begin is out of range");
     }
 
