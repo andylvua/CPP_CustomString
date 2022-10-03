@@ -198,8 +198,8 @@ my_str_t my_str_t::substr(size_t begin, size_t size) {
     if (end > size_m) {end = size_m;}
 
     my_str_t copy;
-    for (size_t i = 0; i < size; ++i) {
-        copy.append(this->at(begin + i));
+    for (size_t i = begin; i < end; ++i) {
+        copy.append(this->at(i));
     }
     return copy;
 }
