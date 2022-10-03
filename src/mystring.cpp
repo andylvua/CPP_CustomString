@@ -189,6 +189,21 @@ size_t my_str_t::find(const char *cstr, size_t idx) {
     return not_found;
 }
 
+my_str_t my_str_t::substr(size_t begin, size_t size) {
+    if (begin > size_m) {
+        throw std::out_of_range("Begin is out of range");
+    }
+
+    size_t end = begin + size;
+    if (end > size_m) {end = size_m;}
+
+    my_str_t copy;
+    for (size_t i = 0; i < size; ++i) {
+        copy.append(this->at(begin + i));
+    }
+    return copy;
+}
+
 my_str_t::~my_str_t() {
     delete[] data_m;
 }

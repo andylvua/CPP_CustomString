@@ -76,7 +76,7 @@ public:
 
     size_t find(const char *cstr, size_t idx = 0);
 
-//    my_str_t substr(size_t begin, size_t size);
+    my_str_t substr(size_t begin, size_t size);
     ~my_str_t();
 };
 
