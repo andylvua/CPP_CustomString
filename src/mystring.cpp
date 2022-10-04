@@ -216,13 +216,16 @@ void my_str_t::resize(size_t new_size, char new_char) {
     }
 }
 
-//Not how was described in doc
 void my_str_t::clear() {
-    delete[] data_m;
+    if (capacity_m > 31) {
+        delete[] data_m;
 
-    capacity_m = DEFAULT_CAPACITY;
+        capacity_m = DEFAULT_CAPACITY;
+        data_m = new char[capacity_m + 1];
+    }
+
+    data_m[0] = '\0';
     size_m = 0;
-    data_m = new char[capacity_m + 1];
 }
 
 void my_str_t::insert(size_t idx, const my_str_t &str) {
