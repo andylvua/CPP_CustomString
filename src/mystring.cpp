@@ -425,12 +425,12 @@ std::ostream &operator<<(std::ostream &stream, const my_str_t &str) {
     stream << str.c_str();
     return stream;
 }
-
+//limited size of input, but no problem with dynamically allocating new memory
 std::istream &operator>>(std::istream &stream, my_str_t &str) {
-    char *buffer = new char;
+    char *buffer = new char[4096];
     stream >> buffer;
     str = my_str_t(buffer);
-    delete buffer;
+    delete[] buffer;
     return stream;
 }
 

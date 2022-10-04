@@ -81,6 +81,48 @@ public:
     my_str_t substr(size_t begin, size_t size);
 
     ~my_str_t();
+
+    friend std::ostream &operator<<(std::ostream &stream, const my_str_t &str);
+
+    friend std::ostream &readline(std::ostream &stream, my_str_t &str);
+
+    friend std::istream &operator>>(std::istream &stream, my_str_t &str);
+
+    friend bool operator==(const my_str_t &str1, const my_str_t &str2);
+
+    friend bool operator!=(const my_str_t &str1, const my_str_t &str2);
+
+    friend bool operator>(const my_str_t &str1, const my_str_t &str2);
+
+    friend bool operator>=(const my_str_t &str1, const my_str_t &str2);
+
+    friend bool operator<(const my_str_t &str1, const my_str_t &str2);
+
+    friend bool operator<=(const my_str_t &str1, const my_str_t &str2);
+
+    friend bool operator==(const my_str_t &str1, const char *cstr2);
+
+    friend bool operator!=(const my_str_t &str1, const char *cstr2);
+
+    friend bool operator>(const my_str_t &str1, const char *cstr2);
+
+    friend bool operator>=(const my_str_t &str1, const char *cstr2);
+
+    friend bool operator<(const my_str_t &str1, const char *cstr2);
+
+    friend bool operator<=(const my_str_t &str1, const char *cstr2);
+
+    friend bool operator==(const char *cstr1, const my_str_t &str2);
+
+    friend bool operator!=(const char *cstr1, const my_str_t &str2);
+
+    friend bool operator>(const char *cstr1, const my_str_t &str2);
+
+    friend bool operator>=(const char *cstr1, const my_str_t &str2);
+
+    friend bool operator<(const char *cstr1, const my_str_t &str2);
+
+    friend bool operator<=(const char *cstr1, const my_str_t &str2);
 };
 
 std::ostream &operator<<(std::ostream &stream, const my_str_t &str);
