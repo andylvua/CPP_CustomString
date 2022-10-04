@@ -401,17 +401,20 @@ my_str_t my_str_t::substr(size_t begin, size_t size) {
         throw std::out_of_range("Begin index is out of range");
     }
 
-    size_t end = begin + size;
-    if (end > size_m) {
-        end = size_m;
+    if (size == 0) {
+        return {};
     }
 
-    my_str_t copy;
-    for (size_t i = begin; i < end; ++i) {
-        copy.append(this->at(i));
-    }
+    size_t new_size = std::min(size, size_m - begin);
+    char *new_data = new char[new_size + 1];
 
-    return copy;
+    std::memcpy(new_data, data_m + begin, new_size);
+    new_data[new_size] = '\0';
+
+    my_str_t new_str(new_data);
+    delete[] new_data;
+
+    return new_str;
 }
 
 my_str_t::~my_str_t() {
