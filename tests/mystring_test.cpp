@@ -497,10 +497,23 @@ TEST(find, find_string) {
 
     EXPECT_EQ(pos, 7);
 
-    std::string to_find2 = "d!";
-    pos = test1.find(to_find2, 11);
+    std::string to_find2 = "world?";
+    pos = test1.find(to_find2, 0);
 
-    EXPECT_EQ(pos, 11);
+    EXPECT_EQ(pos, my_str_t::not_found);
+}
+
+TEST(find, find_string_handles_overflow) {
+    my_str_t test1 = my_str_t("Hello, world!");
+    std::string to_find = "world";
+    size_t pos = test1.find(to_find, 8);
+
+    EXPECT_EQ(pos, my_str_t::not_found);
+
+    std::string to_find2 = "world! What's about your capacity?";
+    pos = test1.find(to_find2, 7);
+
+    EXPECT_EQ(pos, my_str_t::not_found);
 }
 
 TEST(find, find_string_handles_not_found) {
@@ -533,10 +546,18 @@ TEST(find, find_char_array) {
 
     EXPECT_EQ(pos, 7);
 
-    const char *to_find2 = "d!";
-    pos = test1.find(to_find2, 11);
+    const char *to_find2 = "world?";
+    pos = test1.find(to_find2, 0);
 
-    EXPECT_EQ(pos, 11);
+    EXPECT_EQ(pos, my_str_t::not_found);
+}
+
+TEST(find, find_char_array_handles_overflow) {
+    my_str_t test1 = my_str_t("Hello, world!");
+    const char *to_find = "world";
+    size_t pos = test1.find(to_find, 8);
+
+    EXPECT_EQ(pos, my_str_t::not_found);
 }
 
 TEST(find, find_char_array_handles_not_found) {
