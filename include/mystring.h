@@ -84,7 +84,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &stream, const my_str_t &str);
 
-    friend std::ostream &readline(std::ostream &stream, my_str_t &str);
+    friend std::istream &readline(std::istream &stream, my_str_t &str);
 
     friend std::istream &operator>>(std::istream &stream, my_str_t &str);
 
