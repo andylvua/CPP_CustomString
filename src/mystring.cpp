@@ -9,17 +9,12 @@
 const size_t my_str_t::not_found;
 
 size_t my_str_t::calculate_capacity(size_t size) {
-    if (size <= 7) {
-        return DEFAULT_CAPACITY;
-    }
-
-    return static_cast<size_t>
-    (std::pow(2, std::ceil(std::log2(size + 1))) - 1);
+    return (size > 7) ? static_cast<size_t>
+    (std::pow(2, std::ceil(std::log2(size + 1))) - 1) : DEFAULT_CAPACITY;
 }
 
 size_t my_str_t::calculate_min_capacity(size_t size) {
-    return static_cast<size_t>
-    ((16 * std::ceil(static_cast<double> (size + 1) / 16)) - 1);
+    return static_cast<size_t> ((16 * std::ceil(static_cast<double> (size + 1) / 16)) - 1);
 }
 
 size_t my_str_t::strlen(const char *cstr) {
@@ -425,13 +420,16 @@ std::ostream &operator<<(std::ostream &stream, const my_str_t &str) {
 }
 
 std::istream &operator>>(std::istream &stream, my_str_t &str) {
-    std::string tmp;
-    stream >> tmp;
-
-    str = my_str_t(tmp);
+    char *buffer = new char;
+    stream >> buffer;
+    str = my_str_t(buffer);
+    delete buffer;
     return stream;
 }
 
+std::ostream &readline(std::ostream &stream, my_str_t &str) {
+    return stream;
+}
 
 bool operator==(const my_str_t &str1, const my_str_t &str2) {
     size_t str1_size = str1.size();

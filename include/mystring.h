@@ -83,6 +83,8 @@ public:
 
 std::ostream &operator<<(std::ostream &stream, const my_str_t &str);
 
+std::ostream &readline(std::ostream &stream, my_str_t &str);
+
 std::istream &operator>>(std::istream &stream, my_str_t &str);
 
 
