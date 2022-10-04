@@ -125,49 +125,7 @@ public:
     friend bool operator<=(const char *cstr1, const my_str_t &str2);
 };
 
-std::ostream &operator<<(std::ostream &stream, const my_str_t &str);
-
-std::ostream &readline(std::ostream &stream, my_str_t &str);
-
-std::istream &operator>>(std::istream &stream, my_str_t &str);
 
 
-bool operator==(const my_str_t &str1, const my_str_t &str2);
-
-bool operator!=(const my_str_t &str1, const my_str_t &str2);
-
-bool operator>(const my_str_t &str1, const my_str_t &str2);
-
-bool operator>=(const my_str_t &str1, const my_str_t &str2);
-
-bool operator<(const my_str_t &str1, const my_str_t &str2);
-
-bool operator<=(const my_str_t &str1, const my_str_t &str2);
-
-
-bool operator==(const my_str_t &str1, const char *cstr2);
-
-bool operator!=(const my_str_t &str1, const char *cstr2);
-
-bool operator>(const my_str_t &str1, const char *cstr2);
-
-bool operator>=(const my_str_t &str1, const char *cstr2);
-
-bool operator<(const my_str_t &str1, const char *cstr2);
-
-bool operator<=(const my_str_t &str1, const char *cstr2);
-
-
-bool operator==(const char *cstr1, const my_str_t &str2);
-
-bool operator!=(const char *cstr1, const my_str_t &str2);
-
-bool operator>(const char *cstr1, const my_str_t &str2);
-
-bool operator>=(const char *cstr1, const my_str_t &str2);
-
-bool operator<(const char *cstr1, const my_str_t &str2);
-
-bool operator<=(const char *cstr1, const my_str_t &str2);
 
 #endif //LAB1_CSTRING_ZINCHUKKRYVENYAROSHEVYCHKHARABARA_MYSTRING_H
