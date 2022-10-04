@@ -143,6 +143,14 @@ TEST(assignment_operator, assignment_operator) {
     EXPECT_EQ(test1.capacity(), test2.capacity());
     EXPECT_EQ(test1.at(0), test2.at(0));
     EXPECT_EQ(test1.at(4), test2.at(4));
+
+    my_str_t test3 = my_str_t(512, 'a');
+    test1 = test3;
+
+    EXPECT_EQ(test1.size(), test3.size());
+    EXPECT_EQ(test1.capacity(), test3.capacity());
+    EXPECT_EQ(test1.at(0), test3.at(0));
+    EXPECT_EQ(test1.at(511), test3.at(511));
 }
 
 TEST(assignment_operator, assignment_oprator_handles_self_assignment) {

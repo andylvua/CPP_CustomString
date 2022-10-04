@@ -88,8 +88,23 @@ my_str_t::my_str_t(const my_str_t &mystr) : size_m{mystr.size_m}, capacity_m{mys
 }
 
 my_str_t &my_str_t::operator=(const my_str_t &mystr) {
-    my_str_t tmp(mystr);
-    swap(tmp);
+    if (this == &mystr) {
+        return *this;
+    }
+
+    if (capacity_m < mystr.size_m) {
+        delete[] data_m;
+        capacity_m = calculate_capacity(mystr.size_m);
+        data_m = new char[capacity_m + 1];
+    }
+
+    size_m = mystr.size_m;
+
+    for (int i = 0; i < size_m; i++) {
+        data_m[i] = mystr[i];
+    }
+
+    data_m[size_m] = '\0';
 
     return *this;
 }
@@ -154,7 +169,6 @@ void my_str_t::reserve(size_t new_capacity) {
     data_m = new_data;
 }
 
-// May be wrong. Inplace reallocation may be a better solution
 void my_str_t::shrink_to_fit() {
     if (size_m == capacity_m) {
         return;
@@ -169,7 +183,6 @@ void my_str_t::shrink_to_fit() {
     data_m = new_data;
 }
 
-//Implementation may be wrong
 void my_str_t::resize(size_t new_size, char new_char) {
     if (new_size == size_m) {
         return;
