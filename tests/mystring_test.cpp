@@ -673,9 +673,9 @@ TEST(istream, istream) {
     my_str_t test1;
     std::ostringstream out;
     std::istringstream in("Hello,world!");
-    in>>test1;
+    in >> test1;
     out << test1;
-    std::cout<<test1<<std::endl;
+    std::cout << test1 << std::endl;
     EXPECT_EQ(test1.size(), 12);
     EXPECT_EQ(test1.capacity(), 15);
     ASSERT_TRUE(out.str() == "Hello,world!");
@@ -759,8 +759,8 @@ TEST(equal, equal_strings) {
     EXPECT_EQ(bool(test1 == test2), true);
 }
 
-TEST(equal, equal_cstring){
-    const char* test1{"abcdef"};
+TEST(equal, equal_cstring) {
+    const char *test1{"abcdef"};
     my_str_t test2 = my_str_t("abcdef");
     my_str_t test3 = my_str_t("abcde0");
     EXPECT_EQ(bool(test1 == test2), true);
@@ -769,7 +769,7 @@ TEST(equal, equal_cstring){
     test2.append('a');
     EXPECT_EQ(bool(test1 == test2), false);
 
-    const char* test4{"abcdef"};
+    const char *test4{"abcdef"};
     EXPECT_EQ(bool(test4 == test3), false);
     EXPECT_EQ(bool(test3 == test4), false);
 }
@@ -779,7 +779,7 @@ TEST(not_equal, not_equal) {
     my_str_t test2 = my_str_t("First lab ");
     EXPECT_EQ(bool(test1!=test2), false);
 
-    const char* test3{"abcdef"};
+    const char *test3{"abcdef"};
     my_str_t test4 = my_str_t("abcde0");
     EXPECT_EQ(bool(test3 != test4), true);
 
@@ -789,11 +789,11 @@ TEST(not_equal, not_equal) {
 
 TEST(not_equal, not_equal_cstr) {
     my_str_t test1 = my_str_t("First lab");
-    const char* test2{"First lab"};
+    const char *test2{"First lab"};
 
     EXPECT_EQ(bool(test1 != test2), false);
 
-    const char* test3{"Hello, world!"};
+    const char *test3{"Hello, world!"};
     EXPECT_EQ(bool(test1 != test3), true);
 }
 
@@ -809,7 +809,7 @@ TEST(greater_than, greater_than_string) {
     EXPECT_EQ(bool(test1>test2), false);
     EXPECT_EQ(bool(test2>test1), false);
 
-    test2.erase(8,5);
+    test2.erase(8, 5);
     EXPECT_EQ(bool(test1>test2), true);
 
     my_str_t test3 = my_str_t("First lab 1");
@@ -827,10 +827,10 @@ TEST(greater_than, greater_than_string) {
     EXPECT_EQ(bool(test3>test2), true);
 }
 
-TEST(greater_than, greater_than_cstring){
+TEST(greater_than, greater_than_cstring) {
     my_str_t test1 = my_str_t("hello, world");
-    const char* test2 = "hello, world";
-    const char* test3 = "a new, world";
+    const char *test2 = "hello, world";
+    const char *test3 = "a new, world";
     EXPECT_EQ(bool(test1>test2), false);
     EXPECT_EQ(bool(test2>test1), false);
 
@@ -854,10 +854,10 @@ TEST(greater_than, greater_than_cstring){
     EXPECT_EQ(bool(test7>test8), false);
 }
 
-TEST(less_than, less_than_cstring){
+TEST(less_than, less_than_cstring) {
     my_str_t test1 = my_str_t("hello, world");
-    const char* test2 = "hello, world";
-    const char* test3 = "a new, world";
+    const char *test2 = "hello, world";
+    const char *test3 = "a new, world";
     EXPECT_EQ(bool(test1<test2), false);
     EXPECT_EQ(bool(test2<test1), false);
 
@@ -865,7 +865,7 @@ TEST(less_than, less_than_cstring){
     EXPECT_EQ(bool(test1<test2), true);
     EXPECT_EQ(bool(test1<test3), false);
 
-    const char* test4{"First lab 2."};
+    const char *test4{"First lab 2."};
     my_str_t test5 = my_str_t("First lab 1.");
     EXPECT_EQ(bool(test4<test5), false);
 
@@ -874,8 +874,6 @@ TEST(less_than, less_than_cstring){
 
     const char test7[]{"First lab 1."};
     EXPECT_EQ(bool(test7<test6), true);
-
-
 }
 
 TEST(less_than, less_than_string) {
@@ -883,7 +881,7 @@ TEST(less_than, less_than_string) {
     my_str_t test2 = my_str_t("First lab ");
     EXPECT_EQ(bool(test1<test2), false);
 
-    test2.erase(8,5);
+    test2.erase(8, 5);
     EXPECT_EQ(bool(test1<test2), false);
     EXPECT_EQ(bool(test2<test1), true);
 
@@ -898,48 +896,48 @@ TEST(less_than, less_than_string) {
 
 }
 
-TEST(greater_equal, greater_equal_string){
+TEST(greater_equal, greater_equal_string) {
     my_str_t test1 = my_str_t("abcd");
     my_str_t test2 = my_str_t("abcd");
     my_str_t test3("");
     EXPECT_EQ(bool(test1>=test2), true);
     test1.append(' ');
     EXPECT_EQ(bool(test1>=test2), true);
-    test1.erase(3,2);
+    test1.erase(3, 2);
     EXPECT_EQ(bool(test1>=test2), false);
     EXPECT_EQ(bool(test1>=test3), true);
 }
 
-TEST(greater_equal, greater_equal_cstring){
+TEST(greater_equal, greater_equal_cstring) {
     my_str_t test1 = my_str_t("abcd");
-    const char* test2 = "abcd";
-    const char* test3 = "";
+    const char *test2 = "abcd";
+    const char *test3 = "";
     EXPECT_EQ(bool(test1>=test2), true);
     EXPECT_EQ(bool(test2>=test1), true);
     test1.append(' ');
     EXPECT_EQ(bool(test1>=test2), true);
     EXPECT_EQ(bool(test2>=test1), false);
-    test1.erase(3,2);
+    test1.erase(3, 2);
     EXPECT_EQ(bool(test1>=test2), false);
     EXPECT_EQ(bool(test1>=test3), true);
 }
 
-TEST(less_equal, less_equal_string){
+TEST(less_equal, less_equal_string) {
     my_str_t test1 = my_str_t("First lab ");
     my_str_t test2 = my_str_t("First lab ");
     EXPECT_EQ(bool(test1<=test2), true);
-    test1.erase(5,10);
+    test1.erase(5, 10);
     EXPECT_EQ(bool(test1<=test2), true);
     test1.insert(0, "zzz");
     EXPECT_EQ(bool(test1<=test2), false);
 }
 
-TEST(less_equal, less_equal_ctring){
+TEST(less_equal, less_equal_ctring) {
     my_str_t test1 = my_str_t("First lab ");
-    const char* test2 = "First lab ";
+    const char *test2 = "First lab ";
     EXPECT_EQ(bool(test1<=test2), true);
     EXPECT_EQ(bool(test2<=test1), true);
-    test1.erase(5,10);
+    test1.erase(5, 10);
     EXPECT_EQ(bool(test1<=test2), true);
     EXPECT_EQ(bool(test2<=test1), false);
     test1.insert(0, "zzz");

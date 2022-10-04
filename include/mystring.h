@@ -30,7 +30,7 @@ public:
 
     my_str_t(const my_str_t &mystr);
 
-    my_str_t(my_str_t&& mystr);
+    my_str_t(my_str_t &&mystr);
 
     my_str_t &operator=(const my_str_t &mystr);
 
@@ -124,8 +124,6 @@ public:
 
     friend bool operator<=(const char *cstr1, const my_str_t &str2);
 };
-
-
 
 
 #endif //LAB1_CSTRING_ZINCHUKKRYVENYAROSHEVYCHKHARABARA_MYSTRING_H

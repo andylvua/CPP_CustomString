@@ -82,7 +82,7 @@ my_str_t::my_str_t(const my_str_t &mystr) : size_m{mystr.size_m}, capacity_m{mys
     data_m[size_m] = '\0';
 }
 
-my_str_t::my_str_t(my_str_t &&mystr): size_m{mystr.size_m},capacity_m{mystr.capacity_m},data_m{mystr.data_m}{
+my_str_t::my_str_t(my_str_t &&mystr) : size_m{mystr.size_m}, capacity_m{mystr.capacity_m}, data_m{mystr.data_m} {
     mystr.data_m = nullptr;
 }
 
