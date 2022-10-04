@@ -441,7 +441,7 @@ std::ostream &operator<<(std::ostream &stream, const my_str_t &str) {
     stream << str.c_str();
     return stream;
 }
-//limited size of input, but no problem with dynamically allocating new memory
+
 std::istream &operator>>(std::istream &stream, my_str_t &str) {
     char *buffer = new char[4096];
     stream >> buffer;
@@ -450,7 +450,32 @@ std::istream &operator>>(std::istream &stream, my_str_t &str) {
     return stream;
 }
 
-std::ostream &readline(std::ostream &stream, my_str_t &str) {
+std::istream &readline(std::istream &stream, my_str_t &str) {
+    char *buffer = new char[4096];
+    size_t buffer_size = 4096;
+    size_t buffer_idx = 0;
+    char c;
+
+    while (stream.get(c)) {
+        if (buffer_idx == buffer_size - 1) {
+            buffer_size *= 2;
+            char *new_buffer = new char[buffer_size];
+            std::memcpy(new_buffer, buffer, buffer_idx);
+            delete[] buffer;
+            buffer = new_buffer;
+        }
+        if (c == '\n') {
+            break;
+        }
+        buffer[buffer_idx] = c;
+        buffer_idx++;
+    }
+
+    buffer[buffer_idx] = '\0';
+
+    str = my_str_t(buffer);
+    delete[] buffer;
+
     return stream;
 }
 
