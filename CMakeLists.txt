@@ -4,7 +4,6 @@ project(${PROJECT_NAME} C CXX)
 
 set(CMAKE_CXX_STANDARD 14)
 
-
 include(FetchContent)
 FetchContent_Declare(
         googletest
@@ -15,9 +14,15 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(${PROJECT_NAME} src/mystring.cpp include/mystring.h src/main.cpp)
-add_executable(${PROJECT_NAME}_test tests/mystring_test.cpp src/mystring.cpp include/mystring.h)
 
-target_link_libraries(${PROJECT_NAME}_test gtest_main)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 
 target_compile_options(${PROJECT_NAME} PRIVATE -Werror=vla)
+
+enable_testing()
+
+add_executable(${PROJECT_NAME}_test tests/mystring_test.cpp src/mystring.cpp include/mystring.h)
+target_link_libraries(${PROJECT_NAME}_test gtest_main)
+
+include(GoogleTest)
+gtest_discover_tests(${PROJECT_NAME}_test)
