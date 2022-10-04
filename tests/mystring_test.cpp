@@ -391,6 +391,15 @@ TEST(append, append_char) {
     ASSERT_TRUE(test2 == "Hello, world! What's about your capacity?!");
 }
 
+TEST(append, append_char_handles_overflow) {
+    my_str_t test1 = my_str_t(15, 'a');
+    test1.append('b');
+
+    EXPECT_EQ(test1.size(), 16);
+    EXPECT_EQ(test1.capacity(), 31);
+    ASSERT_TRUE(test1 == "aaaaaaaaaaaaaaab");
+}
+
 TEST(append, append_char_array) {
     my_str_t test1 = my_str_t("Hello, ");
     const char *to_append = "world!";
