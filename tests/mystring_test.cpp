@@ -701,7 +701,7 @@ TEST(equal, equal_strings) {
 }
 
 TEST(equal, equal_cstring){
-    char test1[]{"abcdef"};
+    const char* test1{"abcdef"};
     my_str_t test2 = my_str_t("abcdef");
     my_str_t test3 = my_str_t("abcde0");
     EXPECT_EQ(bool(test1 == test2), true);
@@ -710,7 +710,7 @@ TEST(equal, equal_cstring){
     test2.append('a');
     EXPECT_EQ(bool(test1 == test2), false);
 
-    char test4[]{"abcdef"};
+    const char* test4{"abcdef"};
     EXPECT_EQ(bool(test4 == test3), false);
     EXPECT_EQ(bool(test3 == test4), false);
 }
@@ -720,7 +720,7 @@ TEST(not_equal, not_equal) {
     my_str_t test2 = my_str_t("First lab ");
     EXPECT_EQ(bool(test1!=test2), false);
 
-    char test3[]{"abcdef"};
+    const char* test3{"abcdef"};
     my_str_t test4 = my_str_t("abcde0");
     EXPECT_EQ(bool(test3 != test4), true);
 
@@ -730,11 +730,11 @@ TEST(not_equal, not_equal) {
 
 TEST(not_equal, not_equal_cstr) {
     my_str_t test1 = my_str_t("First lab");
-    const char test2[]{"First lab"};
+    const char* test2{"First lab"};
 
     EXPECT_EQ(bool(test1 != test2), false);
 
-    const char test3[]{"Hello, world!"};
+    const char* test3{"Hello, world!"};
     EXPECT_EQ(bool(test1 != test3), true);
 }
 
@@ -770,8 +770,8 @@ TEST(greater_than, greater_than_string) {
 
 TEST(greater_than, greater_than_cstring){
     my_str_t test1 = my_str_t("hello, world");
-    const char* test2 = new char[]{"hello, world"};
-    const char* test3 = new char[]{"a new, world"};
+    const char* test2 = "hello, world";
+    const char* test3 = "a new, world";
     EXPECT_EQ(bool(test1>test2), false);
     EXPECT_EQ(bool(test2>test1), false);
 
@@ -793,14 +793,12 @@ TEST(greater_than, greater_than_cstring){
 
     test7.erase(13, 17);
     EXPECT_EQ(bool(test7>test8), false);
-    delete[] test2;
-    delete[] test3;
 }
 
 TEST(less_than, less_than_cstring){
     my_str_t test1 = my_str_t("hello, world");
-    const char* test2 = new char[]{"hello, world"};
-    const char* test3 = new char[]{"a new, world"};
+    const char* test2 = "hello, world";
+    const char* test3 = "a new, world";
     EXPECT_EQ(bool(test1<test2), false);
     EXPECT_EQ(bool(test2<test1), false);
 
@@ -808,7 +806,7 @@ TEST(less_than, less_than_cstring){
     EXPECT_EQ(bool(test1<test2), true);
     EXPECT_EQ(bool(test1<test3), false);
 
-    const char test4[]{"First lab 2."};
+    const char* test4{"First lab 2."};
     my_str_t test5 = my_str_t("First lab 1.");
     EXPECT_EQ(bool(test4<test5), false);
 
@@ -819,9 +817,6 @@ TEST(less_than, less_than_cstring){
     EXPECT_EQ(bool(test7<test6), true);
 
 
-
-    delete[] test2;
-    delete[] test3;
 }
 
 TEST(less_than, less_than_string) {
