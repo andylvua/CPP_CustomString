@@ -1,6 +1,5 @@
-
 //
-// Created by Andrew on 29.09.2022.
+// Created by Andrew Yaroshevych on 29.09.2022.
 //
 
 #include "../include/mystring.h"
@@ -10,12 +9,17 @@
 const size_t my_str_t::not_found;
 
 size_t my_str_t::calculate_capacity(size_t size) {
-    return (size > 7) ? static_cast<size_t>
-    (std::pow(2, std::ceil(std::log2(size + 1))) - 1) : DEFAULT_CAPACITY;
+    if (size <= 7) {
+        return DEFAULT_CAPACITY;
+    }
+
+    return static_cast<size_t>
+    (std::pow(2, std::ceil(std::log2(size + 1))) - 1);
 }
 
 size_t my_str_t::calculate_min_capacity(size_t size) {
-    return static_cast<size_t> ((16 * std::ceil(static_cast<double> (size + 1) / 16)) - 1);
+    return static_cast<size_t>
+    ((16 * std::ceil(static_cast<double> (size + 1) / 16)) - 1);
 }
 
 size_t my_str_t::strlen(const char *cstr) {
@@ -40,11 +44,11 @@ my_str_t::my_str_t(size_t size, char initial) {
     capacity_m = calculate_capacity(size_m);
     data_m = new char[capacity_m + 1];
 
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < size_m; i++) {
         data_m[i] = initial;
     }
 
-    data_m[size] = '\0';
+    data_m[size_m] = '\0';
 }
 
 my_str_t::my_str_t(const char *cstr) {
@@ -77,7 +81,7 @@ my_str_t::my_str_t(const my_str_t &mystr) : size_m{mystr.size_m}, capacity_m{mys
     data_m = new char[capacity_m + 1];
 
     for (int i = 0; i < size_m; i++) {
-        data_m[i] = mystr.at(i);
+        data_m[i] = mystr[i];
     }
 
     data_m[size_m] = '\0';
@@ -105,12 +109,18 @@ void my_str_t::swap(my_str_t &other) noexcept {
 }
 
 char &my_str_t::operator[](size_t idx) {
-    if (idx >= size_m) { throw std::out_of_range("Index is out of range"); }
+    if (idx >= size_m) {
+        throw std::out_of_range("Index is out of range");
+    }
+
     return data_m[idx];
 }
 
 const char &my_str_t::operator[](size_t idx) const {
-    if (idx >= size_m) { throw std::out_of_range("Index is out of range"); }
+    if (idx >= size_m) {
+        throw std::out_of_range("Index is out of range");
+    }
+
     return data_m[idx];
 }
 
@@ -118,6 +128,7 @@ char &my_str_t::at(size_t idx) {
     if (idx >= size_m) {
         throw std::out_of_range("Index is out of range");
     }
+
     return data_m[idx];
 }
 
@@ -125,91 +136,14 @@ const char &my_str_t::at(size_t idx) const {
     if (idx >= size_m) {
         throw std::out_of_range("Index is out of range");
     }
+
     return data_m[idx];
 }
 
-size_t my_str_t::size() const noexcept {
-    return size_m;
-}
-
-size_t my_str_t::capacity() const noexcept {
-    return capacity_m;
-}
-
-const char *my_str_t::c_str() const {
-    return data_m;
-}
-
-size_t my_str_t::find(char c, size_t idx) {
-    if (idx >= size_m) {
-        throw std::out_of_range("Index out of range");
-    }
-
-    for (size_t i = idx; i < size_m; ++i) {
-        if (c == data_m[i]) {return i;}
-    }
-    return not_found;
-}
-
-size_t my_str_t::find(const std::string &str, size_t idx) {
-    size_t str_size = str.size();
-
-    if (idx >= size_m) {
-        throw std::out_of_range("Index out of range");
-    }
-    if (size_m - idx < str_size || str_size == 0) {return not_found;}
-
-    for (size_t i = idx; i < size_m - str_size + 1; ++i) {
-        if (data_m[i] == str.at(0)) {
-            for (size_t j = 0; j < str_size; ++j) {
-                if (data_m[i + j] != str.at(j)) {break;}
-                if (j == str_size - 1) {return i;}
-            }
-        }
-    }
-    return not_found;
-}
-
-size_t my_str_t::find(const char *cstr, size_t idx) {
-    size_t str_size = strlen(cstr);
-
-    if (idx >= size_m) {
-        throw std::out_of_range("Index out of range");
-    }
-    if (size_m - idx < str_size || str_size == 0) {return not_found;}
-
-    for (size_t i = idx; i < size_m - str_size + 1; i++) {
-        if (data_m[i] == cstr[0]) {
-            for (size_t j = 0; j < str_size; ++j) {
-                if (data_m[i + j] != cstr[j]) {break;}
-                if (j == str_size - 1) {return i;}
-            }
-        }
-    }
-    return not_found;
-}
-
-my_str_t my_str_t::substr(size_t begin, size_t size) {
-    if (begin >= size_m) {
-        throw std::out_of_range("Begin is out of range");
-    }
-
-    size_t end = begin + size;
-    if (end > size_m) {end = size_m;}
-
-    my_str_t copy;
-    for (size_t i = begin; i < end; ++i) {
-        copy.append(this->at(i));
-    }
-    return copy;
-}
-
-my_str_t::~my_str_t() {
-    delete[] data_m;
-}
-
 void my_str_t::reserve(size_t new_capacity) {
-    if (new_capacity <= capacity_m) { return; }
+    if (new_capacity <= capacity_m) {
+        return;
+    }
 
     capacity_m = new_capacity;
 
@@ -235,59 +169,47 @@ void my_str_t::shrink_to_fit() {
     data_m = new_data;
 }
 
-//not how was described in doc
+//Implementation may be wrong
+void my_str_t::resize(size_t new_size, char new_char) {
+    if (new_size == size_m) {
+        return;
+    }
+
+    if (new_size > capacity_m) {
+        reserve(calculate_capacity(new_size));
+
+        for (size_t i = 0; i < new_size - size_m; ++i) {
+            data_m[size_m + i] = new_char;
+        }
+
+        data_m[new_size] = '\0';
+        size_m = new_size;
+
+        return;
+    }
+
+    if (new_size > size_m) {
+        for (size_t i = 0; i < new_size - size_m; ++i) {
+            data_m[size_m + i] = new_char;
+        }
+
+        data_m[new_size] = '\0';
+        size_m = new_size;
+
+        return;
+    } else {
+        size_m = new_size;
+        data_m[size_m] = '\0';
+    }
+}
+
+//Not how was described in doc
 void my_str_t::clear() {
     delete[] data_m;
 
     capacity_m = DEFAULT_CAPACITY;
     size_m = 0;
     data_m = new char[capacity_m + 1];
-}
-
-void my_str_t::resize(size_t new_size, char new_char) {
-    if (new_size == size_m){
-        return;
-    } else if (new_size>capacity_m){
-        reserve(calculate_capacity(new_size));
-        for (size_t i = 0; i<new_size - size_m; ++i){
-            data_m[size_m+i] = new_char;
-        }
-        data_m[new_size] = '\0';
-        size_m = new_size;
-        return;
-    }else if (new_size>size_m){
-        for (size_t i = 0; i<new_size - size_m; ++i){
-            data_m[size_m+i] = new_char;
-        }
-        data_m[new_size] = '\0';
-        size_m = new_size;
-        return;
-    }
-    else if (new_size<size_m){
-        size_m = new_size;
-        data_m[size_m] = '\0';
-    }
-}
-
-// bugs with missing last element
-void my_str_t::erase(size_t begin, size_t size) {
-    if (begin >= size_m) {
-        throw std::out_of_range("Begin index is out of range");
-    }
-//    calculate new size by subtracting erased part
-    size_t new_size = size_m - std::min(size, size_m - begin);
-    char *new_data = new char[calculate_capacity(new_size) + 1];
-//    copy string up to erased part
-    std::memmove(new_data, data_m, begin);
-//    if there are a leftover of string after erased part
-    if (size+begin<size_m) {
-        std::memmove(new_data + begin, data_m + begin + size, size_m - size - begin);
-    }
-    size_m = new_size;
-    new_data[size_m] = '\0';
-    delete[] data_m;
-    data_m = new_data;
-    this->shrink_to_fit();
 }
 
 void my_str_t::insert(size_t idx, const my_str_t &str) {
@@ -371,16 +293,142 @@ void my_str_t::append(const char *cstr) {
     data_m[size_m] = '\0';
 }
 
+void my_str_t::erase(size_t begin, size_t size) {
+    if (begin >= size_m) {
+        throw std::out_of_range("Begin index is out of range");
+    }
+
+    size_t new_size = size_m - std::min(size, size_m - begin);
+    char *new_data = new char[calculate_capacity(new_size) + 1];
+
+    std::memmove(new_data, data_m, begin);
+
+    if (size + begin < size_m) {
+        std::memmove(new_data + begin, data_m + begin + size, size_m - size - begin);
+    }
+
+    size_m = new_size;
+    new_data[size_m] = '\0';
+
+    delete[] data_m;
+    data_m = new_data;
+
+    this->shrink_to_fit();
+}
+
+size_t my_str_t::size() const noexcept {
+    return size_m;
+}
+
+size_t my_str_t::capacity() const noexcept {
+    return capacity_m;
+}
+
+const char *my_str_t::c_str() const {
+    return data_m;
+}
+
+size_t my_str_t::find(char c, size_t idx) {
+    if (idx >= size_m) {
+        throw std::out_of_range("Index out of range");
+    }
+
+    for (size_t i = idx; i < size_m; ++i) {
+        if (c == data_m[i]) {
+            return i;
+        }
+    }
+
+    return not_found;
+}
+
+size_t my_str_t::find(const std::string &str, size_t idx) {
+    size_t str_size = str.size();
+
+    if (idx >= size_m) {
+        throw std::out_of_range("Index out of range");
+    }
+
+    if (size_m - idx < str_size || str_size == 0) {
+        return not_found;
+    }
+
+    for (size_t i = idx; i < size_m - str_size + 1; ++i) {
+        if (data_m[i] == str.at(0)) {
+            for (size_t j = 0; j < str_size; ++j) {
+                if (data_m[i + j] != str.at(j)) {
+                    break;
+                }
+                if (j == str_size - 1) {
+                    return i;
+                }
+            }
+        }
+    }
+
+    return not_found;
+}
+
+size_t my_str_t::find(const char *cstr, size_t idx) {
+    size_t str_size = strlen(cstr);
+
+    if (idx >= size_m) {
+        throw std::out_of_range("Index out of range");
+    }
+
+    if (size_m - idx < str_size || str_size == 0) {
+        return not_found;
+    }
+
+    for (size_t i = idx; i < size_m - str_size + 1; i++) {
+        if (data_m[i] == cstr[0]) {
+            for (size_t j = 0; j < str_size; ++j) {
+                if (data_m[i + j] != cstr[j]) {
+                    break;
+                }
+                if (j == str_size - 1) {
+                    return i;
+                }
+            }
+        }
+    }
+
+    return not_found;
+}
+
+my_str_t my_str_t::substr(size_t begin, size_t size) {
+    if (begin >= size_m) {
+        throw std::out_of_range("Begin index is out of range");
+    }
+
+    size_t end = begin + size;
+    if (end > size_m) {
+        end = size_m;
+    }
+
+    my_str_t copy;
+    for (size_t i = begin; i < end; ++i) {
+        copy.append(this->at(i));
+    }
+
+    return copy;
+}
+
+my_str_t::~my_str_t() {
+    delete[] data_m;
+}
+
+
 std::ostream &operator<<(std::ostream &stream, const my_str_t &str) {
     stream << str.c_str();
     return stream;
 }
 
 std::istream &operator>>(std::istream &stream, my_str_t &str) {
-    char *buffer = new char;
-    stream >> buffer;
-    str = my_str_t(buffer);
-    delete buffer;
+    std::string tmp;
+    stream >> tmp;
+
+    str = my_str_t(tmp);
     return stream;
 }
 
@@ -388,17 +436,25 @@ std::istream &operator>>(std::istream &stream, my_str_t &str) {
 bool operator==(const my_str_t &str1, const my_str_t &str2) {
     size_t str1_size = str1.size();
     size_t str2_size = str2.size();
+
     if (str1_size != str2_size) {
         return false;
     }
+
     for (int i = 0; i < str1_size; ++i) {
-        if (str1.at(i) != str2.at(i)) { return false; }
+        if (str1.at(i) != str2.at(i)) {
+            return false;
+        }
     }
+
     return true;
 }
 
 bool operator!=(const my_str_t &str1, const my_str_t &str2) {
-    if (str1 == str2) { return false; }
+    if (str1 == str2) {
+        return false;
+    }
+
     return true;
 }
 
@@ -406,18 +462,28 @@ bool operator>(const my_str_t &str1, const my_str_t &str2) {
     size_t str1_size = str1.size();
     size_t str2_size = str2.size();
 
-    if (str1 == str2) {return false;}
-    else if (str1_size >= str2_size) {
+    if (str1 == str2) {
+        return false;
+    }
+
+    if (str1_size >= str2_size) {
         for (int i = 0; i < str2_size; ++i) {
-            if (str1.at(i) < str2.at(i)) { return false; }
+            if (str1.at(i) < str2.at(i)) {
+                return false;
+            }
         }
+
         return true;
     } else if (str1_size < str2_size) {
         for (int i = 0; i < str1_size; ++i) {
-            if (str1.at(i) < str2.at(i)) { return false; }
-            else if (str1.at(i) > str2.at(i)) { return true; }
+            if (str1.at(i) < str2.at(i)) {
+                return false;
+            } else if (str1.at(i) > str2.at(i)) {
+                return true;
+            }
         }
     }
+
     return false;
 }
 
@@ -425,6 +491,7 @@ bool operator>=(const my_str_t &str1, const my_str_t &str2) {
     if (str1 == str2 || str1 > str2) {
         return true;
     }
+
     return false;
 }
 
@@ -432,6 +499,7 @@ bool operator<(const my_str_t &str1, const my_str_t &str2) {
     if (str1 >= str2) {
         return false;
     }
+
     return true;
 }
 
@@ -439,23 +507,32 @@ bool operator<=(const my_str_t &str1, const my_str_t &str2) {
     if (str1 > str2) {
         return false;
     }
+
     return true;
 }
 
 bool operator==(const my_str_t &str1, const char *cstr) {
     size_t str1_size = str1.size();
     size_t cstr_size = strlen(cstr);
+
     if (str1_size != cstr_size) {
         return false;
     }
+
     for (int i = 0; i < str1_size; ++i) {
-        if (str1.at(i) != cstr[i]) { return false; }
+        if (str1.at(i) != cstr[i]) {
+            return false;
+        }
     }
+
     return true;
 }
 
 bool operator!=(const my_str_t &str1, const char *cstr) {
-    if (str1 == cstr) { return false; }
+    if (str1 == cstr) {
+        return false;
+    }
+
     return true;
 }
 
@@ -463,16 +540,25 @@ bool operator>(const my_str_t &str1, const char *cstr) {
     size_t str1_size = str1.size();
     size_t cstr_size = strlen(cstr);
 
-    if (str1 == cstr) {return false;}
-    else if (str1_size >= cstr_size) {
+    if (str1 == cstr) {
+        return false;
+    }
+
+    if (str1_size >= cstr_size) {
         for (int i = 0; i < cstr_size; ++i) {
-            if (str1.at(i) < cstr[i]) { return false; }
+            if (str1.at(i) < cstr[i]) {
+                return false;
+            }
         }
+
         return true;
     } else if (str1_size < cstr_size) {
         for (int i = 0; i < str1_size; ++i) {
-            if (str1.at(i) < cstr[i]) { return false; }
-            else if (str1.at(i) > cstr[i]) { return true; }
+            if (str1.at(i) < cstr[i]) {
+                return false;
+            } else if (str1.at(i) > cstr[i]) {
+                return true;
+            }
         }
     }
     return false;
@@ -482,16 +568,23 @@ bool operator>=(const my_str_t &str1, const char *cstr) {
     if (str1 == cstr || str1 > cstr) {
         return true;
     }
+
     return false;
 }
 
 bool operator<(const my_str_t &str1, const char *cstr) {
-    if (str1 >= cstr) { return false; }
+    if (str1 >= cstr) {
+        return false;
+    }
+
     return true;
 }
 
 bool operator<=(const my_str_t &str1, const char *cstr) {
-    if (str1 > cstr) { return false; }
+    if (str1 > cstr) {
+        return false;
+    }
+
     return true;
 }
 
@@ -502,14 +595,21 @@ bool operator==(const char *cstr1, const my_str_t &str2) {
     if (str1_size != str2_size) {
         return false;
     }
+
     for (int i = 0; i < str1_size; ++i) {
-        if (cstr1[i] != str2.at(i)) { return false; }
+        if (cstr1[i] != str2.at(i)) {
+            return false;
+        }
     }
+
     return true;
 }
 
 bool operator!=(const char *cstr1, const my_str_t &str2) {
-    if (cstr1 == str2) { return false; }
+    if (cstr1 == str2) {
+        return false;
+    }
+
     return true;
 }
 
@@ -517,18 +617,28 @@ bool operator>(const char *cstr1, const my_str_t &str2) {
     size_t str1_size = strlen(cstr1);
     size_t str2_size = str2.size();
 
-    if (cstr1 == str2) {return false;}
-    else if (str1_size >= str2_size) {
+    if (cstr1 == str2) {
+        return false;
+    }
+
+    if (str1_size >= str2_size) {
         for (int i = 0; i < str2_size; ++i) {
-            if (cstr1[i] < str2.at(i)) { return false; }
+            if (cstr1[i] < str2.at(i)) {
+                return false;
+            }
         }
+
         return true;
     } else if (str1_size < str2_size) {
         for (int i = 0; i < str1_size; ++i) {
-            if (cstr1[i] < str2.at(i)) { return false; }
-            else if (cstr1[i] > str2.at(i)) { return true; }
+            if (cstr1[i] < str2.at(i)) {
+                return false;
+            } else if (cstr1[i] > str2.at(i)) {
+                return true;
+            }
         }
     }
+
     return false;
 }
 
@@ -536,15 +646,22 @@ bool operator>=(const char *cstr1, const my_str_t &str2) {
     if (cstr1 == str2 || cstr1 > str2) {
         return true;
     }
+
     return false;
 }
 
 bool operator<(const char *cstr1, const my_str_t &str2) {
-    if (cstr1 >= str2) { return false; }
+    if (cstr1 >= str2) {
+        return false;
+    }
+
     return true;
 }
 
 bool operator<=(const char *cstr1, const my_str_t &str2) {
-    if (cstr1 > str2) { return false; }
+    if (cstr1 > str2) {
+        return false;
+    }
+
     return true;
 }
