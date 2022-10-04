@@ -650,16 +650,17 @@ TEST(ostream, ostream) {
     EXPECT_EQ(ss.str(), "Hello, world!");
 }
 
-//TEST(istream, istream) {
-//    my_str_t test1 = my_str_t("Hello,world!");
-//    std::stringstream ss;
-//    ss << test1;
-//    my_str_t test2;
-//    ss >> test2;
-//    EXPECT_EQ(test2.size(), 12);
-//    EXPECT_EQ(test2.capacity(), 15);
-//    ASSERT_TRUE(test2 == "Hello,world!");
-//}
+TEST(istream, istream) {
+    my_str_t test1;
+    std::ostringstream out;
+    std::istringstream in("Hello,world!");
+    in>>test1;
+    out << test1;
+    std::cout<<test1<<std::endl;
+    EXPECT_EQ(test1.size(), 12);
+    EXPECT_EQ(test1.capacity(), 15);
+    ASSERT_TRUE(out.str() == "Hello,world!");
+}
 
 // Boolean operators
 TEST(equal, equal) {
