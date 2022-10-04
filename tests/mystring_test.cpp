@@ -681,7 +681,66 @@ TEST(istream, istream) {
     ASSERT_TRUE(out.str() == "Hello,world!");
 }
 
-// Boolean operators
+TEST(readline, readline) {
+    my_str_t test1;
+    std::istringstream in("Hello, world! How are you?\n I'm fine, thanks!");
+
+    readline(in, test1);
+
+    EXPECT_EQ(test1.size(), 26);
+    EXPECT_EQ(test1.capacity(), 31);
+    ASSERT_EQ(test1, "Hello, world! How are you?");
+}
+
+TEST(readline, readline_handles_empty_string) {
+    my_str_t test1;
+    std::istringstream in("");
+
+    readline(in, test1);
+
+    EXPECT_EQ(test1.size(), 0);
+    EXPECT_EQ(test1.capacity(), 15);
+    ASSERT_EQ(test1, "");
+}
+
+TEST(readline, readline_handles_empty_stream) {
+    my_str_t test1;
+    std::istringstream in;
+
+    readline(in, test1);
+
+    EXPECT_EQ(test1.size(), 0);
+    EXPECT_EQ(test1.capacity(), 15);
+    ASSERT_EQ(test1, "");
+}
+
+TEST(readline, readline_handles_empty_stream_and_string) {
+    my_str_t test1;
+    std::istringstream in;
+
+    readline(in, test1);
+
+    EXPECT_EQ(test1.size(), 0);
+    EXPECT_EQ(test1.capacity(), 15);
+    ASSERT_EQ(test1, "");
+}
+
+TEST(readline, readline_handles_buffer_expanding) {
+    my_str_t test1 = my_str_t(8192, 'a');
+    test1.append('\n');
+
+    my_str_t test2 = my_str_t();
+    std::istringstream in(test1.c_str());
+
+    readline(in, test2);
+
+    EXPECT_EQ(test2.size(), 8192);
+    EXPECT_EQ(test2.capacity(), 16383);
+
+    test1.erase(test1.size() - 1, 1);
+    ASSERT_EQ(test2, test1);
+}
+
 TEST(equal, equal) {
     my_str_t test1 = my_str_t("First lab ");
     std::string helper = "First lab ";
