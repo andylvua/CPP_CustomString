@@ -300,13 +300,24 @@ TEST(clear, clear) {
     EXPECT_EQ(test1.size(), 0);
     EXPECT_EQ(test1.capacity(), 15);
     EXPECT_THROW(test1.at(0), std::out_of_range);
+}
 
-    my_str_t test2 = my_str_t(100, 'a');
-    test2.clear();
+TEST(clear, clear_handles_empty_string) {
+    my_str_t test1 = my_str_t();
+    test1.clear();
 
-    EXPECT_EQ(test2.size(), 0);
-    EXPECT_EQ(test2.capacity(), 15);
-    EXPECT_THROW(test2.at(0), std::out_of_range);
+    EXPECT_EQ(test1.size(), 0);
+    EXPECT_EQ(test1.capacity(), 15);
+    EXPECT_THROW(test1.at(0), std::out_of_range);
+}
+
+TEST(clear, clear_big_string) {
+    my_str_t test1 = my_str_t(10000, 'a');
+    test1.clear();
+
+    EXPECT_EQ(test1.size(), 0);
+    EXPECT_EQ(test1.capacity(), 15);
+    EXPECT_THROW(test1.at(0), std::out_of_range);
 }
 
 TEST(insert, insert_string) {
