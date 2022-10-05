@@ -7,12 +7,12 @@
 #include "../include/mystring.h"
 #include "gtest/gtest.h"
 
-
+// Implemented by Andrew Yaroshevych
 TEST(size, size) {
     my_str_t test1 = my_str_t("123456789");
     EXPECT_EQ(test1.size(), 9);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(size, size_0) {
     my_str_t test1 = my_str_t();
     EXPECT_EQ(test1.size(), 0);
@@ -20,7 +20,7 @@ TEST(size, size_0) {
     my_str_t test2 = my_str_t("");
     EXPECT_EQ(test2.size(), 0);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(capacity, capacity) {
     my_str_t test1 = my_str_t("123456789");
     EXPECT_EQ(test1.capacity(), 15);
@@ -31,26 +31,26 @@ TEST(capacity, capacity) {
     my_str_t test3 = my_str_t();
     EXPECT_EQ(test3.capacity(), 15);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(at, at) {
     my_str_t test1 = my_str_t("123456789");
     EXPECT_EQ(test1.at(5), '6');
     EXPECT_THROW(test1.at(9), std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(at, const_at) {
     const my_str_t test1 = my_str_t("Hello");
     EXPECT_EQ(test1.at(0), 'H');
     EXPECT_EQ(test1.at(4), 'o');
     EXPECT_THROW(test1.at(5), std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(default_constructor, default_constructor) {
     my_str_t test1 = my_str_t();
     EXPECT_EQ(test1.size(), 0);
     EXPECT_EQ(test1.capacity(), 15);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(constructor_with_size, constructor_with_size_default_case) {
     my_str_t test1 = my_str_t(15, 'a');
     EXPECT_EQ(test1.size(), 15);
@@ -62,14 +62,14 @@ TEST(constructor_with_size, constructor_with_size_default_case) {
     EXPECT_EQ(test2.capacity(), 15);
     EXPECT_EQ(test2.at(3), '\t');
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(constructor_with_size, handles_size_zero) {
     my_str_t test2 = my_str_t(0, 'a');
     EXPECT_EQ(test2.size(), 0);
     EXPECT_EQ(test2.capacity(), 15);
     EXPECT_THROW(test2.at(0), std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(constructor_with_size, handles_big_size) {
     my_str_t test3 = my_str_t(1024, 'a');
     EXPECT_EQ(test3.size(), 1024);
@@ -78,7 +78,7 @@ TEST(constructor_with_size, handles_big_size) {
     EXPECT_EQ(test3.at(1023), 'a');
     ASSERT_THROW(test3.at(1024), std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(cstr_constructor, cstr_constructor_default_case) {
     my_str_t test1 = my_str_t("Hello");
     EXPECT_EQ(test1.size(), 5);
@@ -86,14 +86,14 @@ TEST(cstr_constructor, cstr_constructor_default_case) {
     EXPECT_EQ(test1.at(0), 'H');
     EXPECT_EQ(test1.at(4), 'o');
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(cstr_constructor, cstr_constructor_handles_empty_string) {
     my_str_t test2 = my_str_t("");
     EXPECT_EQ(test2.size(), 0);
     EXPECT_EQ(test2.capacity(), 15);
     ASSERT_THROW(test2.at(0), std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(string_constructor, string_constructor_default_case) {
     std::string str = "Hello, world!";
     my_str_t test1 = my_str_t(str);
@@ -113,7 +113,7 @@ TEST(string_constructor, string_constructor_default_case) {
     EXPECT_EQ(test2.at(43), '.');
     EXPECT_THROW(test2.at(44), std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(string_constructor, string_constructor_handles_empty_string) {
     std::string str = "";  // NOLINT(readability-redundant-string-init)
     my_str_t test1 = my_str_t(str);
@@ -122,8 +122,7 @@ TEST(string_constructor, string_constructor_handles_empty_string) {
     EXPECT_EQ(test1.capacity(), 15);
     ASSERT_THROW(test1.at(0), std::out_of_range);
 }
-
-
+// Implemented by Andrew Yaroshevych
 TEST(copy_constructor, copy_constructor) {
     my_str_t test1 = my_str_t("Hello");
     my_str_t test2 = my_str_t(test1);
@@ -133,7 +132,7 @@ TEST(copy_constructor, copy_constructor) {
     EXPECT_EQ(test1.at(0), test2.at(0));
     EXPECT_EQ(test1.at(4), test2.at(4));
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(assignment_operator, assignment_operator) {
     my_str_t test1 = my_str_t("Hello");
     my_str_t test2 = my_str_t(10, 'c');
@@ -152,7 +151,7 @@ TEST(assignment_operator, assignment_operator) {
     EXPECT_EQ(test1.at(0), test3.at(0));
     EXPECT_EQ(test1.at(511), test3.at(511));
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(assignment_operator, assignment_oprator_handles_self_assignment) {
     my_str_t test1 = my_str_t("Hello");
     test1 = test1;
@@ -162,8 +161,7 @@ TEST(assignment_operator, assignment_oprator_handles_self_assignment) {
     EXPECT_EQ(test1.at(0), 'H');
     EXPECT_EQ(test1.at(4), 'o');
 }
-
-
+// Implemented by Andrew Yaroshevych
 TEST(swap, swap) {
     my_str_t test1 = my_str_t("Hello, world!");
     my_str_t test2 = my_str_t("World, hello! Hello, world!");
@@ -179,7 +177,7 @@ TEST(swap, swap) {
     EXPECT_EQ(test2.at(0), 'H');
     EXPECT_EQ(test2.at(12), '!');
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(swap, swap_handles_self_swap) {
     my_str_t test1 = my_str_t("Hello, world!");
     test1.swap(test1);
@@ -189,7 +187,7 @@ TEST(swap, swap_handles_self_swap) {
     EXPECT_EQ(test1.at(0), 'H');
     EXPECT_EQ(test1.at(12), '!');
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(braces_operator, braces_operator) {
     my_str_t test1 = my_str_t("Hello, world!");
     EXPECT_EQ(test1[0], 'H');
@@ -203,23 +201,23 @@ TEST(braces_operator, braces_operator) {
     EXPECT_EQ(test1[0], 'h');
     EXPECT_EQ(test1[12], '?');
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(braces_operator, braces_operator_handles_out_of_range) {
     my_str_t test1 = my_str_t("Hello, world!");
     ASSERT_THROW(test1[13], std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(braces_operator, const_braces_operator) {
     const my_str_t test1 = my_str_t("Hello, world!");
     EXPECT_EQ(test1[0], 'H');
     EXPECT_EQ(test1[12], '!');
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(braces_operator, const_braces_operator_handles_out_of_range) {
     const my_str_t test1 = my_str_t("Hello, world!");
     ASSERT_THROW(test1[13], std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(reserve, reserve) {
     my_str_t test1 = my_str_t("Hello, world!");
     test1.reserve(100);
@@ -239,7 +237,7 @@ TEST(reserve, reserve) {
     EXPECT_EQ(test1.size(), 13);
     EXPECT_EQ(test1.capacity(), 1000);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(shrink_to_fit, shrink_to_fit) {
     my_str_t test1 = my_str_t(300, 'a');
 
@@ -255,7 +253,7 @@ TEST(shrink_to_fit, shrink_to_fit) {
 
     EXPECT_THROW(test1.at(300), std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(shrink_to_fit, shrink_to_fit_full_capacity) {
     my_str_t test1 = my_str_t(127, 'a');
 
@@ -267,7 +265,7 @@ TEST(shrink_to_fit, shrink_to_fit_full_capacity) {
     EXPECT_EQ(test1.size(), 127);
     EXPECT_EQ(test1.capacity(), 127);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(resize, resize) {
     my_str_t test1 = my_str_t("Hello, world!");
     test1.resize(13);
@@ -292,7 +290,7 @@ TEST(resize, resize) {
     EXPECT_EQ(test1.at(20), 'c');
 
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(clear, clear) {
     my_str_t test1 = my_str_t("Hello, world!");
     test1.clear();
@@ -301,7 +299,7 @@ TEST(clear, clear) {
     EXPECT_EQ(test1.capacity(), 15);
     ASSERT_TRUE(test1 == "");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(clear, clear_handles_empty_string) {
     my_str_t test1 = my_str_t();
     test1.clear();
@@ -310,7 +308,7 @@ TEST(clear, clear_handles_empty_string) {
     EXPECT_EQ(test1.capacity(), 15);
     EXPECT_THROW(test1.at(0), std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(clear, clear_big_string) {
     my_str_t test1 = my_str_t(10000, 'a');
     test1.clear();
@@ -319,7 +317,7 @@ TEST(clear, clear_big_string) {
     EXPECT_EQ(test1.capacity(), 16383);
     EXPECT_THROW(test1.at(0), std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(insert, insert_string) {
     my_str_t test1 = my_str_t("Hello,world!");
     my_str_t to_insert = my_str_t(" beautiful ");
@@ -330,7 +328,7 @@ TEST(insert, insert_string) {
     EXPECT_EQ(test1.capacity(), 31);
     ASSERT_TRUE(test1 == "Hello, beautiful world!");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(insert, insert_char_array) {
     my_str_t test1 = my_str_t("Hello,world!");
     const char *to_insert = " beautiful ";
@@ -341,21 +339,21 @@ TEST(insert, insert_char_array) {
     EXPECT_EQ(test1.capacity(), 31);
     ASSERT_TRUE(test1 == "Hello, beautiful world!");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(insert, insert_handles_out_of_range) {
     my_str_t test1 = my_str_t("Hello,world!");
     my_str_t to_insert = my_str_t(" beautiful ");
 
     ASSERT_THROW(test1.insert(12, to_insert), std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(insert, insert_hangles_cstr_out_of_range) {
     my_str_t test1 = my_str_t("Hello,world!");
     const char *to_insert = " beautiful ";
 
     ASSERT_THROW(test1.insert(12, to_insert), std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(insert, insert_handles_empty_string) {
     my_str_t test1 = my_str_t("Hello, world!");
     my_str_t to_insert = my_str_t("");
@@ -366,7 +364,7 @@ TEST(insert, insert_handles_empty_string) {
     EXPECT_EQ(test1.capacity(), 15);
     ASSERT_TRUE(test1 == "Hello, world!");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(append, append_string) {
     my_str_t test1 = my_str_t("Hello, ");
     my_str_t to_append = my_str_t("world!");
@@ -383,7 +381,7 @@ TEST(append, append_string) {
     EXPECT_EQ(test1.capacity(), 63);
     ASSERT_TRUE(test1 == "Hello, world! What's about your capacity?");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(append, append_string_handles_empty_string) {
     my_str_t test1 = my_str_t("Hello");
     my_str_t to_append = my_str_t("");
@@ -393,7 +391,7 @@ TEST(append, append_string_handles_empty_string) {
     EXPECT_EQ(test1.capacity(), 15);
     ASSERT_TRUE(test1 == "Hello");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(append, append_char) {
     my_str_t test1 = my_str_t("Hello");
     test1.append('!');
@@ -409,7 +407,7 @@ TEST(append, append_char) {
     EXPECT_EQ(test2.capacity(), 63);
     ASSERT_TRUE(test2 == "Hello, world! What's about your capacity?!");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(append, append_char_handles_overflow) {
     my_str_t test1 = my_str_t(15, 'a');
     test1.append('b');
@@ -418,7 +416,7 @@ TEST(append, append_char_handles_overflow) {
     EXPECT_EQ(test1.capacity(), 31);
     ASSERT_TRUE(test1 == "aaaaaaaaaaaaaaab");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(append, append_char_array) {
     my_str_t test1 = my_str_t("Hello, ");
     const char *to_append = "world!";
@@ -435,7 +433,7 @@ TEST(append, append_char_array) {
     EXPECT_EQ(test1.capacity(), 63);
     ASSERT_TRUE(test1 == "Hello, world! What's about your capacity?");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(append, append_char_array_handles_empty_array) {
     my_str_t test1 = my_str_t("Hello");
     const char *to_append = "";
@@ -445,7 +443,7 @@ TEST(append, append_char_array_handles_empty_array) {
     EXPECT_EQ(test1.capacity(), 15);
     ASSERT_TRUE(test1 == "Hello");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(erase, erase) {
     my_str_t test1 = my_str_t("Hello, world!");
     test1.erase(6, 1);
@@ -459,12 +457,12 @@ TEST(erase, erase) {
     EXPECT_EQ(test1.size(), 0);
     EXPECT_EQ(test1.capacity(), 15);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(erase, erase_handles_out_of_range) {
     my_str_t test1 = my_str_t("Hello, world!");
     ASSERT_THROW(test1.erase(13, 1), std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(erase, erase_handles_empty_erase) {
     my_str_t test1 = my_str_t("Hello, world!");
     test1.erase(10, 0);
@@ -472,7 +470,7 @@ TEST(erase, erase_handles_empty_erase) {
     EXPECT_EQ(test1.size(), 13);
     EXPECT_EQ(test1.capacity(), 15);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(erase, erase_up_to_the_end) {
     my_str_t test1 = my_str_t("Hello, world!");
     test1.erase(10, 10);
@@ -480,21 +478,21 @@ TEST(erase, erase_up_to_the_end) {
     EXPECT_EQ(test1.capacity(), 15);
     ASSERT_TRUE(test1 == "Hello, wor");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(cstr, cstr) {
     my_str_t test1 = my_str_t("Hello, world!");
     const char *cstr = test1.c_str();
 
     ASSERT_TRUE(test1 == cstr);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(cstr, cstr_handles_empty_string) {
     my_str_t test1 = my_str_t("");
     const char *cstr = test1.c_str();
 
     ASSERT_TRUE(test1 == cstr);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(find, find_char) {
     my_str_t test1 = my_str_t("Hello, world!");
     size_t pos = test1.find('o');
@@ -505,19 +503,19 @@ TEST(find, find_char) {
 
     EXPECT_EQ(pos, 8);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(find, find_char_handles_not_found) {
     my_str_t test1 = my_str_t("Hello, world!");
     size_t pos = test1.find('a');
 
     EXPECT_EQ(pos, my_str_t::not_found);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(find, find_char_handles_out_of_range) {
     my_str_t test1 = my_str_t("Hello, world!");
     ASSERT_THROW(test1.find('o', 13), std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(find, find_string) {
     my_str_t test1 = my_str_t("Hello, world!");
     std::string to_find = "world";
@@ -530,7 +528,7 @@ TEST(find, find_string) {
 
     EXPECT_EQ(pos, my_str_t::not_found);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(find, find_string_handles_overflow) {
     my_str_t test1 = my_str_t("Hello, world!");
     std::string to_find = "world";
@@ -543,7 +541,7 @@ TEST(find, find_string_handles_overflow) {
 
     EXPECT_EQ(pos, my_str_t::not_found);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(find, find_string_handles_not_found) {
     my_str_t test1 = my_str_t("Hello, world!");
     std::string to_find = "world!";
@@ -551,14 +549,14 @@ TEST(find, find_string_handles_not_found) {
 
     EXPECT_EQ(pos, my_str_t::not_found);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(find, find_string_handles_out_of_range) {
     my_str_t test1 = my_str_t("Hello, world!");
     std::string to_find = "world!";
 
     ASSERT_THROW(test1.find(to_find, 13), std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(find, find_string_handles_empty_string) {
     my_str_t test1 = my_str_t("Hello, world!");
     std::string to_find = ""; // NOLINT(readability-redundant-string-init)
@@ -566,7 +564,7 @@ TEST(find, find_string_handles_empty_string) {
 
     EXPECT_EQ(pos, my_str_t::not_found);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(find, find_char_array) {
     my_str_t test1 = my_str_t("Hello, world!");
     const char *to_find = "world";
@@ -579,7 +577,7 @@ TEST(find, find_char_array) {
 
     EXPECT_EQ(pos, my_str_t::not_found);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(find, find_char_array_handles_overflow) {
     my_str_t test1 = my_str_t("Hello, world!");
     const char *to_find = "world";
@@ -587,7 +585,7 @@ TEST(find, find_char_array_handles_overflow) {
 
     EXPECT_EQ(pos, my_str_t::not_found);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(find, find_char_array_handles_not_found) {
     my_str_t test1 = my_str_t("Hello, world!");
     const char *to_find = "world!";
@@ -595,14 +593,14 @@ TEST(find, find_char_array_handles_not_found) {
 
     EXPECT_EQ(pos, my_str_t::not_found);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(find, find_char_array_handles_out_of_range) {
     my_str_t test1 = my_str_t("Hello, world!");
     const char *to_find = "world!";
 
     ASSERT_THROW(test1.find(to_find, 13), std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(find, find_char_array_handles_empty_string) {
     my_str_t test1 = my_str_t("Hello, world!");
     const char *to_find = "";
@@ -610,7 +608,7 @@ TEST(find, find_char_array_handles_empty_string) {
 
     EXPECT_EQ(pos, my_str_t::not_found);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(substr, substr) {
     my_str_t test1 = my_str_t("Hello, world!");
     my_str_t substr = test1.substr(7, 5);
@@ -619,12 +617,12 @@ TEST(substr, substr) {
     EXPECT_EQ(substr.capacity(), 15);
     ASSERT_TRUE(substr == "world");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(substr, substr_handles_out_of_range) {
     my_str_t test1 = my_str_t("Hello, world!");
     ASSERT_THROW(test1.substr(13, 1), std::out_of_range);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(substr, substr_handles_empty_string) {
     my_str_t test1 = my_str_t("Hello, world!");
     my_str_t substr = test1.substr(0, 0);
@@ -633,7 +631,7 @@ TEST(substr, substr_handles_empty_string) {
     EXPECT_EQ(substr.capacity(), 15);
     ASSERT_TRUE(substr == "");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(substr, substr_handles_full_string) {
     my_str_t test1 = my_str_t("Hello, world!");
     my_str_t substr = test1.substr(0, 13);
@@ -642,7 +640,7 @@ TEST(substr, substr_handles_full_string) {
     EXPECT_EQ(substr.capacity(), 15);
     ASSERT_TRUE(substr == "Hello, world!");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(substr, substr_handles_full_string_with_overflow) {
     my_str_t test1 = my_str_t("Hello, world!");
     my_str_t substr = test1.substr(0, 30);
@@ -651,7 +649,7 @@ TEST(substr, substr_handles_full_string_with_overflow) {
     EXPECT_EQ(substr.capacity(), 15);
     ASSERT_TRUE(substr == "Hello, world!");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(substr, substr_handles_big_string) {
     my_str_t test1 = my_str_t(1024, 'a');
     my_str_t substr = test1.substr(0, 512);
@@ -660,7 +658,7 @@ TEST(substr, substr_handles_big_string) {
     EXPECT_EQ(substr.capacity(), 1023);
     ASSERT_TRUE(substr == my_str_t(512, 'a'));
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(ostream, ostream) {
     my_str_t test1 = my_str_t("Hello, world!");
     std::stringstream ss;
@@ -668,7 +666,7 @@ TEST(ostream, ostream) {
 
     EXPECT_EQ(ss.str(), "Hello, world!");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(istream, istream) {
     my_str_t test1;
     std::ostringstream out;
@@ -680,7 +678,7 @@ TEST(istream, istream) {
     EXPECT_EQ(test1.capacity(), 15);
     ASSERT_TRUE(out.str() == "Hello,world!");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(readline, readline) {
     my_str_t test1;
     std::istringstream in("Hello, world! How are you?\n I'm fine, thanks!");
@@ -691,7 +689,7 @@ TEST(readline, readline) {
     EXPECT_EQ(test1.capacity(), 31);
     ASSERT_EQ(test1, "Hello, world! How are you?");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(readline, readline_handles_empty_string) {
     my_str_t test1;
     std::istringstream in("");
@@ -702,7 +700,7 @@ TEST(readline, readline_handles_empty_string) {
     EXPECT_EQ(test1.capacity(), 15);
     ASSERT_EQ(test1, "");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(readline, readline_handles_empty_stream) {
     my_str_t test1;
     std::istringstream in;
@@ -713,7 +711,7 @@ TEST(readline, readline_handles_empty_stream) {
     EXPECT_EQ(test1.capacity(), 15);
     ASSERT_EQ(test1, "");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(readline, readline_handles_empty_stream_and_string) {
     my_str_t test1;
     std::istringstream in;
@@ -724,7 +722,7 @@ TEST(readline, readline_handles_empty_stream_and_string) {
     EXPECT_EQ(test1.capacity(), 15);
     ASSERT_EQ(test1, "");
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(readline, readline_handles_buffer_expanding) {
     my_str_t test1 = my_str_t(8192, 'a');
     test1.append('\n');
@@ -740,7 +738,7 @@ TEST(readline, readline_handles_buffer_expanding) {
     test1.erase(test1.size() - 1, 1);
     ASSERT_EQ(test2, test1);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(equal, equal) {
     my_str_t test1 = my_str_t("First lab ");
     std::string helper = "First lab ";
@@ -751,7 +749,8 @@ TEST(equal, equal) {
     my_str_t test3 = my_str_t("samelength");
     EXPECT_EQ(bool(test2 == test3), false);
 }
-
+// Implemented by Andrew Yaroshevych
+// Implemented by Pavlo Kryven
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "bugprone-use-after-move"
 TEST(move_assignment, move_assignment){
@@ -766,14 +765,14 @@ TEST(move_assignment, move_assignment){
     ASSERT_TRUE(test2=="Hello");
 }
 #pragma clang diagnostic pop
-
+// Implemented by Pavlo Kryven
 TEST(equal, equal_strings) {
     my_str_t test1 = my_str_t("First lab ");
     my_str_t test2 = my_str_t("First lab ");
     test2.reserve(60);
     EXPECT_EQ(bool(test1 == test2), true);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(equal, equal_cstring) {
     const char *test1{"abcdef"};
     my_str_t test2 = my_str_t("abcdef");
@@ -788,7 +787,7 @@ TEST(equal, equal_cstring) {
     EXPECT_EQ(bool(test4 == test3), false);
     EXPECT_EQ(bool(test3 == test4), false);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(not_equal, not_equal) {
     my_str_t test1 = my_str_t("First lab ");
     my_str_t test2 = my_str_t("First lab ");
@@ -801,7 +800,7 @@ TEST(not_equal, not_equal) {
     my_str_t test5 = my_str_t("abcdef");
     EXPECT_EQ(bool(test3 != test5), false);
 }
-
+// Implemented by Andrew Yaroshevych
 TEST(not_equal, not_equal_cstr) {
     my_str_t test1 = my_str_t("First lab");
     const char *test2{"First lab"};
@@ -811,13 +810,13 @@ TEST(not_equal, not_equal_cstr) {
     const char *test3{"Hello, world!"};
     EXPECT_EQ(bool(test1 != test3), true);
 }
-
+// Implemented by Pavlo Kryven
 TEST(not_equal, not_equal_true) {
     my_str_t test1 = my_str_t("First lab");
     my_str_t test2 = my_str_t("Hello, world!");
     EXPECT_EQ(bool(test1!=test2), true);
 }
-
+// Implemented by Pavlo Kryven
 TEST(greater_than, greater_than_string) {
     my_str_t test1 = my_str_t("First lab ");
     my_str_t test2 = my_str_t("First lab ");
@@ -841,7 +840,7 @@ TEST(greater_than, greater_than_string) {
     test2.erase(0, 10);
     EXPECT_EQ(bool(test3>test2), true);
 }
-
+// Implemented by Pavlo Kryven
 TEST(greater_than, greater_than_cstring) {
     my_str_t test1 = my_str_t("hello, world");
     const char *test2 = "hello, world";
@@ -868,7 +867,7 @@ TEST(greater_than, greater_than_cstring) {
     test7.erase(13, 17);
     EXPECT_EQ(bool(test7>test8), false);
 }
-
+// Implemented by Pavlo Kryven
 TEST(less_than, less_than_cstring) {
     my_str_t test1 = my_str_t("hello, world");
     const char *test2 = "hello, world";
@@ -890,7 +889,7 @@ TEST(less_than, less_than_cstring) {
     const char test7[]{"First lab 1."};
     EXPECT_EQ(bool(test7<test6), true);
 }
-
+// Implemented by Pavlo Kryven
 TEST(less_than, less_than_string) {
     my_str_t test1 = my_str_t("First lab ");
     my_str_t test2 = my_str_t("First lab ");
@@ -910,7 +909,7 @@ TEST(less_than, less_than_string) {
     EXPECT_EQ(bool(test2<test3), true);
 
 }
-
+// Implemented by Pavlo Kryven
 TEST(greater_equal, greater_equal_string) {
     my_str_t test1 = my_str_t("abcd");
     my_str_t test2 = my_str_t("abcd");
@@ -922,7 +921,7 @@ TEST(greater_equal, greater_equal_string) {
     EXPECT_EQ(bool(test1>=test2), false);
     EXPECT_EQ(bool(test1>=test3), true);
 }
-
+// Implemented by Pavlo Kryven
 TEST(greater_equal, greater_equal_cstring) {
     my_str_t test1 = my_str_t("abcd");
     const char *test2 = "abcd";
@@ -936,7 +935,7 @@ TEST(greater_equal, greater_equal_cstring) {
     EXPECT_EQ(bool(test1>=test2), false);
     EXPECT_EQ(bool(test1>=test3), true);
 }
-
+// Implemented by Pavlo Kryven
 TEST(less_equal, less_equal_string) {
     my_str_t test1 = my_str_t("First lab ");
     my_str_t test2 = my_str_t("First lab ");
@@ -946,7 +945,7 @@ TEST(less_equal, less_equal_string) {
     test1.insert(0, "zzz");
     EXPECT_EQ(bool(test1<=test2), false);
 }
-
+// Implemented by Pavlo Kryven
 TEST(less_equal, less_equal_ctring) {
     my_str_t test1 = my_str_t("First lab ");
     const char *test2 = "First lab ";
