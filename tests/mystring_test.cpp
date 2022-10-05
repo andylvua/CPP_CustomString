@@ -299,7 +299,7 @@ TEST(clear, clear) {
 
     EXPECT_EQ(test1.size(), 0);
     EXPECT_EQ(test1.capacity(), 15);
-    EXPECT_THROW(test1.at(0), std::out_of_range);
+    ASSERT_TRUE(test1 == "");
 }
 
 TEST(clear, clear_handles_empty_string) {

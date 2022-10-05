@@ -31,7 +31,7 @@ my_str_t::my_str_t() {
 
     data_m[0] = '\0';
 }
-
+// implemented by Pavlo Kryven
 my_str_t::my_str_t(size_t size, char initial) {
     size_m = size;
 
@@ -70,7 +70,7 @@ my_str_t::my_str_t(const std::string &str) {
 
     data_m[size_m] = '\0';
 }
-
+// implemented by Pavlo Kryven
 my_str_t::my_str_t(const my_str_t &mystr) : size_m{mystr.size_m}, capacity_m{mystr.capacity_m} {
     data_m = new char[capacity_m + 1];
 
@@ -80,7 +80,7 @@ my_str_t::my_str_t(const my_str_t &mystr) : size_m{mystr.size_m}, capacity_m{mys
 
     data_m[size_m] = '\0';
 }
-
+// Implemented by Pavlo Kryven
 my_str_t::my_str_t(my_str_t &&mystr) noexcept : size_m{0}, capacity_m{DEFAULT_CAPACITY}, data_m{nullptr} {
     size_m = mystr.size_m;
     capacity_m = mystr.capacity_m;
@@ -89,7 +89,7 @@ my_str_t::my_str_t(my_str_t &&mystr) noexcept : size_m{0}, capacity_m{DEFAULT_CA
     mystr.capacity_m = 0;
     mystr.data_m = nullptr;
 }
-
+// Implemented by Pavlo Kryven
 my_str_t &my_str_t::operator=(my_str_t &&mystr) noexcept {
     if (this != &mystr){
         delete[] data_m;
@@ -156,7 +156,7 @@ const char &my_str_t::operator[](size_t idx) const {
 
     return data_m[idx];
 }
-
+// Implemented by Pavlo Kryven
 char &my_str_t::at(size_t idx) {
     if (idx >= size_m) {
         throw std::out_of_range("Index is out of range");
@@ -200,7 +200,7 @@ void my_str_t::shrink_to_fit() {
     delete[] data_m;
     data_m = new_data;
 }
-
+// Implemented by Pavlo Kryven
 void my_str_t::resize(size_t new_size, char new_char) {
     if (new_size == size_m) {
         return;
@@ -233,15 +233,8 @@ void my_str_t::resize(size_t new_size, char new_char) {
         data_m[size_m] = '\0';
     }
 }
-
+// Implemented by Pavlo Kryven
 void my_str_t::clear() {
-    if (capacity_m > 31) {
-        delete[] data_m;
-
-        capacity_m = DEFAULT_CAPACITY;
-        data_m = new char[capacity_m + 1];
-    }
-
     data_m[0] = '\0';
     size_m = 0;
 }
@@ -326,7 +319,7 @@ void my_str_t::append(const char *cstr) {
 
     data_m[size_m] = '\0';
 }
-
+// Implemented by Pavlo Kryven
 void my_str_t::erase(size_t begin, size_t size) {
     if (begin >= size_m) {
         throw std::out_of_range("Begin index is out of range");
@@ -450,12 +443,11 @@ my_str_t my_str_t::substr(size_t begin, size_t size) {
 
     return new_str;
 }
-
+// Implemented by Pavlo Kryven
 my_str_t::~my_str_t() {
     delete[] data_m;
 }
-
-
+// Implemented by Pavlo Kryven
 std::ostream &operator<<(std::ostream &stream, const my_str_t &str) {
     stream << str.c_str();
     return stream;
