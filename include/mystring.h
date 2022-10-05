@@ -125,6 +125,17 @@ public:
     friend bool operator<(const char *cstr1, const my_str_t &str2);
 
     friend bool operator<=(const char *cstr1, const my_str_t &str2);
+
+    friend my_str_t operator +(const my_str_t &str1, const my_str_t &str2);
+
+    friend my_str_t operator +(const my_str_t &str1, const std::string &str2);
+
+    friend my_str_t operator +(const std::string &str1, const my_str_t &str2);
+
+    friend my_str_t operator +(const my_str_t &str1, const char *cstr2);
+
+    friend my_str_t operator +(const char *cstr1, const my_str_t &str2);
+
 };
 
 #endif //LAB1_CSTRING_ZINCHUKKRYVENYAROSHEVYCHKHARABARA_MYSTRING_H

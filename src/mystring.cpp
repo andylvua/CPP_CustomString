@@ -489,6 +489,76 @@ std::istream &readline(std::istream &stream, my_str_t &str) {
 
     return stream;
 }
+// Implemented by Andrew Yaroshevych
+my_str_t operator+(const my_str_t &str1, const my_str_t &str2) {
+    size_t new_size = str1.size_m + str2.size_m;
+    char *new_data = new char[new_size + 1];
+
+    std::memcpy(new_data, str1.data_m, str1.size_m);
+    std::memcpy(new_data + str1.size_m, str2.data_m, str2.size_m);
+    new_data[new_size] = '\0';
+
+    my_str_t new_str(new_data);
+    delete[] new_data;
+
+    return new_str;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator+(const my_str_t &str1, const std::string &str2) {
+    size_t new_size = str1.size() + str2.size();
+    char *new_data = new char[new_size + 1];
+
+    std::memcpy(new_data, str1.c_str(), str1.size());
+    std::memcpy(new_data + str1.size(), str2.c_str(), str2.size());
+    new_data[new_size] = '\0';
+
+    my_str_t new_str(new_data);
+    delete[] new_data;
+
+    return new_str;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator+(const std::string &str1, const my_str_t &str2) {
+    size_t new_size = str1.size() + str2.size();
+    char *new_data = new char[new_size + 1];
+
+    std::memcpy(new_data, str1.c_str(), str1.size());
+    std::memcpy(new_data + str1.size(), str2.c_str(), str2.size());
+    new_data[new_size] = '\0';
+
+    my_str_t new_str(new_data);
+    delete[] new_data;
+
+    return new_str;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator+(const my_str_t &str1, const char *cstr) {
+    size_t new_size = str1.size() + strlen(cstr);
+    char *new_data = new char[new_size + 1];
+
+    std::memcpy(new_data, str1.c_str(), str1.size());
+    std::memcpy(new_data + str1.size(), cstr, strlen(cstr));
+    new_data[new_size] = '\0';
+
+    my_str_t new_str(new_data);
+    delete[] new_data;
+
+    return new_str;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator+(const char *cstr, const my_str_t &str2) {
+    size_t new_size = strlen(cstr) + str2.size();
+    char *new_data = new char[new_size + 1];
+
+    std::memcpy(new_data, cstr, strlen(cstr));
+    std::memcpy(new_data + strlen(cstr), str2.c_str(), str2.size());
+    new_data[new_size] = '\0';
+
+    my_str_t new_str(new_data);
+    delete[] new_data;
+
+    return new_str;
+}
 
 bool operator==(const my_str_t &str1, const my_str_t &str2) {
     size_t str1_size = str1.size();
