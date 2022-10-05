@@ -597,6 +597,40 @@ my_str_t operator +=(my_str_t &str1, char c) {
 
     return str1;
 }
+// Implemented by Andrew Yaroshevych
+my_str_t operator *(const my_str_t &str, int n) {
+    if (n == 0) {
+        return my_str_t{};
+    }
+    if (n < 0) {
+        throw std::invalid_argument("n must be positive");
+    }
+
+    size_t new_size = str.size() * n;
+    char *new_data = new char[new_size + 1];
+
+    for (size_t i = 0; i < n; i++) {
+        std::memcpy(new_data + i * str.size(), str.c_str(), str.size());
+    }
+    new_data[new_size] = '\0';
+
+    my_str_t new_str(new_data);
+    delete[] new_data;
+
+    return new_str;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator *(int n, const my_str_t &str) {
+    my_str_t new_str = str * n;
+
+    return new_str;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator *=(my_str_t &str, int n) {
+    str = str * n;
+
+    return str;
+}
 
 bool operator==(const my_str_t &str1, const my_str_t &str2) {
     size_t str1_size = str1.size();
