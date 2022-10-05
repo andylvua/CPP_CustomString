@@ -752,6 +752,18 @@ TEST(equal, equal) {
     EXPECT_EQ(bool(test2 == test3), false);
 }
 
+TEST(move_assignment, move_assignment){
+    my_str_t test1{"Hello"};
+    my_str_t test2 = std::move(test1);
+    EXPECT_EQ(test1.size(), 0);
+    EXPECT_EQ(test1.capacity(), 0);
+    EXPECT_EQ(test1.c_str(), nullptr);
+
+    EXPECT_EQ(test2.size(), 5);
+    EXPECT_EQ(test2.capacity(),15);
+    ASSERT_TRUE(test2=="Hello");
+}
+
 TEST(equal, equal_strings) {
     my_str_t test1 = my_str_t("First lab ");
     my_str_t test2 = my_str_t("First lab ");
