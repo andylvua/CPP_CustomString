@@ -899,6 +899,98 @@ TEST(append_operator, append_operator_char_with_empty_string) {
     ASSERT_TRUE(test1 == "!");
 }
 // Implemented by Andrew Yaroshevych
+TEST(multiply_operator, multiply_operator) {
+    my_str_t test1 = my_str_t("Hello, ");
+    my_str_t test2 = test1 * 3;
+
+    EXPECT_EQ(test2.size(), 21);
+    EXPECT_EQ(test2.capacity(), 31);
+    ASSERT_TRUE(test2 == "Hello, Hello, Hello, ");
+
+    my_str_t test3 = 3 * test1;
+    EXPECT_EQ(test3.size(), 21);
+    EXPECT_EQ(test3.capacity(), 31);
+    ASSERT_TRUE(test3 == test2);
+}
+// Implemented by Andrew Yaroshevych
+TEST(multiply_operator, multiply_operator_with_empty_string) {
+    my_str_t test1 = my_str_t();
+    my_str_t test2 = test1 * 3;
+
+    EXPECT_EQ(test2.size(), 0);
+    EXPECT_EQ(test2.capacity(), 15);
+    ASSERT_TRUE(test2 == "");
+}
+// Implemented by Andrew Yaroshevych
+TEST(multiply_operator, multiply_operator_with_zero) {
+    my_str_t test1 = my_str_t("Hello, ");
+    my_str_t test2 = test1 * 0;
+
+    EXPECT_EQ(test2.size(), 0);
+    EXPECT_EQ(test2.capacity(), 15);
+    ASSERT_TRUE(test2 == "");
+}
+// Implemented by Andrew Yaroshevych
+TEST(multiply_operator, multiply_operator_with_negative) {
+    my_str_t test1 = my_str_t("Hello, ");
+
+    ASSERT_THROW(my_str_t test2 = test1 * -3, std::invalid_argument);
+}
+// Implemented by Andrew Yaroshevych
+TEST(multiply_operator, multiply_operator_with_one) {
+    my_str_t test1 = my_str_t("Hello, ");
+    my_str_t test2 = test1 * 1;
+
+    EXPECT_EQ(test2.size(), 7);
+    EXPECT_EQ(test2.capacity(), 15);
+    ASSERT_TRUE(test2 == "Hello, ");
+}
+// Implemented by Andrew Yaroshevych
+TEST(multiply_operator, multiply_operator_with_big_number) {
+    my_str_t test1 = my_str_t("Hello, ");
+    my_str_t test2 = test1 * 100;
+
+    EXPECT_EQ(test2.size(), 700);
+    EXPECT_EQ(test2.capacity(), 1023);
+
+    for (size_t i = 0; i < 100; ++i) {
+        ASSERT_TRUE(test2.substr(i * 7, 7) == "Hello, ");
+    }
+}
+// Implemented by Andrew Yaroshevych
+TEST(multiply_operator, multiply_operator_inplace) {
+    my_str_t test1 = my_str_t("Hello, ");
+    test1 *= 3;
+
+    EXPECT_EQ(test1.size(), 21);
+    EXPECT_EQ(test1.capacity(), 31);
+    ASSERT_TRUE(test1 == "Hello, Hello, Hello, ");
+}
+// Implemented by Andrew Yaroshevych
+TEST(multiply_operator, multiply_operator_inplace_with_empty_string) {
+    my_str_t test1 = my_str_t();
+    test1 *= 3;
+
+    EXPECT_EQ(test1.size(), 0);
+    EXPECT_EQ(test1.capacity(), 15);
+    ASSERT_TRUE(test1 == "");
+}
+// Implemented by Andrew Yaroshevych
+TEST(multiply_operator, multiply_operator_inplace_with_zero) {
+    my_str_t test1 = my_str_t("Hello, ");
+    test1 *= 0;
+
+    EXPECT_EQ(test1.size(), 0);
+    EXPECT_EQ(test1.capacity(), 15);
+    ASSERT_TRUE(test1 == "");
+}
+// Implemented by Andrew Yaroshevych
+TEST(multiply_operator, multiply_operator_inplace_with_negative) {
+    my_str_t test1 = my_str_t("Hello, ");
+
+    ASSERT_THROW(test1 *= -3, std::invalid_argument);
+}
+// Implemented by Andrew Yaroshevych
 TEST(equal, equal) {
     my_str_t test1 = my_str_t("First lab ");
     std::string helper = "First lab ";
