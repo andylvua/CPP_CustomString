@@ -34,6 +34,8 @@ public:
 
     my_str_t &operator=(const my_str_t &mystr);
 
+    my_str_t &operator=(my_str_t&& mystr);
+
     void swap(my_str_t &other) noexcept;
 
     char &operator[](size_t idx);
