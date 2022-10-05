@@ -4,26 +4,25 @@
 
 #include "../include/mystring.h"
 #include <cmath>
-#include <cstring>
 
 const size_t my_str_t::not_found;
-
+// Implemented by Pavlo Kryven
 size_t my_str_t::calculate_capacity(size_t size) {
     return (size > 7) ? static_cast<size_t>
     (std::pow(2, std::ceil(std::log2(size + 1))) - 1) : DEFAULT_CAPACITY;
 }
-
+// Implemented by Andrew Yaroshevych
 size_t my_str_t::calculate_min_capacity(size_t size) {
     return static_cast<size_t> ((16 * std::ceil(static_cast<double> (size + 1) / 16)) - 1);
 }
-
+// Implemented by Andrew Yaroshevych
 size_t my_str_t::strlen(const char *cstr) {
     const char *s;
 
     for (s = cstr; *s; ++s);
     return (s - cstr);
 }
-
+// Implemented by Andrew Yaroshevych
 my_str_t::my_str_t() {
     size_m = 0;
 
@@ -32,7 +31,7 @@ my_str_t::my_str_t() {
 
     data_m[0] = '\0';
 }
-
+// Implemented by Pavlo Kryven
 my_str_t::my_str_t(size_t size, char initial) {
     size_m = size;
 
@@ -45,7 +44,7 @@ my_str_t::my_str_t(size_t size, char initial) {
 
     data_m[size_m] = '\0';
 }
-
+// Implemented by Andrew Yaroshevych
 my_str_t::my_str_t(const char *cstr) {
     size_m = strlen(cstr);
 
@@ -58,7 +57,7 @@ my_str_t::my_str_t(const char *cstr) {
 
     data_m[size_m] = '\0';
 }
-
+// Implemented by Andrew Yaroshevych
 my_str_t::my_str_t(const std::string &str) {
     size_m = str.size();
 
@@ -71,7 +70,7 @@ my_str_t::my_str_t(const std::string &str) {
 
     data_m[size_m] = '\0';
 }
-
+// Implemented by Pavlo Kryven
 my_str_t::my_str_t(const my_str_t &mystr) : size_m{mystr.size_m}, capacity_m{mystr.capacity_m} {
     data_m = new char[capacity_m + 1];
 
@@ -81,11 +80,31 @@ my_str_t::my_str_t(const my_str_t &mystr) : size_m{mystr.size_m}, capacity_m{mys
 
     data_m[size_m] = '\0';
 }
-
-my_str_t::my_str_t(my_str_t &&mystr): size_m{mystr.size_m},capacity_m{mystr.capacity_m},data_m{mystr.data_m}{
+// Implemented by Pavlo Kryven
+my_str_t::my_str_t(my_str_t &&mystr) noexcept : size_m{0}, capacity_m{DEFAULT_CAPACITY}, data_m{nullptr} {
+    size_m = mystr.size_m;
+    capacity_m = mystr.capacity_m;
+    data_m = mystr.data_m;
+    mystr.size_m = 0;
+    mystr.capacity_m = 0;
     mystr.data_m = nullptr;
 }
+// Implemented by Pavlo Kryven
+my_str_t &my_str_t::operator=(my_str_t &&mystr) noexcept {
+    if (this != &mystr){
+        delete[] data_m;
+        data_m = mystr.data_m;
 
+        size_m = mystr.size_m;
+        capacity_m = mystr.capacity_m;
+
+        mystr.size_m = 0;
+        mystr.capacity_m = 0;
+        mystr.data_m = nullptr;
+    }
+    return *this;
+}
+// Implemented by Andrew Yaroshevych
 my_str_t &my_str_t::operator=(const my_str_t &mystr) {
     if (this == &mystr) {
         return *this;
@@ -107,7 +126,7 @@ my_str_t &my_str_t::operator=(const my_str_t &mystr) {
 
     return *this;
 }
-
+// Implemented by Andrew Yaroshevych
 void my_str_t::swap(my_str_t &other) noexcept {
     size_t tmp_size = size_m;
     size_m = other.size_m;
@@ -137,7 +156,7 @@ const char &my_str_t::operator[](size_t idx) const {
 
     return data_m[idx];
 }
-
+// Implemented by Pavlo Kryven
 char &my_str_t::at(size_t idx) {
     if (idx >= size_m) {
         throw std::out_of_range("Index is out of range");
@@ -145,7 +164,7 @@ char &my_str_t::at(size_t idx) {
 
     return data_m[idx];
 }
-
+// Implemented by Andrew Yaroshevych
 const char &my_str_t::at(size_t idx) const {
     if (idx >= size_m) {
         throw std::out_of_range("Index is out of range");
@@ -153,7 +172,7 @@ const char &my_str_t::at(size_t idx) const {
 
     return data_m[idx];
 }
-
+// Implemented by Andrew Yaroshevych
 void my_str_t::reserve(size_t new_capacity) {
     if (new_capacity <= capacity_m) {
         return;
@@ -167,7 +186,7 @@ void my_str_t::reserve(size_t new_capacity) {
     delete[] data_m;
     data_m = new_data;
 }
-
+// Implemented by Andrew Yaroshevych
 void my_str_t::shrink_to_fit() {
     if (size_m == capacity_m) {
         return;
@@ -181,7 +200,7 @@ void my_str_t::shrink_to_fit() {
     delete[] data_m;
     data_m = new_data;
 }
-
+// Implemented by Pavlo Kryven
 void my_str_t::resize(size_t new_size, char new_char) {
     if (new_size == size_m) {
         return;
@@ -214,19 +233,12 @@ void my_str_t::resize(size_t new_size, char new_char) {
         data_m[size_m] = '\0';
     }
 }
-
+// Implemented by Pavlo Kryven
 void my_str_t::clear() {
-    if (capacity_m > 31) {
-        delete[] data_m;
-
-        capacity_m = DEFAULT_CAPACITY;
-        data_m = new char[capacity_m + 1];
-    }
-
     data_m[0] = '\0';
     size_m = 0;
 }
-
+// Implemented by Andrew Yaroshevych
 void my_str_t::insert(size_t idx, const my_str_t &str) {
     if (idx >= size_m) {
         throw std::out_of_range("Index is out of range");
@@ -245,7 +257,7 @@ void my_str_t::insert(size_t idx, const my_str_t &str) {
 
     data_m[size_m] = '\0';
 }
-
+// Implemented by Andrew Yaroshevych
 void my_str_t::insert(size_t idx, const char *cstr) {
     if (idx >= size_m) {
         throw std::out_of_range("Index is out of range");
@@ -266,7 +278,7 @@ void my_str_t::insert(size_t idx, const char *cstr) {
 
     data_m[size_m] = '\0';
 }
-
+// Implemented by Andrew Yaroshevych
 void my_str_t::append(const my_str_t &str) {
     size_t new_size = size_m + str.size_m;
 
@@ -280,7 +292,7 @@ void my_str_t::append(const my_str_t &str) {
 
     data_m[size_m] = '\0';
 }
-
+// Implemented by Andrew Yaroshevych
 void my_str_t::append(char c) {
     if (size_m + 1 > capacity_m) {
         reserve(calculate_capacity(size_m + 1));
@@ -291,7 +303,7 @@ void my_str_t::append(char c) {
     size_m++;
     data_m[size_m] = '\0';
 }
-
+// Implemented by Andrew Yaroshevych
 void my_str_t::append(const char *cstr) {
     size_t cstr_size = strlen(cstr);
 
@@ -307,7 +319,7 @@ void my_str_t::append(const char *cstr) {
 
     data_m[size_m] = '\0';
 }
-
+// Implemented by Pavlo Kryven
 void my_str_t::erase(size_t begin, size_t size) {
     if (begin >= size_m) {
         throw std::out_of_range("Begin index is out of range");
@@ -330,15 +342,15 @@ void my_str_t::erase(size_t begin, size_t size) {
 
     this->shrink_to_fit();
 }
-
+// Implemented by Andrew Yaroshevych
 size_t my_str_t::size() const noexcept {
     return size_m;
 }
-
+// Implemented by Andrew Yaroshevych
 size_t my_str_t::capacity() const noexcept {
     return capacity_m;
 }
-
+// Implemented by Andrew Yaroshevych
 const char *my_str_t::c_str() const {
     return data_m;
 }
@@ -431,17 +443,16 @@ my_str_t my_str_t::substr(size_t begin, size_t size) {
 
     return new_str;
 }
-
+// Implemented by Pavlo Kryven
 my_str_t::~my_str_t() {
     delete[] data_m;
 }
-
-
+// Implemented by Pavlo Kryven
 std::ostream &operator<<(std::ostream &stream, const my_str_t &str) {
     stream << str.c_str();
     return stream;
 }
-
+// Implemented by Andrew Yaroshevych
 std::istream &operator>>(std::istream &stream, my_str_t &str) {
     char *buffer = new char[4096];
     stream >> buffer;
@@ -449,7 +460,7 @@ std::istream &operator>>(std::istream &stream, my_str_t &str) {
     delete[] buffer;
     return stream;
 }
-
+// Implemented by Andrew Yaroshevych
 std::istream &readline(std::istream &stream, my_str_t &str) {
     char *buffer = new char[4096];
     size_t buffer_size = 4096;
@@ -477,6 +488,148 @@ std::istream &readline(std::istream &stream, my_str_t &str) {
     delete[] buffer;
 
     return stream;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator+(const my_str_t &str1, const my_str_t &str2) {
+    size_t new_size = str1.size_m + str2.size_m;
+    char *new_data = new char[new_size + 1];
+
+    std::memcpy(new_data, str1.data_m, str1.size_m);
+    std::memcpy(new_data + str1.size_m, str2.data_m, str2.size_m);
+    new_data[new_size] = '\0';
+
+    my_str_t new_str(new_data);
+    delete[] new_data;
+
+    return new_str;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator+(const my_str_t &str1, const std::string &str2) {
+    size_t new_size = str1.size() + str2.size();
+    char *new_data = new char[new_size + 1];
+
+    std::memcpy(new_data, str1.c_str(), str1.size());
+    std::memcpy(new_data + str1.size(), str2.c_str(), str2.size());
+    new_data[new_size] = '\0';
+
+    my_str_t new_str(new_data);
+    delete[] new_data;
+
+    return new_str;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator+(const std::string &str1, const my_str_t &str2) {
+    size_t new_size = str1.size() + str2.size();
+    char *new_data = new char[new_size + 1];
+
+    std::memcpy(new_data, str1.c_str(), str1.size());
+    std::memcpy(new_data + str1.size(), str2.c_str(), str2.size());
+    new_data[new_size] = '\0';
+
+    my_str_t new_str(new_data);
+    delete[] new_data;
+
+    return new_str;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator+(const my_str_t &str1, const char *cstr) {
+    size_t new_size = str1.size() + strlen(cstr);
+    char *new_data = new char[new_size + 1];
+
+    std::memcpy(new_data, str1.c_str(), str1.size());
+    std::memcpy(new_data + str1.size(), cstr, strlen(cstr));
+    new_data[new_size] = '\0';
+
+    my_str_t new_str(new_data);
+    delete[] new_data;
+
+    return new_str;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator+(const char *cstr, const my_str_t &str2) {
+    size_t new_size = strlen(cstr) + str2.size();
+    char *new_data = new char[new_size + 1];
+
+    std::memcpy(new_data, cstr, strlen(cstr));
+    std::memcpy(new_data + strlen(cstr), str2.c_str(), str2.size());
+    new_data[new_size] = '\0';
+
+    my_str_t new_str(new_data);
+    delete[] new_data;
+
+    return new_str;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator+(const my_str_t &str1, char c) {
+    size_t new_size = str1.size() + 1;
+    char *new_data = new char[new_size + 1];
+
+    std::memcpy(new_data, str1.c_str(), str1.size());
+    new_data[str1.size()] = c;
+    new_data[new_size] = '\0';
+
+    my_str_t new_str(new_data);
+    delete[] new_data;
+
+    return new_str;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator +=(my_str_t &str1, const my_str_t &str2) {
+    str1.append(str2);
+
+    return str1;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator +=(my_str_t &str1, const std::string &str2) {
+    str1.append(str2.c_str());
+
+    return str1;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator +=(my_str_t &str1, const char *cstr) {
+    str1.append(cstr);
+
+    return str1;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator +=(my_str_t &str1, char c) {
+    str1.append(c);
+
+    return str1;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator *(const my_str_t &str, int n) {
+    if (n == 0) {
+        return my_str_t{};
+    }
+    if (n < 0) {
+        throw std::invalid_argument("n must be positive");
+    }
+
+    size_t new_size = str.size() * n;
+    char *new_data = new char[new_size + 1];
+
+    for (size_t i = 0; i < n; i++) {
+        std::memcpy(new_data + i * str.size(), str.c_str(), str.size());
+    }
+    new_data[new_size] = '\0';
+
+    my_str_t new_str(new_data);
+    delete[] new_data;
+
+    return new_str;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator *(int n, const my_str_t &str) {
+    my_str_t new_str = str * n;
+
+    return new_str;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator *=(my_str_t &str, int n) {
+    str = str * n;
+
+    return str;
 }
 
 bool operator==(const my_str_t &str1, const my_str_t &str2) {
