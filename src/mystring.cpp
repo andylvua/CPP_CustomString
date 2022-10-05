@@ -81,8 +81,7 @@ my_str_t::my_str_t(const my_str_t &mystr) : size_m{mystr.size_m}, capacity_m{mys
     data_m[size_m] = '\0';
 }
 
-my_str_t::my_str_t(my_str_t &&mystr) : size_m{0}, capacity_m{DEFAULT_CAPACITY},
-                                       data_m{nullptr} {
+my_str_t::my_str_t(my_str_t &&mystr) noexcept : size_m{0}, capacity_m{DEFAULT_CAPACITY}, data_m{nullptr} {
     size_m = mystr.size_m;
     capacity_m = mystr.capacity_m;
     data_m = mystr.data_m;
@@ -90,8 +89,8 @@ my_str_t::my_str_t(my_str_t &&mystr) : size_m{0}, capacity_m{DEFAULT_CAPACITY},
     mystr.capacity_m = 0;
     mystr.data_m = nullptr;
 }
-// as std functions except I/O (including move) was banned
-my_str_t &my_str_t::operator=(my_str_t &&mystr) {
+
+my_str_t &my_str_t::operator=(my_str_t &&mystr) noexcept {
     if (this != &mystr){
         delete[] data_m;
         data_m = mystr.data_m;
