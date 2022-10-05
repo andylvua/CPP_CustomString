@@ -559,6 +559,44 @@ my_str_t operator+(const char *cstr, const my_str_t &str2) {
 
     return new_str;
 }
+// Implemented by Andrew Yaroshevych
+my_str_t operator+(const my_str_t &str1, char c) {
+    size_t new_size = str1.size() + 1;
+    char *new_data = new char[new_size + 1];
+
+    std::memcpy(new_data, str1.c_str(), str1.size());
+    new_data[str1.size()] = c;
+    new_data[new_size] = '\0';
+
+    my_str_t new_str(new_data);
+    delete[] new_data;
+
+    return new_str;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator +=(my_str_t &str1, const my_str_t &str2) {
+    str1.append(str2);
+
+    return str1;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator +=(my_str_t &str1, const std::string &str2) {
+    str1.append(str2.c_str());
+
+    return str1;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator +=(my_str_t &str1, const char *cstr) {
+    str1.append(cstr);
+
+    return str1;
+}
+// Implemented by Andrew Yaroshevych
+my_str_t operator +=(my_str_t &str1, char c) {
+    str1.append(c);
+
+    return str1;
+}
 
 bool operator==(const my_str_t &str1, const my_str_t &str2) {
     size_t str1_size = str1.size();
