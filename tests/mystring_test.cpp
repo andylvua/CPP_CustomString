@@ -819,6 +819,86 @@ TEST(concatenation, concatenation_char_array) {
     ASSERT_TRUE(test4 == "world!Hello, ");
 }
 // Implemented by Andrew Yaroshevych
+TEST(concatenation, concatenation_char) {
+    my_str_t test1 = my_str_t("Hello, ");
+    char test2 = '!';
+    my_str_t test3 = test1 + test2;
+
+    EXPECT_EQ(test3.size(), 8);
+    EXPECT_EQ(test3.capacity(), 15);
+    ASSERT_TRUE(test3 == "Hello, !");
+}
+// Implemented by Andrew Yaroshevych
+TEST(append_operator, append_operator) {
+    my_str_t test1 = my_str_t("Hello, ");
+    my_str_t test2 = my_str_t("world!");
+    test1 += test2;
+
+    EXPECT_EQ(test1.size(), 13);
+    EXPECT_EQ(test1.capacity(), 15);
+    ASSERT_TRUE(test1 == "Hello, world!");
+}
+// Implemented by Andrew Yaroshevych
+TEST(append_operator, append_operator_with_empty_string) {
+    my_str_t test1 = my_str_t("Hello, ");
+    my_str_t test2 = my_str_t();
+    test1 += test2;
+
+    EXPECT_EQ(test1.size(), 7);
+    EXPECT_EQ(test1.capacity(), 15);
+    ASSERT_TRUE(test1 == "Hello, ");
+}
+// Implemented by Andrew Yaroshevych
+TEST(append_operator, append_operator_std_string) {
+    my_str_t test1 = my_str_t("Hello, ");
+    std::string test2 = "world!";
+    test1 += test2;
+
+    EXPECT_EQ(test1.size(), 13);
+    EXPECT_EQ(test1.capacity(), 15);
+    ASSERT_TRUE(test1 == "Hello, world!");
+}
+// Implemented by Andrew Yaroshevych
+TEST(append_operator, append_operator_std_string_with_empty_string) {
+    my_str_t test1 = my_str_t("Hello, ");
+    std::string test2 = ""; // NOLINT(readability-redundant-string-init)
+    test1 += test2;
+
+    EXPECT_EQ(test1.size(), 7);
+    EXPECT_EQ(test1.capacity(), 15);
+    ASSERT_TRUE(test1 == "Hello, ");
+}
+// Implemented by Andrew Yaroshevych
+TEST(append_operator, append_operator_char_array) {
+    my_str_t test1 = my_str_t("Hello, ");
+    char test2[] = "world!";
+    test1 += test2;
+
+    EXPECT_EQ(test1.size(), 13);
+    EXPECT_EQ(test1.capacity(), 15);
+    ASSERT_TRUE(test1 == "Hello, world!");
+}
+// Implemented by Andrew Yaroshevych
+TEST(append_operator, append_operator_char) {
+    my_str_t test1 = my_str_t("Hello, ");
+    char test2 = '!';
+    test1 += test2;
+
+    EXPECT_EQ(test1.size(), 8);
+    EXPECT_EQ(test1.capacity(), 15);
+    ASSERT_TRUE(test1 == "Hello, !");
+}
+// Implemented by Andrew Yaroshevych
+TEST(append_operator, append_operator_char_with_empty_string) {
+    my_str_t test1 = my_str_t();
+    char test2 = '!';
+    test1 += test2;
+
+    EXPECT_EQ(test1.size(), 1);
+    EXPECT_EQ(test1.capacity(), 15);
+    ASSERT_TRUE(test1 == "!");
+}
+// Implemented by Andrew Yaroshevych
 TEST(equal, equal) {
     my_str_t test1 = my_str_t("First lab ");
     std::string helper = "First lab ";
