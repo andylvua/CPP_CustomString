@@ -155,6 +155,9 @@ $ cd build
 $ ctest -C
 ```
 
+For your convenience, you can also run the tests using CLion. For even more convenience, 
+we've generated a test report for you. Please head to [https://andylvua.github.io/POK_Lab1/](https://andylvua.github.io/POK_Lab1/)
+
 ## Additional tasks implemented
 - [x] Move constructor `my_str_t(my_str_t &&mystr);`
 - [x] Assignment operator `my_str_t &operator=(my_str_t&& mystr);`
