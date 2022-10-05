@@ -752,6 +752,8 @@ TEST(equal, equal) {
     EXPECT_EQ(bool(test2 == test3), false);
 }
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "bugprone-use-after-move"
 TEST(move_assignment, move_assignment){
     my_str_t test1{"Hello"};
     my_str_t test2 = std::move(test1);
@@ -763,6 +765,7 @@ TEST(move_assignment, move_assignment){
     EXPECT_EQ(test2.capacity(),15);
     ASSERT_TRUE(test2=="Hello");
 }
+#pragma clang diagnostic pop
 
 TEST(equal, equal_strings) {
     my_str_t test1 = my_str_t("First lab ");
