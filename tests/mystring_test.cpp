@@ -740,6 +740,85 @@ TEST(readline, readline_handles_buffer_expanding) {
     ASSERT_EQ(test2, test1);
 }
 // Implemented by Andrew Yaroshevych
+TEST(concatenation, concatenation) {
+    my_str_t test1 = my_str_t("Hello, ");
+    my_str_t test2 = my_str_t("world!");
+    my_str_t test3 = test1 + test2;
+
+    EXPECT_EQ(test3.size(), 13);
+    EXPECT_EQ(test3.capacity(), 15);
+    ASSERT_TRUE(test3 == "Hello, world!");
+}
+// Implemented by Andrew Yaroshevych
+TEST(concatenation, concatenation_with_empty_string) {
+    my_str_t test1 = my_str_t("Hello, ");
+    my_str_t test2 = my_str_t();
+    my_str_t test3 = test1 + test2;
+
+    EXPECT_EQ(test3.size(), 7);
+    EXPECT_EQ(test3.capacity(), 15);
+    ASSERT_TRUE(test3 == "Hello, ");
+}
+// Implemented by Andrew Yaroshevych
+TEST(concatenation, concatenation_std_string) {
+    my_str_t test1 = my_str_t("Hello, ");
+    std::string test2 = "world!";
+    my_str_t test3 = test1 + test2;
+
+    EXPECT_EQ(test3.size(), 13);
+    EXPECT_EQ(test3.capacity(), 15);
+    ASSERT_TRUE(test3 == "Hello, world!");
+    my_str_t test4 = test2 + test1;
+    EXPECT_EQ(test4.size(), 13);
+    EXPECT_EQ(test4.capacity(), 15);
+    ASSERT_TRUE(test4 == "world!Hello, ");
+}
+// Implemented by Andrew Yaroshevych
+TEST(concatenation, concatenation_std_string_with_empty_string) {
+    my_str_t test1 = my_str_t("Hello, ");
+    std::string test2 = ""; // NOLINT(readability-redundant-string-init)
+    my_str_t test3 = test1 + test2;
+
+    EXPECT_EQ(test3.size(), 7);
+    EXPECT_EQ(test3.capacity(), 15);
+    ASSERT_TRUE(test3 == "Hello, ");
+}
+// Implemented by Andrew Yaroshevych
+TEST(concatenation, concatenation_std_string_with_empty_my_str) {
+    my_str_t test1 = my_str_t();
+    std::string test2 = "world!";
+    my_str_t test3 = test1 + test2;
+
+    EXPECT_EQ(test3.size(), 6);
+    EXPECT_EQ(test3.capacity(), 15);
+    ASSERT_TRUE(test3 == "world!");
+}
+// Implemented by Andrew Yaroshevych
+TEST(concatenation, concatenation_std_string_with_empty_my_str_and_string) {
+    my_str_t test1 = my_str_t();
+    std::string test2 = ""; // NOLINT(readability-redundant-string-init)
+    my_str_t test3 = test1 + test2;
+
+    EXPECT_EQ(test3.size(), 0);
+    EXPECT_EQ(test3.capacity(), 15);
+    ASSERT_TRUE(test3 == "");
+}
+// Implemented by Andrew Yaroshevych
+TEST(concatenation, concatenation_char_array) {
+    my_str_t test1 = my_str_t("Hello, ");
+    char test2[] = "world!";
+    my_str_t test3 = test1 + test2;
+
+    EXPECT_EQ(test3.size(), 13);
+    EXPECT_EQ(test3.capacity(), 15);
+    ASSERT_TRUE(test3 == "Hello, world!");
+
+    my_str_t test4 = test2 + test1;
+    EXPECT_EQ(test4.size(), 13);
+    EXPECT_EQ(test4.capacity(), 15);
+    ASSERT_TRUE(test4 == "world!Hello, ");
+}
+// Implemented by Andrew Yaroshevych
 TEST(equal, equal) {
     my_str_t test1 = my_str_t("First lab ");
     std::string helper = "First lab ";
