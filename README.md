@@ -32,12 +32,12 @@ It is a part of the first labs of the course "Principles of Computer Organizatio
 > Ubuntu
 > $ sudo apt install cmake
 > ```
-> 
+>
 > ```bash
 > Arch based distros
 > $ sudo pacman -S cmake
 > ```
-> 
+>
 > For compiler installation, please, refer to the official documentation of your compiler.
 
 To install the library, you need to clone the repository first:
@@ -72,6 +72,9 @@ This will build the library and the tests.
 
 ## Usage
 To use the library, you need to include the header file:
+> You might need to use relative path to the header file according to your working directory.
+
+
 ```cpp
 #include "mystring.h"
 ```
@@ -162,7 +165,7 @@ $ cd build
 $ ctest -C
 ```
 
-For your convenience, you can also run the tests using CLion. For even more convenience, 
+For your convenience, you can also run the tests using CLion. For even more convenience,
 we've generated a test report for you. Please head to [https://andylvua.github.io/POK_Lab1/](https://andylvua.github.io/POK_Lab1/)
 
 ## Additional tasks implemented
@@ -170,6 +173,23 @@ we've generated a test report for you. Please head to [https://andylvua.github.i
 - [x] Assignment operator `my_str_t &operator=(my_str_t&& mystr);`
 - [x] Concatenation operators
 - [x] Multiplication operators
+
+## Performance check
+We've also done a performance tests to compare the performance of our implementation 
+with the standard library using [Google Benchmark](https://github.com/google/benchmark). 
+You can find the results in the [benchmark_results](https://github.com/ucu-cs/lab1_cstring-zinchukkryvenyaroshevychkharabara/blob/efba977e7f413b91b4a3530e06acb6c1da4d7b7d/benchmark_results/benchmark_results.txt) file.
+
+Most of the methods are working pretty much the same as the standard library does.
+However, there are some differences. For example, the `substr()`, `erase()`, `shrink_to_fit()`, and `swap()` methods
+are working significantly slower than `std::string`. It happens because we can't operate with memory directly in
+some cases. For example, we can't use `realloc()` to resize the string. 
+
+Also, standard library uses some complex algorithms to optimize the performance of the methods we can't archive 
+with our implementation.
+
+Despite this, some methods are working faster than the standard library. For example, the `find()` method is working
+almost 4 times faster than the standard library. `resize()`, `reserve()`, and `at()` methods are working 2 times faster.
+
 
 ## License
 The [MIT](https://choosealicense.com/licenses/mit/) License (MIT)
