@@ -733,7 +733,7 @@ bool operator<=(const my_str_t &str1, const my_str_t &str2) {
 
     return true;
 }
-
+// Implemented by Yurii Kharabara
 bool operator==(const my_str_t &str1, const char *cstr) {
     size_t str1_size = str1.size();
     size_t cstr_size = strlen(cstr);
@@ -750,7 +750,7 @@ bool operator==(const my_str_t &str1, const char *cstr) {
 
     return true;
 }
-
+// Implemented by Yurii Kharabara
 bool operator!=(const my_str_t &str1, const char *cstr) {
     if (str1 == cstr) {
         return false;
@@ -758,7 +758,7 @@ bool operator!=(const my_str_t &str1, const char *cstr) {
 
     return true;
 }
-
+// Implemented by Yurii Kharabara
 bool operator>(const my_str_t &str1, const char *cstr) {
     size_t str1_size = str1.size();
     size_t cstr_size = strlen(cstr);
@@ -786,7 +786,7 @@ bool operator>(const my_str_t &str1, const char *cstr) {
     }
     return false;
 }
-
+// Implemented by Yurii Kharabara
 bool operator>=(const my_str_t &str1, const char *cstr) {
     if (str1 == cstr || str1 > cstr) {
         return true;
@@ -794,7 +794,7 @@ bool operator>=(const my_str_t &str1, const char *cstr) {
 
     return false;
 }
-
+// Implemented by Yurii Kharabara
 bool operator<(const my_str_t &str1, const char *cstr) {
     if (str1 >= cstr) {
         return false;
@@ -802,7 +802,7 @@ bool operator<(const my_str_t &str1, const char *cstr) {
 
     return true;
 }
-
+// Implemented by Yurii Kharabara
 bool operator<=(const my_str_t &str1, const char *cstr) {
     if (str1 > cstr) {
         return false;
