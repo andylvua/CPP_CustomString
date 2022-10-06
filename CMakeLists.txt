@@ -13,7 +13,7 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-add_executable(${PROJECT_NAME} src/mystring.cpp include/mystring.h src/main.cpp)
+add_executable(${PROJECT_NAME} src/mystring.cpp include/mystring.h examples/example.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 
