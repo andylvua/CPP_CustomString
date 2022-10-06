@@ -9,7 +9,7 @@ It is a part of the first labs of the course "Principles of Computer Organizatio
 ## Installation
 
 ### Requirements
-❯ CMake 3.24 or higher
+❯ CMake 3.14 or higher
 
 ❯ C++ compiler with C++14 support
 
@@ -19,7 +19,7 @@ It is a part of the first labs of the course "Principles of Computer Organizatio
 
 > **Note**
 >
-> CMake is a mandatory requirement. If your CMake version is incompatible with the project,
+> CMake and compiler is a mandatory requirements. If your CMake version is incompatible with the project,
 > please, consider updating it. For more information, please, refer to the official CMake documentation.
 > However, if you are using macOS or Linux, you can use the following command to install the latest version of CMake:
 >
@@ -37,6 +37,8 @@ It is a part of the first labs of the course "Principles of Computer Organizatio
 > Arch based distros
 > $ sudo pacman -S cmake
 > ```
+> 
+> For compiler installation, please, refer to the official documentation of your compiler.
 
 To install the library, you need to clone the repository first:
 ```bash
