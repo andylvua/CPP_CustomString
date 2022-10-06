@@ -24,13 +24,18 @@ It is a part of the first labs of the course "Principles of Computer Organizatio
 > However, if you are using macOS or Linux, you can use the following command to install the latest version of CMake:
 >
 > ```bash
-> // Mac OS
-> $ sudo apt install cmake
+> macOS
+> $ brew install cmake
 > ```
 >
 > ```bash
-> // Linux
-> $ brew install cmake
+> Ubuntu
+> $ sudo apt install cmake
+> ```
+> 
+> ```bash
+> Arch based distros
+> $ sudo pacman -S cmake
 > ```
 
 To install the library, you need to clone the repository first:
