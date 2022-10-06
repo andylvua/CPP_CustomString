@@ -51,9 +51,7 @@ my_str_t::my_str_t(const char *cstr) {
     capacity_m = calculate_capacity(size_m);
     data_m = new char[capacity_m + 1];
 
-    for (int i = 0; i < size_m; i++) {
-        data_m[i] = cstr[i];
-    }
+    memcpy(data_m, cstr, size_m);
 
     data_m[size_m] = '\0';
 }
@@ -64,24 +62,17 @@ my_str_t::my_str_t(const std::string &str) {
     capacity_m = calculate_capacity(size_m);
     data_m = new char[capacity_m + 1];
 
-    for (int i = 0; i < size_m; i++) {
-        data_m[i] = str[i];
-    }
+    memcpy(data_m, str.c_str(), size_m);
 
     data_m[size_m] = '\0';
 }
 // Implemented by Pavlo Kryven
 my_str_t::my_str_t(const my_str_t &mystr) : size_m{mystr.size_m}, capacity_m{mystr.capacity_m} {
     data_m = new char[capacity_m + 1];
-
-    for (int i = 0; i < size_m; i++) {
-        data_m[i] = mystr[i];
-    }
-
-    data_m[size_m] = '\0';
+    std::memcpy(data_m, mystr.data_m, size_m + 1);
 }
 // Implemented by Pavlo Kryven
-my_str_t::my_str_t(my_str_t &&mystr) noexcept : size_m{0}, capacity_m{DEFAULT_CAPACITY}, data_m{nullptr} {
+my_str_t::my_str_t(my_str_t &&mystr) noexcept: size_m{0}, capacity_m{DEFAULT_CAPACITY}, data_m{nullptr} {
     size_m = mystr.size_m;
     capacity_m = mystr.capacity_m;
     data_m = mystr.data_m;
@@ -118,9 +109,7 @@ my_str_t &my_str_t::operator=(const my_str_t &mystr) {
 
     size_m = mystr.size_m;
 
-    for (int i = 0; i < size_m; i++) {
-        data_m[i] = mystr[i];
-    }
+    memcpy(data_m, mystr.data_m, size_m + 1);
 
     data_m[size_m] = '\0';
 
