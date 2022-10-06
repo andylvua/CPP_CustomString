@@ -246,6 +246,12 @@ void my_str_t::insert(size_t idx, const my_str_t &str) {
         throw std::out_of_range("Index is out of range");
     }
 
+    if (this == &str) {
+        my_str_t tmp(str);
+        insert(idx, tmp);
+        return;
+    }
+
     size_t new_size = size_m + str.size_m;
 
     if (new_size > capacity_m) {
@@ -263,6 +269,12 @@ void my_str_t::insert(size_t idx, const my_str_t &str) {
 void my_str_t::insert(size_t idx, const char *cstr) {
     if (idx >= size_m) {
         throw std::out_of_range("Index is out of range");
+    }
+
+    if (*this == cstr) {
+        my_str_t tmp(cstr);
+        insert(idx, tmp);
+        return;
     }
 
     size_t cstr_size = strlen(cstr);
