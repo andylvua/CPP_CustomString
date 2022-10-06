@@ -34,7 +34,7 @@ public:
 
     my_str_t &operator=(const my_str_t &mystr);
 
-    my_str_t &operator=(my_str_t&& mystr) noexcept;
+    my_str_t &operator=(my_str_t &&mystr) noexcept;
 
     void swap(my_str_t &other) noexcept;
 
@@ -126,31 +126,31 @@ public:
 
     friend bool operator<=(const char *cstr1, const my_str_t &str2);
 
-    friend my_str_t operator +(const my_str_t &str1, const my_str_t &str2);
+    friend my_str_t operator+(const my_str_t &str1, const my_str_t &str2);
 
-    friend my_str_t operator +(const my_str_t &str1, const std::string &str2);
+    friend my_str_t operator+(const my_str_t &str1, const std::string &str2);
 
-    friend my_str_t operator +(const std::string &str1, const my_str_t &str2);
+    friend my_str_t operator+(const std::string &str1, const my_str_t &str2);
 
-    friend my_str_t operator +(const my_str_t &str1, const char *cstr2);
+    friend my_str_t operator+(const my_str_t &str1, const char *cstr2);
 
-    friend my_str_t operator +(const char *cstr1, const my_str_t &str2);
+    friend my_str_t operator+(const char *cstr1, const my_str_t &str2);
 
-    friend my_str_t operator +(const my_str_t &str1, char c2);
+    friend my_str_t operator+(const my_str_t &str1, char c2);
 
-    friend my_str_t operator +=(my_str_t &str1, const my_str_t &str2);
+    friend void operator+=(my_str_t &str1, const my_str_t &str2);
 
-    friend my_str_t operator +=(my_str_t &str1, const std::string &str2);
+    friend void operator+=(my_str_t &str1, const std::string &str2);
 
-    friend my_str_t operator +=(my_str_t &str1, const char *cstr2);
+    friend void operator+=(my_str_t &str1, const char *cstr2);
 
-    friend my_str_t operator +=(my_str_t &str1, char c2);
+    friend void operator+=(my_str_t &str1, char c2);
 
-    friend my_str_t operator *(const my_str_t &str, int n);
+    friend my_str_t operator*(const my_str_t &str, int n);
 
-    friend my_str_t operator *(int n, const my_str_t &str);
+    friend my_str_t operator*(int n, const my_str_t &str);
 
-    friend my_str_t operator *=(my_str_t &str, int n);
+    friend void operator*=(my_str_t &str, int n);
 };
 
 #endif //LAB1_CSTRING_ZINCHUKKRYVENYAROSHEVYCHKHARABARA_MYSTRING_H

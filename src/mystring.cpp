@@ -6,15 +6,18 @@
 #include <cmath>
 
 const size_t my_str_t::not_found;
+
 // Implemented by Pavlo Kryven
 size_t my_str_t::calculate_capacity(size_t size) {
     return (size > 7) ? static_cast<size_t>
     (std::pow(2, std::ceil(std::log2(size + 1))) - 1) : DEFAULT_CAPACITY;
 }
+
 // Implemented by Andrew Yaroshevych
 size_t my_str_t::calculate_min_capacity(size_t size) {
     return static_cast<size_t> ((16 * std::ceil(static_cast<double> (size + 1) / 16)) - 1);
 }
+
 // Implemented by Andrew Yaroshevych
 size_t my_str_t::strlen(const char *cstr) {
     const char *s;
@@ -22,6 +25,7 @@ size_t my_str_t::strlen(const char *cstr) {
     for (s = cstr; *s; ++s);
     return (s - cstr);
 }
+
 // Implemented by Andrew Yaroshevych
 my_str_t::my_str_t() {
     size_m = 0;
@@ -31,6 +35,7 @@ my_str_t::my_str_t() {
 
     data_m[0] = '\0';
 }
+
 // Implemented by Pavlo Kryven
 my_str_t::my_str_t(size_t size, char initial) {
     size_m = size;
@@ -44,6 +49,7 @@ my_str_t::my_str_t(size_t size, char initial) {
 
     data_m[size_m] = '\0';
 }
+
 // Implemented by Andrew Yaroshevych
 my_str_t::my_str_t(const char *cstr) {
     size_m = strlen(cstr);
@@ -55,6 +61,7 @@ my_str_t::my_str_t(const char *cstr) {
 
     data_m[size_m] = '\0';
 }
+
 // Implemented by Andrew Yaroshevych
 my_str_t::my_str_t(const std::string &str) {
     size_m = str.size();
@@ -66,11 +73,13 @@ my_str_t::my_str_t(const std::string &str) {
 
     data_m[size_m] = '\0';
 }
+
 // Implemented by Pavlo Kryven
 my_str_t::my_str_t(const my_str_t &mystr) : size_m{mystr.size_m}, capacity_m{mystr.capacity_m} {
     data_m = new char[capacity_m + 1];
     std::memcpy(data_m, mystr.data_m, size_m + 1);
 }
+
 // Implemented by Pavlo Kryven
 my_str_t::my_str_t(my_str_t &&mystr) noexcept: size_m{0}, capacity_m{DEFAULT_CAPACITY}, data_m{nullptr} {
     size_m = mystr.size_m;
@@ -80,9 +89,10 @@ my_str_t::my_str_t(my_str_t &&mystr) noexcept: size_m{0}, capacity_m{DEFAULT_CAP
     mystr.capacity_m = 0;
     mystr.data_m = nullptr;
 }
+
 // Implemented by Pavlo Kryven
 my_str_t &my_str_t::operator=(my_str_t &&mystr) noexcept {
-    if (this != &mystr){
+    if (this != &mystr) {
         delete[] data_m;
         data_m = mystr.data_m;
 
@@ -95,6 +105,7 @@ my_str_t &my_str_t::operator=(my_str_t &&mystr) noexcept {
     }
     return *this;
 }
+
 // Implemented by Andrew Yaroshevych
 my_str_t &my_str_t::operator=(const my_str_t &mystr) {
     if (this == &mystr) {
@@ -115,6 +126,7 @@ my_str_t &my_str_t::operator=(const my_str_t &mystr) {
 
     return *this;
 }
+
 // Implemented by Andrew Yaroshevych
 void my_str_t::swap(my_str_t &other) noexcept {
     size_t tmp_size = size_m;
@@ -147,6 +159,7 @@ const char &my_str_t::operator[](size_t idx) const {
 
     return data_m[idx];
 }
+
 // Implemented by Pavlo Kryven
 char &my_str_t::at(size_t idx) {
     if (idx >= size_m) {
@@ -155,6 +168,7 @@ char &my_str_t::at(size_t idx) {
 
     return data_m[idx];
 }
+
 // Implemented by Andrew Yaroshevych
 const char &my_str_t::at(size_t idx) const {
     if (idx >= size_m) {
@@ -163,6 +177,7 @@ const char &my_str_t::at(size_t idx) const {
 
     return data_m[idx];
 }
+
 // Implemented by Andrew Yaroshevych
 void my_str_t::reserve(size_t new_capacity) {
     if (new_capacity <= capacity_m) {
@@ -177,6 +192,7 @@ void my_str_t::reserve(size_t new_capacity) {
     delete[] data_m;
     data_m = new_data;
 }
+
 // Implemented by Andrew Yaroshevych
 void my_str_t::shrink_to_fit() {
     if (size_m == capacity_m) {
@@ -191,6 +207,7 @@ void my_str_t::shrink_to_fit() {
     delete[] data_m;
     data_m = new_data;
 }
+
 // Implemented by Pavlo Kryven
 void my_str_t::resize(size_t new_size, char new_char) {
     if (new_size == size_m) {
@@ -224,11 +241,13 @@ void my_str_t::resize(size_t new_size, char new_char) {
         data_m[size_m] = '\0';
     }
 }
+
 // Implemented by Pavlo Kryven
 void my_str_t::clear() {
     data_m[0] = '\0';
     size_m = 0;
 }
+
 // Implemented by Andrew Yaroshevych
 void my_str_t::insert(size_t idx, const my_str_t &str) {
     if (idx >= size_m) {
@@ -254,6 +273,7 @@ void my_str_t::insert(size_t idx, const my_str_t &str) {
 
     data_m[size_m] = '\0';
 }
+
 // Implemented by Andrew Yaroshevych
 void my_str_t::insert(size_t idx, const char *cstr) {
     if (idx >= size_m) {
@@ -281,6 +301,7 @@ void my_str_t::insert(size_t idx, const char *cstr) {
 
     data_m[size_m] = '\0';
 }
+
 // Implemented by Andrew Yaroshevych
 void my_str_t::append(const my_str_t &str) {
     size_t new_size = size_m + str.size_m;
@@ -295,6 +316,7 @@ void my_str_t::append(const my_str_t &str) {
 
     data_m[size_m] = '\0';
 }
+
 // Implemented by Andrew Yaroshevych
 void my_str_t::append(char c) {
     if (size_m + 1 > capacity_m) {
@@ -306,6 +328,7 @@ void my_str_t::append(char c) {
     size_m++;
     data_m[size_m] = '\0';
 }
+
 // Implemented by Andrew Yaroshevych
 void my_str_t::append(const char *cstr) {
     size_t cstr_size = strlen(cstr);
@@ -322,6 +345,7 @@ void my_str_t::append(const char *cstr) {
 
     data_m[size_m] = '\0';
 }
+
 // Implemented by Pavlo Kryven
 void my_str_t::erase(size_t begin, size_t size) {
     if (begin >= size_m) {
@@ -345,14 +369,17 @@ void my_str_t::erase(size_t begin, size_t size) {
 
     this->shrink_to_fit();
 }
+
 // Implemented by Andrew Yaroshevych
 size_t my_str_t::size() const noexcept {
     return size_m;
 }
+
 // Implemented by Andrew Yaroshevych
 size_t my_str_t::capacity() const noexcept {
     return capacity_m;
 }
+
 // Implemented by Andrew Yaroshevych
 const char *my_str_t::c_str() const {
     return data_m;
@@ -450,15 +477,18 @@ my_str_t my_str_t::substr(size_t begin, size_t size) {
 
     return new_str;
 }
+
 // Implemented by Pavlo Kryven
 my_str_t::~my_str_t() {
     delete[] data_m;
 }
+
 // Implemented by Pavlo Kryven
 std::ostream &operator<<(std::ostream &stream, const my_str_t &str) {
     stream << str.c_str();
     return stream;
 }
+
 // Implemented by Andrew Yaroshevych
 std::istream &operator>>(std::istream &stream, my_str_t &str) {
     char *buffer = new char[4096];
@@ -467,6 +497,7 @@ std::istream &operator>>(std::istream &stream, my_str_t &str) {
     delete[] buffer;
     return stream;
 }
+
 // Implemented by Andrew Yaroshevych
 std::istream &readline(std::istream &stream, my_str_t &str) {
     char *buffer = new char[4096];
@@ -496,6 +527,7 @@ std::istream &readline(std::istream &stream, my_str_t &str) {
 
     return stream;
 }
+
 // Implemented by Andrew Yaroshevych
 my_str_t operator+(const my_str_t &str1, const my_str_t &str2) {
     size_t new_size = str1.size_m + str2.size_m;
@@ -510,6 +542,7 @@ my_str_t operator+(const my_str_t &str1, const my_str_t &str2) {
 
     return new_str;
 }
+
 // Implemented by Andrew Yaroshevych
 my_str_t operator+(const my_str_t &str1, const std::string &str2) {
     size_t new_size = str1.size() + str2.size();
@@ -524,6 +557,7 @@ my_str_t operator+(const my_str_t &str1, const std::string &str2) {
 
     return new_str;
 }
+
 // Implemented by Andrew Yaroshevych
 my_str_t operator+(const std::string &str1, const my_str_t &str2) {
     size_t new_size = str1.size() + str2.size();
@@ -538,6 +572,7 @@ my_str_t operator+(const std::string &str1, const my_str_t &str2) {
 
     return new_str;
 }
+
 // Implemented by Andrew Yaroshevych
 my_str_t operator+(const my_str_t &str1, const char *cstr) {
     size_t new_size = str1.size() + strlen(cstr);
@@ -552,6 +587,7 @@ my_str_t operator+(const my_str_t &str1, const char *cstr) {
 
     return new_str;
 }
+
 // Implemented by Andrew Yaroshevych
 my_str_t operator+(const char *cstr, const my_str_t &str2) {
     size_t new_size = strlen(cstr) + str2.size();
@@ -566,6 +602,7 @@ my_str_t operator+(const char *cstr, const my_str_t &str2) {
 
     return new_str;
 }
+
 // Implemented by Andrew Yaroshevych
 my_str_t operator+(const my_str_t &str1, char c) {
     size_t new_size = str1.size() + 1;
@@ -580,32 +617,29 @@ my_str_t operator+(const my_str_t &str1, char c) {
 
     return new_str;
 }
+
 // Implemented by Andrew Yaroshevych
-my_str_t operator +=(my_str_t &str1, const my_str_t &str2) {
+void operator+=(my_str_t &str1, const my_str_t &str2) {
     str1.append(str2);
-
-    return str1;
 }
+
 // Implemented by Andrew Yaroshevych
-my_str_t operator +=(my_str_t &str1, const std::string &str2) {
+void operator+=(my_str_t &str1, const std::string &str2) {
     str1.append(str2.c_str());
-
-    return str1;
 }
+
 // Implemented by Andrew Yaroshevych
-my_str_t operator +=(my_str_t &str1, const char *cstr) {
+void operator+=(my_str_t &str1, const char *cstr) {
     str1.append(cstr);
-
-    return str1;
 }
+
 // Implemented by Andrew Yaroshevych
-my_str_t operator +=(my_str_t &str1, char c) {
+void operator+=(my_str_t &str1, char c) {
     str1.append(c);
-
-    return str1;
 }
+
 // Implemented by Andrew Yaroshevych
-my_str_t operator *(const my_str_t &str, int n) {
+my_str_t operator*(const my_str_t &str, int n) {
     if (n == 0) {
         return my_str_t{};
     }
@@ -622,21 +656,22 @@ my_str_t operator *(const my_str_t &str, int n) {
     new_data[new_size] = '\0';
 
     my_str_t new_str(new_data);
+
     delete[] new_data;
 
     return new_str;
 }
+
 // Implemented by Andrew Yaroshevych
-my_str_t operator *(int n, const my_str_t &str) {
+my_str_t operator*(int n, const my_str_t &str) {
     my_str_t new_str = str * n;
 
     return new_str;
 }
-// Implemented by Andrew Yaroshevych
-my_str_t operator *=(my_str_t &str, int n) {
-    str = str * n;
 
-    return str;
+// Implemented by Andrew Yaroshevych
+void operator*=(my_str_t &str, int n) {
+    str = str * n;
 }
 
 // Implemented by Yurii Zinchuk
@@ -648,7 +683,7 @@ bool operator==(const my_str_t &str1, const my_str_t &str2) {
         return false;
     }
 
-    for (int i = 0; i < str1_size; ++i) {
+    for (size_t i = 0; i < str1_size; i++) {
         if (str1.at(i) != str2.at(i)) {
             return false;
         }
@@ -722,6 +757,7 @@ bool operator<=(const my_str_t &str1, const my_str_t &str2) {
 
     return true;
 }
+
 // Implemented by Yurii Kharabara
 bool operator==(const my_str_t &str1, const char *cstr) {
     size_t str1_size = str1.size();
@@ -739,6 +775,7 @@ bool operator==(const my_str_t &str1, const char *cstr) {
 
     return true;
 }
+
 // Implemented by Yurii Kharabara
 bool operator!=(const my_str_t &str1, const char *cstr) {
     if (str1 == cstr) {
@@ -747,6 +784,7 @@ bool operator!=(const my_str_t &str1, const char *cstr) {
 
     return true;
 }
+
 // Implemented by Yurii Kharabara
 bool operator>(const my_str_t &str1, const char *cstr) {
     size_t str1_size = str1.size();
@@ -775,6 +813,7 @@ bool operator>(const my_str_t &str1, const char *cstr) {
     }
     return false;
 }
+
 // Implemented by Yurii Kharabara
 bool operator>=(const my_str_t &str1, const char *cstr) {
     if (str1 == cstr || str1 > cstr) {
@@ -783,6 +822,7 @@ bool operator>=(const my_str_t &str1, const char *cstr) {
 
     return false;
 }
+
 // Implemented by Yurii Kharabara
 bool operator<(const my_str_t &str1, const char *cstr) {
     if (str1 >= cstr) {
@@ -791,6 +831,7 @@ bool operator<(const my_str_t &str1, const char *cstr) {
 
     return true;
 }
+
 // Implemented by Yurii Kharabara
 bool operator<=(const my_str_t &str1, const char *cstr) {
     if (str1 > cstr) {
