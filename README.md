@@ -55,6 +55,14 @@ $ cd lab1_cstring-zinchukkryvenyaroshevychkharabara
 > $ git clone https://github.com/ucu-cs/lab1_cstring-zinchukkryvenyaroshevychkharabara folder_name
 > ```
 
+To compile and run the example file using g++:
+```bash
+$ cd examples
+$ g++ -c ../src/mystring.cpp ./example.cpp
+$ g++ -o example ./mystring.o ./example.o 
+$ ./example
+```
+
 ### Building manually
 > **Note**
 >
