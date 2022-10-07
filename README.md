@@ -198,6 +198,12 @@ with our implementation.
 Despite this, some methods are working faster than the standard library. For example, the `find()` method is working
 almost 4 times faster than the standard library. `resize()`, `reserve()`, and `at()` methods are working 2 times faster.
 
+> **Note**
+> 
+> You can check the actual performance of the methods by running the benchmark yourself. The library provides
+> a `benchmark.cpp` file with the benchmark tests and a `CMakeLists.txt` file to build the benchmark automatically using CMake. 
+> 
+> Also, you can find the benchmark results on the [GitHub Actions](https://github.com/ucu-cs/lab1_cstring-zinchukkryvenyaroshevychkharabara/actions/workflows/cmake.yml) page.
 
 ## License
 The [MIT](https://choosealicense.com/licenses/mit/) License (MIT)
